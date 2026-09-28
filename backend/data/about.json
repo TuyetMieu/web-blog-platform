@@ -1,0 +1,18 @@
+{
+  "bio": "Xin chào, mình là một developer thích viết code và viết blog. Blog này có hai mặt: Engineering và Life.",
+  "now": [
+    "Đang xây dựng blog platform bằng Express + PostgreSQL",
+    "Đọc về thiết kế hệ thống",
+    "Tập chạy bộ mỗi sáng"
+  ],
+  "gear": [
+    { "name": "Laptop", "detail": "Linux, 16GB RAM" },
+    { "name": "Editor", "detail": "VS Code" },
+    { "name": "Bàn phím", "detail": "Cơ, switch tactile" }
+  ],
+  "gallery": [
+    "/images/gallery/1.jpg",
+    "/images/gallery/2.jpg",
+    "/images/gallery/3.jpg"
+  ]
+}
