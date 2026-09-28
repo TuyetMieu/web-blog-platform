@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Geist:wght@400;500;600&family=Geist+Mono:ital,wght@0,400;0,700;1,400&display=swap">
-  <link rel="stylesheet" href="css/article/article.css">
+  <link rel="stylesheet" href="css/article.css">
 </head>
 <body class="theme-cream font-sans">
   <div class="progress-spine" aria-hidden="true"><span id="progress-bar"></span></div>
@@ -23,13 +23,13 @@
         <span class="topbar__mood">🍵 Brewing Oolong &amp; Debugging</span>
       </div>
       <button class="pill-btn" type="button" data-audio-toggle>
-        <img src="assets/article/container131.svg" alt="" />
+        <img src="assets/container131.svg" alt="" />
         <span>Rain / Cafe Ambience</span>
       </button>
     </div>
     <div class="navbar">
       <a class="brand" href="./">
-        <img class="brand__logo" src="assets/article/brand-logo-primary-color-c-46835-font-eb-garamond-mode-light-roundness-rounded-md0.png" alt="" />
+        <img class="brand__logo" src="assets/brand-logo-primary-color-c-46835-font-eb-garamond-mode-light-roundness-rounded-md0.png" alt="" />
         <span class="brand__name">Kiên’s Journal</span>
       </a>
       <nav class="mainnav" aria-label="Chính">
@@ -41,13 +41,13 @@
       </nav>
       <div class="navbar__tools">
         <label class="search">
-          <img src="assets/article/icon0.svg" alt="" />
+          <img src="assets/icon0.svg" alt="" />
           <input type="search" placeholder="Search archives..." aria-label="Tìm trong lưu trữ" />
         </label>
         <button class="icon-btn" type="button" id="quick-theme" aria-label="Đổi sáng / tối">
-          <img src="assets/article/container138.svg" alt="" />
+          <img src="assets/container138.svg" alt="" />
         </button>
-        <img class="avatar-32" src="assets/article/profile0.png" alt="Hồ sơ" />
+        <img class="avatar-32" src="assets/profile0.png" alt="Hồ sơ" />
       </div>
     </div>
   </header>
@@ -84,7 +84,7 @@
       </div>
 
       <header class="banner">
-        <span class="tag" data-if="tag"><img src="assets/article/container6.svg" alt="" /><span data-field="tag"></span></span>
+        <span class="tag" data-if="tag"><img src="assets/container6.svg" alt="" /><span data-field="tag"></span></span>
         <h1 class="banner__title" data-field="title"></h1>
         <p class="banner__lede" data-field="excerpt" data-if="excerpt"></p>
         <div class="byline">
@@ -95,9 +95,9 @@
           <span class="sep">•</span>
           <time data-field="date"></time>
           <span class="sep">•</span>
-          <span class="byline__item"><img src="assets/article/container16.svg" alt="" /><span data-field="readTime"></span></span>
+          <span class="byline__item"><img src="assets/container16.svg" alt="" /><span data-field="readTime"></span></span>
           <span class="sep" data-if="updatedAt">•</span>
-          <span class="byline__item byline__item--sage" data-if="updatedAt"><img src="assets/article/container19.svg" alt="" /><span data-field="revised"></span></span>
+          <span class="byline__item byline__item--sage" data-if="updatedAt"><img src="assets/container19.svg" alt="" /><span data-field="revised"></span></span>
         </div>
       </header>
 
@@ -106,7 +106,7 @@
         <div class="reader__main">
           <div class="prose" id="prose"></div>
           <footer class="endmark">
-            <img src="assets/article/container36.svg" alt="" />
+            <img src="assets/container36.svg" alt="" />
             <p class="endmark__line" data-field="colophon" data-if="colophon"></p>
             <p class="endmark__meta">Written in Neovim · Formatted with care</p>
           </footer>
@@ -118,7 +118,7 @@
             <!-- F-14: đổi nền -->
             <div class="desk__group">
               <div class="desk__head">
-                <span class="desk__title"><img src="assets/article/container42.svg" alt="" />Desk Lighting</span>
+                <span class="desk__title"><img src="assets/container42.svg" alt="" />Desk Lighting</span>
                 <span class="desk__hint" id="theme-label">Warm Cream</span>
               </div>
               <div class="swatches" role="radiogroup" aria-label="Màu nền">
@@ -131,7 +131,7 @@
             <!-- F-14: cỡ chữ -->
             <div class="desk__group">
               <div class="desk__head">
-                <span class="desk__title"><img src="assets/article/container47.svg" alt="" />Type Scale</span>
+                <span class="desk__title"><img src="assets/container47.svg" alt="" />Type Scale</span>
                 <span class="stepper">
                   <button type="button" class="step-btn" id="font-down" aria-label="Giảm cỡ chữ">A-</button>
                   <button type="button" class="step-btn" id="font-up" aria-label="Tăng cỡ chữ">A+</button>
@@ -153,7 +153,7 @@
             <!-- F-13: mục lục -->
             <nav class="toc" id="toc" aria-label="Mục lục">
               <div class="desk__head">
-                <span class="desk__title"><img src="assets/article/container51.svg" alt="" />Table of Contents</span>
+                <span class="desk__title"><img src="assets/container51.svg" alt="" />Table of Contents</span>
                 <span class="desk__hint" id="time-left" lang="vi"></span>
               </div>
               <ol class="toc__list" id="toc-list"></ol>
@@ -169,7 +169,7 @@
                 <span class="player__title">Rain on Zinc Roof</span>
                 <span class="player__status" id="audio-status" lang="vi">Hanoi Soundscape · Tạm dừng</span>
               </div>
-              <img class="player__wave" src="assets/article/container65.svg" alt="" />
+              <img class="player__wave" src="assets/container65.svg" alt="" />
               <audio id="ambience" src="audio/rain-on-zinc-roof.mp3" loop preload="none"></audio>
             </div>
 
@@ -177,7 +177,7 @@
           </section>
 
           <section class="panel panel--soft" data-if="ledger">
-            <div class="ledger__title"><img src="assets/article/container67.svg" alt="" />Archival Ledger</div>
+            <div class="ledger__title"><img src="assets/container67.svg" alt="" />Archival Ledger</div>
             <p class="ledger__text" data-field="ledger"></p>
           </section>
         </aside>
@@ -186,7 +186,7 @@
       <!-- ===== F-15: Khối cuối bài ===== -->
       <section class="closing">
         <div class="reactions">
-          <span class="reactions__label"><img src="assets/article/container71.svg" alt="" />Leave a subtle sensory echo:</span>
+          <span class="reactions__label"><img src="assets/container71.svg" alt="" />Leave a subtle sensory echo:</span>
           <div class="reactions__list" id="reactions">
             <button type="button" class="reaction" data-reaction="tea"><span class="reaction__emoji">🍵</span>Sip Tea<span class="reaction__count">0</span></button>
             <button type="button" class="reaction" data-reaction="insight"><span class="reaction__emoji">💡</span>Insightful<span class="reaction__count">0</span></button>
@@ -197,15 +197,15 @@
 
         <form class="postcard" id="note-form" novalidate>
           <div class="postcard__head">
-            <h2 class="postcard__title"><img src="assets/article/container84.svg" alt="" />Leave a Whisper Note</h2>
+            <h2 class="postcard__title"><img src="assets/container84.svg" alt="" />Leave a Whisper Note</h2>
             <span class="chip chip--muted">Private &amp; Archival</span>
           </div>
           <p class="postcard__intro">Notes sent here slip quietly into Kiên’s morning letter tray. No public comment threads, no algorithm rankings, just thoughtful reader-to-author correspondence.</p>
           <div class="postcard__paper">
             <textarea name="message" rows="3" required maxlength="2000" placeholder="Pen your reflection or quiet resonance here..." aria-label="Nội dung ghi chú"></textarea>
             <div class="postcard__fields">
-              <label class="field"><img src="assets/article/container89.svg" alt="" /><input name="name" type="text" maxlength="80" placeholder="Your name or monogram (optional)" /></label>
-              <label class="field"><img src="assets/article/container92.svg" alt="" /><input name="email" type="email" maxlength="120" placeholder="Email (only if expecting reply)" /></label>
+              <label class="field"><img src="assets/container89.svg" alt="" /><input name="name" type="text" maxlength="80" placeholder="Your name or monogram (optional)" /></label>
+              <label class="field"><img src="assets/container92.svg" alt="" /><input name="email" type="email" maxlength="120" placeholder="Email (only if expecting reply)" /></label>
             </div>
           </div>
           <div class="postcard__meta" lang="vi">
@@ -214,18 +214,18 @@
           </div>
           <div class="postcard__actions">
             <p class="form-status" id="note-status" role="status" lang="vi"></p>
-            <button type="submit" class="wax-btn" title="Ctrl + Enter để gửi"><img src="assets/article/container95.svg" alt="" /><span>Slip Note Into Postbox</span></button>
+            <button type="submit" class="wax-btn" title="Ctrl + Enter để gửi"><img src="assets/container95.svg" alt="" /><span>Slip Note Into Postbox</span></button>
           </div>
         </form>
 
         <nav class="leaves" aria-label="Bài trước / bài sau">
           <a class="leaf leaf--prev" id="leaf-prev" hidden>
-            <span class="leaf__eyebrow"><img src="assets/article/container99.svg" alt="" /><span data-leaf="label"></span></span>
+            <span class="leaf__eyebrow"><img src="assets/container99.svg" alt="" /><span data-leaf="label"></span></span>
             <span class="leaf__title" data-leaf="title"></span>
             <span class="leaf__meta" data-leaf="meta"></span>
           </a>
           <a class="leaf leaf--next" id="leaf-next" hidden>
-            <span class="leaf__eyebrow"><span data-leaf="label"></span><img src="assets/article/container109.svg" alt="" /></span>
+            <span class="leaf__eyebrow"><span data-leaf="label"></span><img src="assets/container109.svg" alt="" /></span>
             <span class="leaf__title" data-leaf="title"></span>
             <span class="leaf__meta" data-leaf="meta"></span>
           </a>
@@ -238,11 +238,11 @@
     <nav class="site-footer__links">
       <a href="#">Colophon</a><span class="sep">•</span>
       <a href="#">Guestbook</a><span class="sep">•</span>
-      <a href="#"><img src="assets/article/container119.svg" alt="" />Secret Coffee Tip Jar</a><span class="sep">•</span>
-      <a href="#"><img src="assets/article/container121.svg" alt="" />RSS Feed</a>
+      <a href="#"><img src="assets/container119.svg" alt="" />Secret Coffee Tip Jar</a><span class="sep">•</span>
+      <a href="#"><img src="assets/container121.svg" alt="" />RSS Feed</a>
     </nav>
     <p class="site-footer__quote">“Crafted with slow thoughts, good tea, and honest code from a quiet corner in Hanoi.”</p>
-    <p class="site-footer__copy"><img src="assets/article/container124.svg" alt="" />© Kiên’s Journal. Archival records &amp; mindful inquiries. All reflections reserved.</p>
+    <p class="site-footer__copy"><img src="assets/container124.svg" alt="" />© Kiên’s Journal. Archival records &amp; mindful inquiries. All reflections reserved.</p>
   </footer>
 
   <button type="button" class="focus-exit" id="focus-exit" lang="vi">Thoát tập trung <kbd>Esc</kbd></button>
@@ -258,7 +258,7 @@
 
   <div class="toasts" id="toasts" aria-live="polite" lang="vi"></div>
 
-  <script src="data/article/mock-posts.js"></script>
-  <script src="js/article/article.js"></script>
+  <script src="data/mock-posts.js"></script>
+  <script src="js/article.js"></script>
 </body>
 </html>

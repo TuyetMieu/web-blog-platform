@@ -8,22 +8,16 @@ Trang đọc bài viết (Màn 3 · Article) của Kiên's Journal: đọc bài,
 .
 ├── index.html          # Chuyển hướng sang article.html (giữ nguyên ?query và #hash)
 ├── article.html        # Trang bài viết
-├── assets/
-│   └── article/            # Icon SVG, logo, ảnh đại diện (PNG)
+├── assets/             # Icon SVG, logo, ảnh đại diện (PNG)
 ├── css/
-│   └── article/
-│       └── article.css     # Toàn bộ style của trang (3 theme: cream, parchment, charcoal)
+│   └── article.css     # Toàn bộ style của trang (3 theme: cream, parchment, charcoal)
 ├── data/
-│   └── article/
-│       └── mock-posts.js   # Dữ liệu mẫu khi chưa có backend
+│   └── mock-posts.js   # Dữ liệu mẫu khi chưa có backend
 └── js/
-    └── article/
-        └── article.js      # Logic trang: tải bài, render, reaction, gửi note, tuỳ chỉnh đọc
+    └── article.js      # Logic trang: tải bài, render, reaction, gửi note, tuỳ chỉnh đọc
 ```
 
-Mỗi thư mục cấp 1 (`assets`, `css`, `data`, `js`) chia tiếp theo từng màn hình (vd. `article/`, `journal-feed/`, `whisper-box/`, `shared/`), để gộp code giữa các nhánh FE không bị trùng file.
-
-> Đường dẫn ảnh trong `css/article/article.css` dùng `../../assets/article/...`; trong HTML và dữ liệu dùng `assets/article/...` (tính từ thư mục gốc).
+> Đường dẫn ảnh trong `css/article.css` dùng `../assets/...`; trong HTML và dữ liệu dùng `assets/...` (tính từ thư mục gốc).
 
 ## Chạy thử
 
@@ -47,7 +41,7 @@ Không truyền `slug` thì dùng bài mặc định (`window.MOCK_DEFAULT_SLUG`
 
 ## Dữ liệu mẫu và API
 
-Trong `js/article/article.js`, cờ `USE_API = false` → luôn dùng dữ liệu từ `data/article/mock-posts.js`. Trang cũng tự dùng dữ liệu mẫu khi mở bằng `file://` hoặc khi có `?mock=1`.
+Trong `js/article.js`, cờ `USE_API = false` → luôn dùng dữ liệu từ `data/mock-posts.js`. Trang cũng tự dùng dữ liệu mẫu khi mở bằng `file://` hoặc khi có `?mock=1`.
 
 Khi có backend, đổi `USE_API = true`. Các endpoint (gốc `API_BASE = '/api'`):
 

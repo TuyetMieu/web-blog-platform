@@ -422,7 +422,7 @@ ol, ul { list-style: none; }
   top: 28px;
   width: 28px;
   height: 24px;
-  background: url("../../assets/article/container23.svg") center / contain no-repeat;
+  background: url("../assets/container23.svg") center / contain no-repeat;
 }
 .prose .quote blockquote { margin: 0; padding: 0; background: none; box-shadow: none; overflow: visible; }
 .prose .quote blockquote::before { display: none; }
@@ -448,7 +448,7 @@ ol, ul { list-style: none; }
   content: "";
   width: 14px;
   height: 14px;
-  background: url("../../assets/article/container24.svg") center / contain no-repeat;
+  background: url("../assets/container24.svg") center / contain no-repeat;
 }
 
 /* Ảnh có chú thích (khung polaroid) */
@@ -521,7 +521,7 @@ ol, ul { list-style: none; }
   width: 16px;
   height: 20px;
   margin-top: 2px;
-  background: url("../../assets/article/margin0.svg") center / contain no-repeat;
+  background: url("../assets/margin0.svg") center / contain no-repeat;
 }
 
 /* Khối code */
