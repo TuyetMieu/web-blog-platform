@@ -1,0 +1,114 @@
+/* Shared header interactivity — loaded by BOTH journal-feed.html and
+   whisper-box.html, after each page's own CSS. The header markup itself
+   is duplicated per page (plain static HTML, no includes), but the class
+   names/colors it uses (.link4, .link5, .button-toggle-day-or-dusk-ambience,
+   #header-logo-link, #header-theme-toggle, #header-avatar-button) are the
+   same in both exports, so one file covers both pages.
+
+   What used to be decorative <div>s (nav items, logo, avatar, theme
+   toggle) are now real <a>/<button> elements (see js/header.js): "The
+   Dual Journal" and "The Whisper Box" navigate for real between the 2
+   pages that actually exist; every other header control shows a small
+   toast instead of doing nothing silently. This file only adds the
+   hover/press feedback — reset.css already strips the browser's default
+   button/link chrome (border/background/padding), so no extra reset is
+   needed here. */
+
+/* Both pages' .footer stretches full viewport width, but its inner
+   max-width:1200px content block uses "align-items: flex-start" on its
+   wrapper — on any screen wider than ~1280px that block sits flush
+   against the LEFT edge instead of being centered. Identical bug, same
+   selector, same fix on both exports — kept here instead of duplicated
+   in journal-feed-fixes.css and whisper-box-fixes.css. */
+.footer {
+  align-items: center;
+}
+
+.nav .link4,
+.nav .link5 {
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 100ms ease;
+}
+.nav .link4:hover {
+  background: rgba(29, 27, 25, 0.06);
+  border-radius: 9999px;
+}
+.nav .link5:hover {
+  background: #bcd6b9;
+}
+.nav .link4:active,
+.nav .link5:active {
+  transform: scale(0.94);
+}
+
+#header-logo-link,
+#header-theme-toggle,
+#header-avatar-button {
+  cursor: pointer;
+  transition: transform 100ms ease, opacity 150ms ease;
+}
+#header-logo-link:hover {
+  opacity: 0.85;
+}
+#header-theme-toggle:hover {
+  background: #efe6da;
+}
+#header-avatar-button:hover {
+  opacity: 0.8;
+}
+#header-logo-link:active,
+#header-theme-toggle:active,
+#header-avatar-button:active {
+  transform: scale(0.92);
+}
+#header-theme-toggle img {
+  transition: transform 200ms ease;
+}
+#header-theme-toggle:hover img {
+  transform: rotate(15deg);
+}
+
+/* Header's own search box (top-right) was a decorative <div> with no
+   input on both pages — now a real <input id="header-search-input"> on
+   each (journal-feed.html wires it to post search in js/journal-feed.js;
+   whisper-box.html wires it to note search in js/whisper-box.js). Strip
+   the browser's default input chrome so it still looks like the pill
+   .input2 both exports already style. */
+#header-search-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+#header-search-input::placeholder {
+  color: #887369;
+}
+
+/* Small toast shown by js/header.js when a header control is clicked but
+   doesn't have a real destination yet (no fake page/feature is faked). */
+.kj-header-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translate(-50%, 12px);
+  background: #2c2420;
+  color: #f8f3ee;
+  font-family: "Geist-Regular", sans-serif;
+  font-size: 13px;
+  padding: 10px 18px;
+  border-radius: 9999px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  transition: opacity 180ms ease, transform 180ms ease;
+  z-index: 9999;
+  pointer-events: none;
+  max-width: min(90vw, 420px);
+  text-align: center;
+}
+.kj-header-toast-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}

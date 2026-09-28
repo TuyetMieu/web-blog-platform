@@ -1,0 +1,46 @@
+[
+  {
+    "id": "n-tokyo-maya",
+    "name": "Maya S.",
+    "role": "Distributed Systems Engineer",
+    "location": "Tokyo, Japan",
+    "topic": "EngineeringSolitude",
+    "message": "Your article on slow engineering cured my burnout this week. Reading about intentional systems from a quiet Tokyo cafe made me breathe again. Cảm ơn Kiên!",
+    "date": "2024-10-21",
+    "reply": {
+      "author": "Kiên's Margin Note",
+      "context": "Over morning Oolong",
+      "message": "Maya, that means the world. Keep building gently; distributed systems are just human agreements written in silicon."
+    }
+  },
+  {
+    "id": "n-lyon-lucas",
+    "name": "Lucas B.",
+    "role": "Architect & Wandering Drinker",
+    "location": "Lyon, France",
+    "topic": "TeaAndHanoi",
+    "message": "Visited Hanoi last month because of your tea shop recommendations on Hoàn Kiếm. The misty morning at 6:00 AM with the hot cup of lotus tea was pure cinema. Sending warmth from Lyon!",
+    "date": "2024-10-17",
+    "reply": null
+  },
+  {
+    "id": "n-melbourne-night-owl",
+    "name": "Fellow night owl coder",
+    "role": null,
+    "location": "Melbourne, Australia",
+    "topic": "AtticMusings",
+    "message": "Just wanted to say this corner of the internet feels like opening an attic window on a rainy afternoon. Keep the slow craft alive. It reminds us why we fell in love with coding in the first place.",
+    "date": "2024-10-10",
+    "reply": null
+  },
+  {
+    "id": "n-berlin-anja",
+    "name": "Anja V.",
+    "role": null,
+    "location": "Berlin, Germany",
+    "topic": "BookMusings",
+    "message": "Your reading list led me to Calvino's Invisible Cities. Now my software architecture diagrams resemble Venetian water palaces. Thank you for the poetic lens.",
+    "date": "2024-10-24",
+    "reply": null
+  }
+]

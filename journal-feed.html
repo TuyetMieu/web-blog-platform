@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/vars.css">
+  <link rel="stylesheet" href="css/journal-feed.css">
+  <link rel="stylesheet" href="css/journal-feed-fixes.css">
+  <link rel="stylesheet" href="css/header.css">
+  <title>Journal Feed — Kiên's Journal</title>
+</head>
+<body>
+  <div class="ki-n-s-journal-the-dual-sided-journal-feed">
+    <div class="main">
+      <div class="container">
+        <div
+          class="section-interactive-dual-perspective-notebook-switcher-atmospheric-header"
+        >
+          <div class="container2">
+            <div class="visual-context-archival-meta-bar-margin">
+              <div class="visual-context-archival-meta-bar">
+                <div class="background">
+                  <div class="background2"></div>
+                  <div class="text">VOL. IV • FOLIO 88</div>
+                </div>
+                <div class="container3">
+                  <div class="text2">/</div>
+                </div>
+                <div class="container3">
+                  <div class="text3">HANOI STUDIO NOTEBOOK</div>
+                </div>
+                <div class="container3">
+                  <div class="text2">/</div>
+                </div>
+                <div class="container3">
+                  <div class="text4" id="feed-total-fragments">… FRAGMENTS WRITTEN</div>
+                </div>
+              </div>
+            </div>
+            <div class="margin">
+              <div class="container4">
+                <div class="text5">
+                  &quot;Two faces of one coin: by daylight we engineer
+                  <br />
+                  distributed truth; under lamplight we sift human
+                  <br />
+                  quietude.&quot;
+                </div>
+              </div>
+            </div>
+            <div class="flipping-ledger-segmented-toggle">
+              <button
+                type="button"
+                id="side-toggle-a"
+                class="button-sliding-active-indicator-handled-via-data-js"
+                data-side="a"
+              >
+                <div
+                  class="button-sliding-active-indicator-handled-via-data-js-shadow"
+                ></div>
+                <img class="container5" src="assets/journal-feed/container7.svg" />
+                <div class="container6">
+                  <div class="container7">
+                    <div class="text6">Side A: Craft &amp; Systems</div>
+                  </div>
+                  <div class="container8">
+                    <div class="text7">Engineering • Rust • Go • Arch</div>
+                  </div>
+                </div>
+              </button>
+              <button type="button" id="side-toggle-b" class="button" data-side="b">
+                <img class="container9" src="assets/journal-feed/container11.svg" />
+                <div class="container10">
+                  <div class="container7">
+                    <div class="text8">Side B: Soul &amp; Everyday</div>
+                  </div>
+                  <div class="container8">
+                    <div class="text7">Hanoi Rain • Film • Solitude</div>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="section-filter-command-ribbon-margin">
+          <div class="section-filter-command-ribbon">
+            <div class="quick-search-bar">
+              <div class="container11">
+                <div class="input">
+                  <div class="container12">
+                    <input
+                      type="text"
+                      id="feed-search-input"
+                      class="search-through-124-thoughts-code-fragments-or-quiet-stories-k"
+                      placeholder="Search through thoughts, code fragments, or quiet stories…"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+                <img class="container13" src="assets/journal-feed/container17.svg" />
+                <div class="background3">
+                  <div class="text9">⌘K</div>
+                </div>
+              </div>
+              <div class="container14">
+                <button type="button" id="feed-sort-toggle" class="button2">
+                  <img class="container15" src="assets/journal-feed/container19.svg" />
+                  <div class="container16">
+                    <div class="text10" id="feed-sort-label">Sort: Chronological</div>
+                  </div>
+                </button>
+                <button type="button" id="feed-bookmarks-toggle" class="button3" title="Show only bookmarked entries">
+                  <img class="container17" src="assets/journal-feed/container21.svg" />
+                </button>
+              </div>
+            </div>
+            <div class="categorical-filter-badges" id="feed-category-pills">
+              <button type="button" class="button4" data-category="" data-label="All Entries">
+                <div class="text11">All Entries</div>
+              </button>
+              <button type="button" class="button5" data-category="Architecture" data-label="Architecture">
+                <div class="text10">Architecture</div>
+              </button>
+              <button type="button" class="button5" data-category="Distributed Systems" data-label="Distributed Systems">
+                <div class="text10">Distributed Systems</div>
+              </button>
+              <button type="button" class="button5" data-category="Hanoi Essays" data-label="Hanoi Essays">
+                <div class="text10">Hanoi Essays</div>
+              </button>
+              <button type="button" class="button5" data-category="Book Marginalia" data-label="Book Marginalia">
+                <div class="text10">Book Marginalia</div>
+              </button>
+              <button type="button" class="button5" data-category="Tea &amp; Solitude" data-label="Tea &amp; Solitude">
+                <div class="text10">Tea &amp; Solitude</div>
+              </button>
+              <button type="button" class="button5" data-category="Photo Journals" data-label="Photo Journals">
+                <div class="text10">Photo Journals</div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="section-dual-journal-feed-workspace">
+          <div class="side-a-container-engineering-craft" id="feed-results" aria-live="polite">
+            <!-- Rendered by js/journal-feed.js via getPosts() -->
+          </div>
+        </div>
+        <div
+          class="section-interactive-tactile-notebook-pagination-timeline-ribbon"
+        >
+          <div class="background-shadow">
+            <div class="page-indicator-status">
+              <img class="container39" src="assets/journal-feed/container65.svg" />
+              <div class="container3">
+                <div class="container">
+                  <div class="text29" id="feed-page-label">Page 1 of 1</div>
+                </div>
+                <div class="container">
+                  <div class="text15" id="feed-range-label">Showing entries 0–0 of 0 reflections</div>
+                </div>
+              </div>
+            </div>
+            <div class="tactile-page-turn-controls">
+              <button type="button" id="feed-prev-page" class="button9">
+                <img class="container40" src="assets/journal-feed/container70.svg" />
+                <div class="container16">
+                  <div class="text32">Previous leaf</div>
+                </div>
+              </button>
+              <button type="button" id="feed-next-page" class="button10">
+                <div class="container16">
+                  <div class="text19">Turn leaf</div>
+                </div>
+                <img class="container41" src="assets/journal-feed/container73.svg" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container42">
+        <div class="container43">
+          <div class="link">
+            <div class="text33">Colophon</div>
+          </div>
+          <div class="container16">
+            <div class="text34">•</div>
+          </div>
+          <div class="link">
+            <div class="text33">Guestbook</div>
+          </div>
+          <div class="container16">
+            <div class="text34">•</div>
+          </div>
+          <div class="link2">
+            <img class="container44" src="assets/shared/glyph-1.svg" />
+            <div class="text33">Secret Coffee Tip Jar</div>
+          </div>
+          <div class="container16">
+            <div class="text34">•</div>
+          </div>
+          <div class="link2">
+            <img class="container45" src="assets/shared/glyph-2.svg" />
+            <div class="text33">RSS Feed</div>
+          </div>
+        </div>
+        <div class="container46">
+          <div class="text5">
+            &quot;Crafted with slow thoughts, good tea, and honest code from a
+            quiet
+            <br />
+            corner in Hanoi.&quot;
+          </div>
+        </div>
+        <div class="container47">
+          <img class="container48" src="assets/shared/glyph-5.svg" />
+          <div class="container16">
+            <div class="text35">
+              © Kiên&#039;s Journal. Archival records &amp; mindful inquiries. All
+              reflections reserved.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header">
+      <div class="overlay3">
+        <div class="container49">
+          <div class="container26">
+            <div class="background10"></div>
+            <div class="container3">
+              <div class="text15">
+                Hanoi / 22°C Soft Fog &amp; Morning Sun · 08:42 AM
+              </div>
+            </div>
+          </div>
+          <div class="container3">
+            <div class="text14">•</div>
+          </div>
+          <div class="container3">
+            <div class="text36">🍵 Brewing Oolong &amp; Debugging</div>
+          </div>
+        </div>
+        <div class="button11">
+          <img class="container50" src="assets/shared/glyph-3.svg" />
+          <div class="container16">
+            <div class="text31">Rain / Cafe Ambience</div>
+          </div>
+        </div>
+      </div>
+      <div class="container51">
+        <a class="container14" id="header-logo-link" href="journal-feed.html">
+          <img
+            class="brand-logo-primary-color-c-46835-font-eb-garamond-mode-light-roundness-rounded-md"
+            src="assets/shared/brand-logo.png"
+          />
+          <div class="link3">
+            <div class="text37">Kiên&#039;s Journal</div>
+          </div>
+        </a>
+        <div class="nav">
+          <button type="button" class="link4" data-header-toast="Trang chủ (Desk View) chưa có trong bản demo này.">
+            <div class="text38">Home / Desk View</div>
+          </button>
+          <a class="link5" href="journal-feed.html">
+            <div class="text39">The Dual Journal</div>
+          </a>
+          <button type="button" class="link4" data-header-toast="Trang đọc bài chi tiết chưa có trong bản demo này.">
+            <div class="text38">Article Reading</div>
+          </button>
+          <a class="link4" href="whisper-box.html">
+            <div class="text38">The Whisper Box</div>
+          </a>
+          <button type="button" class="link4" data-header-toast="Trang About &amp; Now đã được gỡ khỏi bản demo này.">
+            <div class="text38">About &amp; Now</div>
+          </button>
+        </div>
+        <div class="container14">
+          <div class="container52">
+            <div class="input2">
+              <div class="container32">
+                <input
+                  type="text"
+                  id="header-search-input"
+                  class="search-archives"
+                  placeholder="Search archives..."
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+            <img class="icon" id="header-search-icon" src="assets/shared/icon0.svg" />
+          </div>
+          <button type="button" class="button-toggle-day-or-dusk-ambience" id="header-theme-toggle" data-header-toast="Chế độ sáng/tối chưa được bật trong bản demo này.">
+            <img class="container53" src="assets/shared/glyph-4.svg" />
+          </button>
+          <button type="button" class="container54" id="header-avatar-button" data-header-toast="Chưa có trang tài khoản trong bản demo này.">
+            <img class="profile" src="assets/shared/profile.png" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/journal-feed.js"></script>
+</body>
+</html>
