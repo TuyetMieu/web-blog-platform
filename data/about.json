@@ -1,0 +1,28 @@
+{
+  "bio": "Xin chào! Đây là blog hai mặt (Side A: Engineering & Side B: Life) chia sẻ kiến thức kỹ thuật và góc nhìn cuộc sống.",
+  "now": "Đang hoàn thiện đồ án môn Web Application Development tại USTH.",
+  "gear": [
+    {
+      "item": "Laptop",
+      "description": "MacBook / ThinkPad"
+    },
+    {
+      "item": "Code Editor",
+      "description": "VS Code"
+    },
+    {
+      "item": "Backend Stack",
+      "description": "Python Flask + SQLite"
+    }
+  ],
+  "gallery": [
+    {
+      "url": "/images/gallery-1.jpg",
+      "caption": "Góc làm việc nhóm"
+    },
+    {
+      "url": "/images/gallery-2.jpg",
+      "caption": "Buổi thảo luận tuần 1"
+    }
+  ]
+}
