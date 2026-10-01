@@ -1,0 +1,139 @@
+/* Small, scoped fixes on top of the raw Figma export in journal-feed.css.
+   Kept separate instead of editing the export directly, so the original
+   export stays untouched and traceable.
+
+   Same bug as whisper-box.html: several wrapper elements stretch to the
+   full viewport width, but the real content box inside each one is
+   capped at max-width:1200px — and the wrapper uses
+   "align-items: flex-start" instead of "center", so on any screen wider
+   than ~1280-1296px that 1200px box sits flush against the LEFT edge
+   instead of being centered. Fixing every wrapper that has a
+   max-width:1200px child. (.header's own row is already centered in
+   the export, no fix needed there.) */
+
+.section-interactive-dual-perspective-notebook-switcher-atmospheric-header {
+  align-items: center;
+}
+.section-filter-command-ribbon-margin {
+  align-items: center;
+}
+.section-interactive-tactile-notebook-pagination-timeline-ribbon {
+  align-items: center;
+}
+/* .footer's identical fix lives in the shared css/header.css now — both
+   pages have the exact same bug on the exact same selector. */
+
+/* Side A / Side B toggle active state, driven by js/journal-feed.js
+   (the export's own class names only describe layout, not state). */
+.side-toggle-is-active {
+  background: #ffffff;
+  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.1), 0px 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+.side-toggle-is-inactive {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Category pill active state reuses the export's own two classes
+   (.button4 = active/green look, .button5 = inactive/tan look) — see
+   js/journal-feed.js, which swaps the class on click instead of adding
+   a new state class. */
+
+/* Real <input>/<button> elements swapped in for decorative divs need
+   the same flex layout + cursor the export already styles their class
+   with, plus a text-align reset (buttons default to center, inputs to
+   left — both fine here, just making it explicit) and pointer cursor. */
+#feed-search-input {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+
+/* Dim the results briefly while a fetch is genuinely slow (js/journal-feed.js
+   only adds this class after a 200ms delay, so instant sample-data loads
+   never flash it). */
+#feed-results {
+  transition: opacity 150ms ease;
+}
+#feed-results.feed-results-loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+/* #header-search-input's own reset lives in the shared css/header.css now
+   (both journal-feed.html and whisper-box.html wire a real search box
+   there — see css/header.css and js/whisper-box.js). */
+#side-toggle-a, #side-toggle-b, #feed-sort-toggle,
+.categorical-filter-badges button, #feed-prev-page, #feed-next-page,
+.button-bookmark, .article-featured-technical-paper-card .button6 {
+  cursor: pointer;
+}
+#feed-prev-page:disabled, #feed-next-page:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Bookmark-filter toggle (search bar) + per-card bookmark state,
+   both wired in js/journal-feed.js. Neither state existed in the
+   export — .button3 was a decorative icon-only button doing nothing. */
+#feed-bookmarks-toggle.feed-bookmarks-toggle-active {
+  background: #954413;
+}
+#feed-bookmarks-toggle.feed-bookmarks-toggle-active img {
+  filter: brightness(0) invert(1);
+}
+.button-bookmark.is-bookmarked {
+  background: #f3e29b;
+  border-radius: 6px;
+}
+
+/* --- Real overflow bug: dynamically rendered post text --- */
+/* The original export hard-coded manual <br> breaks inside each card's
+   title/excerpt, tuned to that one specific sentence. js/journal-feed.js
+   renders arbitrary post text as a single unbroken line instead. Flex
+   items default to min-width:auto (their content's natural, unwrapped
+   width) and .article-card-1 is flex-shrink:0 with no width of its own,
+   so a long single-line excerpt forced every card wider than the page,
+   overflowing .secondary-engineering-grid off the right edge of the
+   viewport (horizontal scrollbar, text clipped at the screen edge).
+   Give the grid real wrapping and every card a real, shrinkable width. */
+.secondary-engineering-grid {
+  flex-wrap: wrap;
+}
+.article-card-1 {
+  flex: 1 1 320px;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.article-card-1 .container29,
+.article-card-1 .heading-3,
+.article-card-1 .container32 {
+  min-width: 0;
+  max-width: 100%;
+}
+.article-card-1 .heading-3 div,
+.article-card-1 .container32 div {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Same class of bug in the featured card's text column (it has a real
+   width via align-self:stretch, but its own children can still refuse
+   to shrink below an unwrapped line's width and get invisibly clipped
+   by the card's overflow:hidden). */
+.container19 {
+  min-width: 0;
+}
+.heading-2 div,
+.kj-card-excerpt {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.kj-card-excerpt {
+  color: #55433a;
+  font-family: "Geist-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  align-self: stretch;
+}

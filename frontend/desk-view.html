@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kiên's Journal — Góc Bàn Làm Việc</title>
+
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/vars.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/desk-view.css">
+    <link rel="stylesheet" href="css/desk-view-responsive.css">
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="desk-topbar">
+        <div>Hanoi / 22°C · Soft Fog &amp; Morning Sun</div>
+        <div>08:42 AM · Desk Time</div>
+        <div>☕ Brewing Oolong &amp; Crafting Distributed Systems</div>
+        <div>☔ Cafe &amp; Rain Ambience <span>Off / On</span></div>
+        <div>☀ Desk / Warm Daylight</div>
+    </div>
+
+
+    <!-- HEADER -->
+    <header class="desk-header">
+
+        <a href="desk-view.html" class="desk-logo">
+            <span class="desk-logo-mark">✿</span>
+            <span>Kiên's Journal</span>
+        </a>
+
+        <nav class="desk-nav">
+            <a href="desk-view.html">Home / Desk View</a>
+            <a href="journal-feed.html">The Dual Journal</a>
+            <a href="whisper-box.html">Whisper Postbox</a>
+            <a href="#">About Kiên</a>
+        </nav>
+
+        <div class="desk-header-actions">
+            <button type="button" class="desk-search">
+                ⌕&nbsp; Search Musings
+            </button>
+
+            <button type="button" class="desk-rss">
+                RSS
+            </button>
+
+            <div class="desk-avatar">
+                K
+            </div>
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="desk-page">
+
+        <!-- F-20: INTRO -->
+        <section class="desk-intro">
+
+            <div class="desk-intro-text">
+
+                <p class="desk-eyebrow">
+                    BÀN LÀM VIỆC SỐ 104 · HÀ NỘI MÙA THU
+                </p>
+
+                <h1>
+                    Góc Bàn Làm Việc
+                    <em>— The Desk View</em>
+                </h1>
+
+                <p class="desk-description">
+                    Chào bạn. Welcome to my slow corner of the web.
+                    Pull up a wooden chair, pour a warm cup of roasted tea,
+                    and wander through scattered notebooks, code architecture
+                    sketches, and quiet reflections.
+                </p>
+
+            </div>
+
+
+            <div class="currently-reading">
+
+                <p class="reading-label">
+                    Currently Reading
+                </p>
+
+                <p class="reading-title">
+                    Chasing Patterns &amp; Christopher Alexander
+                </p>
+
+                <p class="reading-item">
+                    🎧 Rainy Kyoto Lo-fi · Looping on Vinyl
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- 3 CARDS -->
+        <section class="desk-cards">
+
+            <!-- ENGINEERING -->
+            <article class="desk-card engineering-card">
+
+                <span class="card-tag">
+                    💻 Code &amp; System Craft
+                </span>
+
+                <span class="card-version">
+                    v2.4.0 · 12m
+                </span>
+
+                <h2>
+                    Engineering &amp; Code Logs
+                </h2>
+
+                <p>
+                    Deep systems, Rust &amp; Go concurrency patterns,
+                    resilient message buses, and handcrafted UI micro-interactions.
+                </p>
+
+                <pre class="code-preview"><code>pub async fn dispatch_event(ctx: Duration) -&gt; Result&lt;()&gt;</code></pre>
+
+                <a href="#">
+                    Browse 28 Engineering Notes
+                    <span>→</span>
+                </a>
+
+            </article>
+
+
+            <!-- LIFE -->
+            <article class="desk-card life-card">
+
+                <span class="card-tag">
+                    🍵 Tea &amp; Soul
+                </span>
+
+                <span class="card-version">
+                    Vol. IV
+                </span>
+
+                <h2>
+                    Life, Tea &amp; Reflections
+                </h2>
+
+                <p>
+                    Vietnamese slow-sips, 5:45 AM walks in Hanoi,
+                    film notes, and learning to leave things intentionally unfinished.
+                </p>
+
+                <blockquote>
+                    “The river reaches 90°C. Everything in the room softens.
+                    You do not need to use tomorrow;
+                    you only need to code because the craft feels right.”
+                </blockquote>
+
+                <a href="#">
+                    Read Life Essays
+                    <span>↗</span>
+                </a>
+
+            </article>
+
+
+            <!-- MEMORY -->
+            <article class="desk-card memory-card">
+
+                <span class="card-tag">
+                    📷 Film Rolls
+                </span>
+
+                <span class="card-version">
+                    31mm
+                </span>
+
+                <h2>
+                    Snapshot Memories
+                </h2>
+
+                <img
+                    src="assets/journal-feed/container7.svg"
+                    alt="Snapshot Memories"
+                >
+
+                <p class="photo-caption">
+                    RolleI 35 · Portra 400
+                </p>
+
+            </article>
+
+        </section>
+
+
+        <!-- QUICK DESK POST -->
+        <div class="desk-bottom-line">
+
+            <span>
+                ✉ Quick Desk Post:
+            </span>
+
+            <span>
+                Have an idea or quiet note? Drop it into the whisper box below.
+            </span>
+
+            <a href="whisper-box.html">
+                Jump to Postbox →
+            </a>
+
+        </div>
+
+<!-- F-21: THE DUAL-SIDED JOURNAL -->
+
+<section class="dual-journal">
+
+    <div class="dual-journal-heading">
+
+        <div>
+            <p class="section-eyebrow">CUỐN SỔ TAY HAI MẶT</p>
+
+            <h2>
+                The Dual-Sided Journal
+            </h2>
+
+            <p>
+                Flip between structured engineering systems and slow,
+                handwritten personal chronicles.
+            </p>
+        </div>
+
+        <div class="journal-filters">
+            <button class="filter-active">All Entries (48)</button>
+            <button>Side A: Systems &amp; Code</button>
+            <button>Side B: Life &amp; Soul</button>
+        </div>
+
+    </div>
+
+
+    <!-- FEATURED ARTICLE -->
+
+    <article class="featured-journal-card">
+
+        <div class="featured-content">
+
+            <span class="article-side side-b">
+                Side B · Featured Essay
+            </span>
+
+            <span class="article-date">
+                18 Tháng Hai, 2024 · 8 min read
+            </span>
+
+            <h3>
+                Designing Software with Warmth:
+                Why I Left Metric Obsessions to Build Slow Digital Craft
+            </h3>
+
+            <p>
+                Modern tools treat users as retention numbers to squeeze.
+                What happens when we build digital spaces that honor paper textures,
+                silence, and gentle completion instead of infinite loops?
+            </p>
+
+            <div class="article-meta">
+                <span>♡ Pour Tea (48)</span>
+                <span>✎ 42 Margins Notes</span>
+            </div>
+
+            <a href="#">
+                Read Full Parchment →
+            </a>
+
+        </div>
+
+        <div class="featured-image">
+            <img
+                src="assets/journal-feed/container7.svg"
+                alt="Featured journal"
+            >
+        </div>
+
+    </article>
+
+
+    <!-- 4 ARTICLES -->
+
+    <div class="journal-grid">
+
+        <article class="journal-small-card">
+
+            <div class="small-card-top">
+                <span class="article-side side-a">
+                    Side A · Architecture
+                </span>
+
+                <span>12 Tháng Một, 2024</span>
+            </div>
+
+            <h3>
+                Decoupling State in Distributed Event Streams:
+                A Practical Retrospective
+            </h3>
+
+            <p>
+                Lessons learned from running a multi-region transactional
+                event pipeline. Why optimistic locking fails under partition
+                and how deterministic log sequencing brought us 99.99% consistency.
+            </p>
+
+            <div class="small-card-footer">
+                <span>#rust</span>
+                <span>#Kafka</span>
+                <span>#distributed</span>
+                <span>11 min read</span>
+            </div>
+
+        </article>
+
+
+        <article class="journal-small-card">
+
+            <div class="small-card-top">
+                <span class="article-side side-b">
+                    Side B · Essays
+                </span>
+
+                <span>03 Tháng Một, 2024</span>
+            </div>
+
+            <h3>
+                On 5 AM Rain and Cold Brew:
+                What Hanoi Taught Me About Creative Solitude
+            </h3>
+
+            <p>
+                Before the motorbikes engulf the boulevard,
+                Hanoi holds a pristine stillness.
+                Standing on a damp balcony with cold-steeped Robusta,
+                watching the street vendors gather under street lamps.
+            </p>
+
+            <div class="small-card-footer">
+                <span>#Hanoi</span>
+                <span>#coffee</span>
+                <span>#creative</span>
+                <span>5 min read</span>
+            </div>
+
+        </article>
+
+
+        <article class="journal-small-card">
+
+            <div class="small-card-top">
+                <span class="article-side side-a">
+                    Side A · Low-Level Craft
+                </span>
+
+                <span>9 Tháng Một, 2024</span>
+            </div>
+
+            <h3>
+                The Lost Art of Crafting Small,
+                Single-Binary Web Utilities
+            </h3>
+
+            <p>
+                In an era of bloated Docker containers and 400MB node_modules,
+                there is immense joy in compiling a 4MB standalone binary
+                that serves static assets with zero external dependencies forever.
+            </p>
+
+            <div class="small-card-footer">
+                <span>#binary</span>
+                <span>#rust</span>
+                <span>#linux</span>
+                <span>6 min read</span>
+            </div>
+
+        </article>
+
+
+        <article class="journal-small-card">
+
+            <div class="small-card-top">
+                <span class="article-side side-b">
+                    Side B · Booknotes
+                </span>
+
+                <span>15 Tháng Chín, 2024</span>
+            </div>
+
+            <h3>
+                Notes from a Dust-Covered Bookstore on Tràng Thi Street
+            </h3>
+
+            <p>
+                Unearthing a 1982 French-Vietnamese translation of
+                Saint-Exupéry with marginalia by a former geography teacher.
+                What physical margins tell us about reader companionship.
+            </p>
+
+            <div class="small-card-footer">
+                <span>#books</span>
+                <span>#Hanoi</span>
+                <span>#reading</span>
+                <span>7 min read</span>
+            </div>
+
+        </article>
+
+    </div>
+
+
+    <div class="view-all-journal">
+        <button>
+            ↓ View All 24 Archived Parchments
+        </button>
+
+        <p>
+            Archived chronologically from 2019 to Present.
+        </p>
+    </div>
+
+</section>
+<!-- F-21: WHISPER POSTBOX -->
+
+<section class="whisper-section">
+
+    <div class="whisper-heading">
+
+        <p>HỘP THƯ GỬI LẠI</p>
+
+        <h2>The Whisper Postbox</h2>
+
+        <span>
+            Get a reflection on an essay, a distributed systems puzzle,
+            or just want to whisper a quiet greeting from your side of the world?
+            Drop an ink postcard to my desk.
+        </span>
+
+    </div>
+
+
+    <div class="whisper-content">
+
+        <!-- POSTCARD FORM -->
+
+        <div class="postcard">
+
+            <div class="postcard-top">
+                <div>
+                    <h3>Handwritten Postcard</h3>
+                    <small>Postage Guaranteed by Kien</small>
+                </div>
+
+                <div class="postcard-stamp">
+                    W
+                </div>
+            </div>
+
+
+            <label>
+                Your Message / Lời Nhắn
+            </label>
+
+            <textarea
+                placeholder="Dear Kien, I was reading your note on slow software and thought..."
+            ></textarea>
+
+
+            <div class="postcard-fields">
+
+                <div>
+                    <label>
+                        Name / Alias (Optional)
+                    </label>
+
+                    <input
+                        type="text"
+                        placeholder="e.g. An engineer from Kyoto"
+                    >
+                </div>
+
+
+                <div>
+                    <label>
+                        Email (For reply only)
+                    </label>
+
+                    <input
+                        type="email"
+                        placeholder="you@example.com"
+                    >
+                </div>
+
+            </div>
+
+
+            <div class="postcard-bottom">
+
+                <small>
+                    🔒 Private. Read by Kien with morning tea.
+                </small>
+
+                <button type="button">
+                    ✈ Stamp Wax Seal &amp; Deliver
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PINBOARD -->
+
+        <div class="pinboard">
+
+            <div class="pinboard-heading">
+
+                <h3>
+                    📌 Desk Pinboard Notes
+                </h3>
+
+                <span>
+                    Recent Whispers
+                </span>
+
+            </div>
+
+
+            <article class="pin-note pin-note-cream">
+
+                <p>
+                    “Your article on slow engineering and systems this week.
+                    Reading about intentional systems from a Tokyo cafe made me breathe again.
+                    Cảm ơn Kiên!”
+                </p>
+
+                <small>
+                    — Maya, 5 days ago
+                </small>
+
+            </article>
+
+
+            <article class="pin-note pin-note-beige">
+
+                <p>
+                    Visited Hanoi last month because of your tea shop recommendations
+                    on Hano Kien. The misty morning at 6 AM was pure cinema.
+                    Sending warmth from Lyon!
+                </p>
+
+                <small>
+                    — Lucas, 9 days ago
+                </small>
+
+            </article>
+
+
+            <article class="pin-note pin-note-green">
+
+                <p>
+                    “Just wanted to say this corner of the internet feels like
+                    opening an old window on a rainy afternoon. Keep the slow craft alive.”
+                </p>
+
+                <small>
+                    — A fellow night coder, 1 week ago
+                </small>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+    </main>
+<!-- FOOTER -->
+
+<footer class="desk-footer">
+
+    <h2>
+        Kiên's Personal Desk
+    </h2>
+
+    <p>
+        Typeset in Newsreader &amp; Inter · Written with ink, tea,
+        and curious code from a quiet corner in Hanoi.
+        Built to be slow, cozy, and honest.
+    </p>
+
+    <div class="footer-links">
+        <a href="#">Colophon</a>
+        <a href="#">RSS Feed</a>
+        <a href="#">Guestbook</a>
+        <a href="#">Secret Coffee Tip Jar ☕</a>
+    </div>
+
+    <small>
+        © 2024 Kiên. Handmade with reflections, quiet software craftsmanship,
+        and personal notes.
+    </small>
+
+</footer>
+</body>
+</html>

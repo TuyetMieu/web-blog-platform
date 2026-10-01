@@ -1,0 +1,144 @@
+/* Small, scoped fixes on top of the raw Figma export in whisper-box.css.
+   Kept in a separate file instead of editing the export directly, so the
+   original export stays untouched and traceable. */
+
+/* Gap between .main and .footer was tripled: .container already has
+   40px bottom padding, and .footer's own .container50 has 40px top
+   padding — the root's flex "gap: 40px" on top of both stacked into
+   ~120px of empty space (looked "loose" vs the Figma draft, which only
+   wanted one 40px-ish gap). Zero out the root gap; the two existing
+   paddings alone already give proper breathing room. */
+.ki-n-s-journal-the-whisper-box-corkboard {
+  gap: 0px;
+}
+
+/* .footer's identical centering fix (stretches full viewport width, but
+   its inner max-width:1200px block sits flush left instead of centered)
+   lives in the shared css/header.css now — both pages have the exact
+   same bug on the exact same selector. */
+
+/* Same bug, main content area: .subtle-ambient-glow-backdrop stretches
+   full width (via align-self:stretch inside .main) and its own
+   "align-items: flex-start" flush-lefts its child .container (also
+   capped at max-width:1200px) on wide screens — this is the entire
+   "EPISTOLARY DESK" / postcard / community board / desk-surroundings
+   column. Center it the same way. */
+.subtle-ambient-glow-backdrop {
+  align-items: center;
+}
+
+/* --- Real form controls swapped in for decorative divs (js/whisper-box.js) --- */
+#postcard-message {
+  width: 100%;
+  min-height: 140px;
+  resize: vertical;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #1d1b19;
+  font-family: "EbGaramond-Medium", serif;
+  font-size: 17px;
+  line-height: 1.5;
+}
+#postcard-message::placeholder {
+  color: rgba(136, 115, 105, 0.7);
+}
+#postcard-name, #postcard-email {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: #1d1b19;
+}
+#postcard-submit, #postcard-topics button, #board-topic-pills button,
+#board-load-more {
+  cursor: pointer;
+}
+#postcard-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+#postcard-status.is-error {
+  color: #954413;
+}
+#postcard-status.is-success {
+  color: #46592f;
+}
+
+/* --- Dynamic corkboard note card (js/whisper-box.js via getNotes()) ---
+   The export's own note-1..4 templates are position:absolute with a
+   fixed card height tuned for one specific piece of sample text — they
+   break (overlapping text, clipped content) with real variable-length
+   notes, especially a very long one. This is a plain flow-based
+   replacement: it grows with content instead of clipping it. */
+.kj-note-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.kj-note-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Geist-Regular", sans-serif;
+  font-size: 12px;
+  color: #887369;
+}
+.kj-note-body {
+  font-family: "EbGaramond-Regular", serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #1d1b19;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.kj-note-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.kj-note-author {
+  font-family: "Geist-Regular", sans-serif;
+  font-size: 12px;
+  color: #55433a;
+}
+.kj-note-tag {
+  background: #f2ede8;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-family: "Geist-Regular", sans-serif;
+  font-size: 11px;
+  color: #55433a;
+  flex-shrink: 0;
+}
+.kj-note-reply {
+  background: rgba(254, 240, 138, 0.9);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: "EbGaramond-Italic", serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1d1b19;
+}
+.kj-note-reply strong {
+  display: block;
+  font-family: "Geist-Regular", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 11px;
+  margin-bottom: 4px;
+  color: #887369;
+}
+.kj-note-pending {
+  font-size: 11px;
+  color: #954413;
+  font-style: italic;
+}

@@ -1,0 +1,9 @@
+# Môi trường ảo & cache Python
+.venv/
+__pycache__/
+*.pyc
+
+# Database SQLite (tạo bởi "flask migrate" / "flask seed")
+instance/
+*.sqlite3
+*.sqlite3-*

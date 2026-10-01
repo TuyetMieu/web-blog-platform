@@ -1,0 +1,1214 @@
+/* ================================
+   F-20 — The Desk View
+   ================================ */
+
+.desk-page {
+    background: #fdf7f1;
+    color: #302a26;
+    min-height: 100vh;
+}
+
+
+/* ================================
+   INTRO
+   ================================ */
+
+.desk-intro {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 26px 28px 18px;
+
+    display: grid;
+    grid-template-columns: 1fr 205px;
+    gap: 35px;
+    align-items: start;
+}
+
+.desk-eyebrow {
+    margin: 0 0 7px;
+
+    font-family: Arial, sans-serif;
+    font-size: 7px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    color: #71816d;
+}
+
+.desk-intro h1 {
+    margin: 0 0 8px;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 27px;
+    font-weight: 500;
+    line-height: 1.05;
+
+    color: #302a26;
+}
+
+.desk-intro h1 em {
+    color: #9b4d22;
+    font-weight: 400;
+}
+
+.desk-description {
+    max-width: 570px;
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    line-height: 1.55;
+
+    color: #625b55;
+}
+
+
+/* ================================
+   CURRENTLY READING
+   ================================ */
+
+.currently-reading {
+    margin-top: 2px;
+    padding: 12px 13px;
+
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid #eee3da;
+    border-radius: 8px;
+}
+
+.reading-label {
+    margin: 0 0 6px;
+
+    color: #a24e20;
+
+    font-family: Arial, sans-serif;
+    font-size: 7px;
+    font-weight: 600;
+}
+
+.reading-title {
+    margin: 0 0 6px;
+
+    color: #403934;
+
+    font-family: Georgia, serif;
+    font-size: 7px;
+    line-height: 1.4;
+}
+
+.reading-item {
+    margin: 0;
+
+    color: #746b64;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    line-height: 1.4;
+}
+
+
+/* ================================
+   3 CARDS
+   ================================ */
+
+.desk-cards {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 6px 28px 27px;
+
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr 0.78fr;
+    gap: 13px;
+}
+
+.desk-card {
+    position: relative;
+
+    min-height: 125px;
+    padding: 14px;
+
+    background: #ffffff;
+    border: 1px solid #eee4dc;
+    border-radius: 7px;
+
+    box-shadow: 0 2px 7px rgba(80, 60, 40, 0.04);
+}
+
+.card-tag {
+    display: inline-block;
+
+    margin-bottom: 7px;
+    padding: 3px 6px;
+
+    border-radius: 999px;
+
+    background: #dfeee0;
+    color: #506650;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    font-weight: 600;
+}
+
+.life-card .card-tag {
+    background: #f1e8dc;
+    color: #9a4d22;
+}
+
+.memory-card .card-tag {
+    background: #f7e3d2;
+    color: #9a4d22;
+}
+
+.card-version {
+    position: absolute;
+    top: 16px;
+    right: 13px;
+
+    color: #8c8179;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+.desk-card h2 {
+    margin: 0 0 7px;
+
+    color: #302a26;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.desk-card p {
+    margin: 0 0 9px;
+
+    color: #665e58;
+
+    font-family: Arial, sans-serif;
+    font-size: 7px;
+    line-height: 1.5;
+}
+
+
+/* ================================
+   CODE PREVIEW
+   ================================ */
+
+.code-preview {
+    margin: 9px 0 8px;
+    padding: 8px;
+
+    background: #302e2c;
+    border-radius: 4px;
+
+    overflow: hidden;
+}
+
+.code-preview code {
+    color: #f4eee8;
+
+    font-family: "Courier New", monospace;
+    font-size: 5px;
+    line-height: 1.45;
+}
+
+
+/* ================================
+   CARD LINKS
+   ================================ */
+
+.desk-card a {
+    color: #91461f;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.desk-card a span {
+    float: right;
+}
+
+.desk-card a:hover {
+    text-decoration: underline;
+}
+
+
+/* ================================
+   LIFE QUOTE
+   ================================ */
+
+.desk-card blockquote {
+    margin: 9px 0;
+    padding: 7px 9px;
+
+    background: #f8f2ed;
+    border-left: 1px solid #d9c8b8;
+
+    color: #766b63;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 8px;
+    font-style: italic;
+    line-height: 1.45;
+}
+
+
+/* ================================
+   SNAPSHOT
+   ================================ */
+
+.memory-card img {
+    display: block;
+
+    width: 100%;
+    height: 82px;
+
+    object-fit: cover;
+
+    margin: 8px 0 6px;
+
+    border-radius: 4px;
+}
+
+.photo-caption {
+    margin: 0 !important;
+
+    color: #8a817b !important;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px !important;
+}
+
+
+/* ================================
+   QUICK DESK POST
+   ================================ */
+
+.desk-bottom-line {
+    max-width: 1080px;
+    margin: 0 auto;
+
+    min-height: 27px;
+    padding: 0 28px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    border-top: 1px solid #eee3da;
+    border-bottom: 1px solid #eee3da;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+
+    color: #746b64;
+}
+
+.desk-bottom-line span:first-child {
+    color: #98491f;
+    font-weight: 600;
+}
+
+.desk-bottom-line a {
+    margin-left: auto;
+
+    color: #625a54;
+    text-decoration: none;
+}
+
+.desk-bottom-line a:hover {
+    color: #98491f;
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 900px) {
+
+    .desk-intro {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .desk-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .memory-card {
+        grid-column: span 2;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .desk-intro {
+        padding: 22px 18px 15px;
+    }
+
+    .desk-intro h1 {
+        font-size: 25px;
+    }
+
+    .desk-cards {
+        grid-template-columns: 1fr;
+        padding: 8px 18px 22px;
+    }
+
+    .memory-card {
+        grid-column: auto;
+    }
+
+    .desk-bottom-line {
+        padding: 8px 18px;
+        flex-wrap: wrap;
+    }
+
+    .desk-bottom-line a {
+        margin-left: 0;
+    }
+}
+
+/* ================================
+   F-21 — THE DUAL-SIDED JOURNAL
+   ================================ */
+
+.dual-journal {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 28px 28px 36px;
+
+    background: #fdf7f1;
+}
+
+
+/* ================================
+   SECTION HEADING
+   ================================ */
+
+.dual-journal-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 25px;
+
+    margin-bottom: 18px;
+}
+
+.section-eyebrow {
+    margin: 0 0 5px;
+
+    color: #a24e20;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.dual-journal-heading h2 {
+    margin: 0 0 5px;
+
+    color: #302a26;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 23px;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.dual-journal-heading p:not(.section-eyebrow) {
+    margin: 0;
+
+    color: #716861;
+
+    font-family: Arial, sans-serif;
+    font-size: 7px;
+    line-height: 1.5;
+}
+
+
+/* ================================
+   FILTERS
+   ================================ */
+
+.journal-filters {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 4px;
+
+    background: #ffffff;
+    border: 1px solid #e8dfd7;
+    border-radius: 999px;
+
+    white-space: nowrap;
+}
+
+.journal-filters button {
+    padding: 5px 8px;
+
+    border: none;
+    border-radius: 999px;
+
+    background: transparent;
+
+    color: #6b625c;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+
+    cursor: pointer;
+}
+
+.journal-filters .filter-active {
+    background: #eee9e3;
+    color: #302a26;
+    font-weight: 600;
+}
+
+
+/* ================================
+   FEATURED ARTICLE
+   ================================ */
+
+.featured-journal-card {
+    display: grid;
+    grid-template-columns: 1.35fr 0.65fr;
+
+    min-height: 155px;
+
+    background: #ffffff;
+    border: 1px solid #e8dfd7;
+    border-radius: 7px;
+
+    overflow: hidden;
+
+    box-shadow: 0 2px 7px rgba(80, 60, 40, 0.04);
+}
+
+.featured-content {
+    position: relative;
+
+    padding: 17px 18px;
+}
+
+.article-side {
+    display: inline-block;
+
+    padding: 3px 6px;
+
+    border-radius: 999px;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+    font-weight: 600;
+}
+
+.side-a {
+    background: #dfefdf;
+    color: #4e684f;
+}
+
+.side-b {
+    background: #f5e5d8;
+    color: #985025;
+}
+
+.article-date {
+    margin-left: 7px;
+
+    color: #8b817a;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+.featured-content h3 {
+    max-width: 520px;
+
+    margin: 9px 0 7px;
+
+    color: #302a26;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.08;
+}
+
+.featured-content > p {
+    max-width: 520px;
+
+    margin: 0 0 9px;
+
+    color: #625a54;
+
+    font-family: Arial, sans-serif;
+    font-size: 7px;
+    line-height: 1.55;
+}
+
+.article-meta {
+    display: flex;
+    gap: 12px;
+
+    color: #756b64;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+.featured-content > a {
+    position: absolute;
+    right: 18px;
+    bottom: 16px;
+
+    color: #9a4b20;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.featured-content > a:hover {
+    text-decoration: underline;
+}
+
+.featured-image {
+    padding: 12px;
+}
+
+.featured-image img {
+    width: 100%;
+    height: 100%;
+
+    min-height: 125px;
+
+    display: block;
+
+    object-fit: cover;
+
+    border-radius: 5px;
+}
+
+
+/* ================================
+   4 SMALL ARTICLES
+   ================================ */
+
+.journal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    margin-top: 16px;
+}
+
+.journal-small-card {
+    min-height: 118px;
+
+    padding: 13px;
+
+    background: #ffffff;
+    border: 1px solid #e8dfd7;
+    border-radius: 7px;
+
+    box-shadow: 0 2px 6px rgba(80, 60, 40, 0.03);
+}
+
+.small-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 7px;
+
+    color: #8a817a;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+.journal-small-card h3 {
+    margin: 0 0 6px;
+
+    color: #302a26;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+.journal-small-card p {
+    margin: 0 0 9px;
+
+    color: #685f59;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    line-height: 1.5;
+}
+
+.small-card-footer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.small-card-footer span {
+    padding: 2px 4px;
+
+    border-radius: 3px;
+
+    background: #f3eee9;
+
+    color: #746a63;
+
+    font-family: Arial, sans-serif;
+    font-size: 4px;
+}
+
+.small-card-footer span:last-child {
+    margin-left: auto;
+
+    background: transparent;
+
+    color: #8b817a;
+}
+
+
+/* ================================
+   VIEW ALL
+   ================================ */
+
+.view-all-journal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 22px;
+}
+
+.view-all-journal button {
+    padding: 7px 12px;
+
+    border: none;
+    border-radius: 999px;
+
+    background: #ebe6e0;
+
+    color: #4f4843;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+
+    cursor: pointer;
+}
+
+.view-all-journal p {
+    margin: 5px 0 0;
+
+    color: #8a817a;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 800px) {
+
+    .dual-journal-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .journal-filters {
+        width: 100%;
+    }
+
+    .featured-journal-card {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-image {
+        height: 180px;
+    }
+
+    .journal-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .dual-journal {
+        padding: 22px 18px 28px;
+    }
+
+    .dual-journal-heading h2 {
+        font-size: 21px;
+    }
+
+    .featured-content h3 {
+        font-size: 17px;
+    }
+
+    .journal-filters {
+        overflow-x: auto;
+    }
+}
+
+/* ================================
+   WHISPER POSTBOX
+   ================================ */
+
+.whisper-section {
+    max-width: 1080px;
+    margin: 0 auto;
+
+    padding: 30px 28px 38px;
+
+    background: #fdf7f1;
+}
+
+
+/* ================================
+   HEADING
+   ================================ */
+
+.whisper-heading {
+    text-align: center;
+
+    margin-bottom: 22px;
+}
+
+.whisper-heading p {
+    margin: 0 0 5px;
+
+    color: #a24e20;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.whisper-heading h2 {
+    margin: 0 0 6px;
+
+    color: #302a26;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.whisper-heading span {
+    display: block;
+
+    max-width: 500px;
+    margin: 0 auto;
+
+    color: #716861;
+
+    font-family: Arial, sans-serif;
+    font-size: 7px;
+    line-height: 1.5;
+}
+
+
+/* ================================
+   CONTENT
+   ================================ */
+
+.whisper-content {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 18px;
+}
+
+
+/* ================================
+   POSTCARD
+   ================================ */
+
+.postcard {
+    position: relative;
+
+    padding: 17px;
+
+    background: #ffffff;
+
+    border: 1px solid #e6ddd5;
+    border-radius: 7px;
+
+    border-top: 3px solid #9b4d22;
+
+    box-shadow: 0 2px 7px rgba(80, 60, 40, 0.04);
+}
+
+.postcard-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 16px;
+}
+
+.postcard h3 {
+    margin: 0 0 3px;
+
+    color: #302a26;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.postcard-top small {
+    color: #8a817a;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+.postcard-stamp {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #d8c8ba;
+
+    color: #9b4d22;
+
+    font-family: Georgia, serif;
+    font-size: 8px;
+}
+
+
+/* ================================
+   FORM
+   ================================ */
+
+.postcard label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #4d4540;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+}
+
+.postcard textarea {
+    width: 100%;
+    height: 76px;
+
+    padding: 10px;
+
+    box-sizing: border-box;
+
+    resize: none;
+
+    border: none;
+    border-radius: 4px;
+
+    background: #f7f0e9;
+
+    color: #554d47;
+
+    font-family: Arial, sans-serif;
+    font-size: 7px;
+
+    outline: none;
+}
+
+.postcard textarea::placeholder,
+.postcard input::placeholder {
+    color: #9a9088;
+}
+
+.postcard-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+
+    margin-top: 11px;
+}
+
+.postcard input {
+    width: 100%;
+    height: 28px;
+
+    padding: 7px 9px;
+
+    box-sizing: border-box;
+
+    border: none;
+    border-radius: 4px;
+
+    background: #f7f0e9;
+
+    color: #554d47;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+
+    outline: none;
+}
+
+
+/* ================================
+   POSTCARD BOTTOM
+   ================================ */
+
+.postcard-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 14px;
+}
+
+.postcard-bottom small {
+    color: #8a817a;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+.postcard-bottom button {
+    padding: 7px 12px;
+
+    border: none;
+    border-radius: 999px;
+
+    background: #a45120;
+    color: #ffffff;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+
+    cursor: pointer;
+}
+
+.postcard-bottom button:hover {
+    background: #873e17;
+}
+
+
+/* ================================
+   PINBOARD
+   ================================ */
+
+.pinboard {
+    padding-top: 2px;
+}
+
+.pinboard-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+}
+
+.pinboard-heading h3 {
+    margin: 0;
+
+    color: #403934;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 13px;
+}
+
+.pinboard-heading span {
+    color: #8b817a;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+
+/* ================================
+   NOTES
+   ================================ */
+
+.pin-note {
+    position: relative;
+
+    margin-bottom: 8px;
+    padding: 10px 12px;
+
+    border-radius: 6px;
+
+    box-shadow: 0 2px 5px rgba(80, 60, 40, 0.04);
+}
+
+.pin-note::before {
+    content: "";
+
+    position: absolute;
+
+    top: -3px;
+    left: 50%;
+
+    width: 6px;
+    height: 6px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: #a45120;
+}
+
+.pin-note p {
+    margin: 0 0 6px;
+
+    color: #665d57;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 8px;
+    font-style: italic;
+    line-height: 1.45;
+}
+
+.pin-note small {
+    color: #847a73;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+.pin-note-cream {
+    background: #f7f1ea;
+}
+
+.pin-note-beige {
+    background: #f1e9df;
+}
+
+.pin-note-green {
+    background: #dcebdc;
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 800px) {
+
+    .whisper-content {
+        grid-template-columns: 1fr;
+    }
+
+    .pinboard {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .whisper-section {
+        padding: 24px 18px 30px;
+    }
+
+    .postcard-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .postcard-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+/* ================================
+   FOOTER
+   ================================ */
+
+.desk-footer {
+    margin-top: 0;
+    padding: 28px 28px 22px;
+
+    text-align: center;
+
+    background: #f8f1ea;
+    border-top: 1px solid #eee3da;
+
+    color: #665e58;
+}
+
+.desk-footer h2 {
+    margin: 0 0 7px;
+
+    color: #a24e20;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.desk-footer p {
+    max-width: 500px;
+    margin: 0 auto 12px;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    line-height: 1.5;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #625a54;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #a24e20;
+}
+
+.desk-footer small {
+    color: #8b817a;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}

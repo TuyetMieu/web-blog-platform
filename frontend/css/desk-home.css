@@ -1,0 +1,727 @@
+/* ================================
+   F-22 — HOME & DESK VIEW
+   ================================ */
+
+.home-desk-page {
+    min-height: 100vh;
+
+    background: #fdf7f1;
+    color: #302a26;
+}
+
+
+/* ================================
+   INTRO
+   ================================ */
+
+.home-desk-intro {
+    max-width: 1080px;
+    margin: 0 auto;
+
+    padding: 30px 28px 24px;
+
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 25px;
+
+    align-items: center;
+}
+
+.home-desk-copy {
+    padding-right: 20px;
+}
+
+.home-eyebrow {
+    margin: 0 0 6px;
+
+    color: #9b4d22;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.home-desk-copy h1 {
+    margin: 0 0 10px;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 31px;
+    line-height: 1.05;
+    font-weight: 500;
+}
+
+.home-desk-copy h1 em {
+    color: #9b4d22;
+    font-weight: 400;
+}
+
+.home-description {
+    max-width: 390px;
+
+    margin: 0;
+
+    color: #6b625c;
+
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    line-height: 1.6;
+}
+
+
+/* ================================
+   DESK OBJECT CARD
+   ================================ */
+
+.desk-object-card {
+    min-height: 210px;
+
+    padding: 14px;
+
+    background: #e9ded1;
+
+    border: 1px solid #dfd1c3;
+    border-radius: 8px;
+
+    box-shadow: 0 5px 18px rgba(80, 60, 40, 0.08);
+}
+
+.desk-object-header {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+    color: #756b63;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+}
+
+.desk-objects {
+    position: relative;
+
+    height: 170px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.22),
+            rgba(130,100,70,.08)
+        );
+
+    border-radius: 5px;
+
+    overflow: hidden;
+}
+
+
+/* ================================
+   LAPTOP
+   ================================ */
+
+.desk-laptop {
+    position: absolute;
+
+    left: 15%;
+    top: 28px;
+
+    width: 270px;
+}
+
+.laptop-screen {
+    height: 105px;
+
+    padding: 13px;
+
+    box-sizing: border-box;
+
+    background: #2d2c2b;
+
+    border: 5px solid #55504b;
+    border-radius: 5px;
+
+    color: #d8e5d3;
+
+    font-family: "Courier New", monospace;
+}
+
+.laptop-screen span {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 6px;
+}
+
+.laptop-screen strong {
+    display: block;
+
+    color: #f1eee9;
+
+    font-size: 10px;
+}
+
+.laptop-screen small {
+    display: block;
+
+    margin-top: 10px;
+
+    color: #aebca9;
+
+    font-size: 6px;
+}
+
+.laptop-base {
+    width: 300px;
+    height: 9px;
+
+    margin-left: -15px;
+
+    background: #8c8177;
+
+    border-radius: 0 0 10px 10px;
+}
+
+
+/* ================================
+   TEA CUP
+   ================================ */
+
+.tea-cup {
+    position: absolute;
+
+    right: 22%;
+    bottom: 20px;
+}
+
+.cup {
+    position: relative;
+
+    width: 58px;
+    height: 42px;
+
+    background: #eee5db;
+
+    border: 1px solid #cfc0b1;
+    border-radius: 0 0 20px 20px;
+}
+
+.cup::before {
+    content: "";
+
+    position: absolute;
+
+    left: 7px;
+    right: 7px;
+    top: 5px;
+
+    height: 8px;
+
+    background: #9b6a43;
+
+    border-radius: 50%;
+}
+
+.tea-handle {
+    position: absolute;
+
+    right: -14px;
+    top: 10px;
+
+    width: 18px;
+    height: 20px;
+
+    border: 4px solid #cfc0b1;
+    border-left: none;
+
+    border-radius: 0 15px 15px 0;
+}
+
+
+/* ================================
+   PHOTO
+   ================================ */
+
+.desk-photo {
+    position: absolute;
+
+    right: 8%;
+    top: 18px;
+
+    transform: rotate(5deg);
+}
+
+.photo-paper {
+    width: 95px;
+
+    padding: 6px 6px 9px;
+
+    background: #fff;
+
+    box-shadow: 0 4px 10px rgba(70,50,30,.12);
+}
+
+.photo-image {
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #d6c5b4;
+
+    font-size: 24px;
+}
+
+.photo-paper small {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #756b63;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+
+/* ================================
+   CURRENTLY READING
+   ================================ */
+
+.home-reading {
+    max-width: 1080px;
+    margin: 0 auto;
+
+    padding: 10px 28px 25px;
+}
+
+.home-section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+}
+
+.home-section-heading h2 {
+    margin: 0;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.home-section-heading > span {
+    color: #8b817a;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+.reading-card {
+    display: flex;
+
+    min-height: 105px;
+
+    background: #fff;
+
+    border: 1px solid #e8dfd7;
+    border-radius: 7px;
+
+    overflow: hidden;
+}
+
+.reading-book-cover {
+    width: 95px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #d9c9b9;
+
+    font-size: 30px;
+}
+
+.reading-book-info {
+    padding: 13px 16px;
+}
+
+.book-label {
+    color: #9b4d22;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+    font-weight: 600;
+}
+
+.reading-book-info h3 {
+    margin: 5px 0 5px;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.reading-book-info p {
+    max-width: 600px;
+
+    margin: 0 0 7px;
+
+    color: #6b625c;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    line-height: 1.5;
+}
+
+.reading-meta {
+    display: flex;
+    gap: 12px;
+
+    color: #8a817a;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+
+/* ================================
+   MAILBOX
+   ================================ */
+
+.mailbox-teaser {
+    max-width: 1080px;
+    margin: 0 auto;
+
+    padding: 20px 28px 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px solid #e8dfd7;
+}
+
+.mailbox-teaser h2 {
+    margin: 0 0 5px;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.mailbox-teaser p:not(.home-eyebrow) {
+    margin: 0;
+
+    color: #706760;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+}
+
+.mailbox-teaser a {
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    background: #a45120;
+    color: white;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+
+    text-decoration: none;
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 800px) {
+
+    .home-desk-intro {
+        grid-template-columns: 1fr;
+    }
+
+    .desk-laptop {
+        left: 8%;
+    }
+
+    .mailbox-teaser {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .home-desk-intro,
+    .home-reading,
+    .mailbox-teaser {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .desk-laptop {
+        transform: scale(.75);
+        transform-origin: left bottom;
+    }
+
+    .desk-photo {
+        right: 3%;
+    }
+}
+
+/* ================================
+   F-23 — HALL OF FAME
+   ================================ */
+
+.home-hall {
+    max-width: 1080px;
+    margin: 0 auto;
+
+    padding: 25px 28px 20px;
+
+    border-top: 1px solid #e8dfd7;
+}
+
+.hall-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+}
+
+.hall-card {
+    display: grid;
+    grid-template-columns: 105px 1fr;
+
+    min-height: 130px;
+
+    background: #ffffff;
+
+    border: 1px solid #e8dfd7;
+    border-radius: 7px;
+
+    overflow: hidden;
+}
+
+.hall-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #d9c9b9;
+
+    font-size: 30px;
+}
+
+.hall-image-green {
+    background: #dce8d8;
+}
+
+.hall-content {
+    padding: 13px 15px;
+}
+
+.hall-content > span {
+    color: #9b4d22;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+    font-weight: 600;
+}
+
+.hall-content h3 {
+    margin: 6px 0;
+
+    color: #302a26;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+.hall-content p {
+    margin: 0 0 8px;
+
+    color: #6b625c;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    line-height: 1.5;
+}
+
+.hall-content a {
+    color: #9b4d22;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+/* ================================
+   RECENT LEAVES
+   ================================ */
+
+.recent-leaves {
+    max-width: 1080px;
+    margin: 0 auto;
+
+    padding: 20px 28px 28px;
+}
+
+.leaves-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+.leaf-card {
+    min-height: 105px;
+
+    padding: 13px;
+
+    background: #ffffff;
+
+    border: 1px solid #e8dfd7;
+    border-radius: 7px;
+}
+
+.leaf-card > span {
+    display: inline-block;
+
+    margin-bottom: 5px;
+    padding: 3px 6px;
+
+    background: #eee9e3;
+    border-radius: 999px;
+
+    color: #665d57;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+.leaf-card h3 {
+    margin: 0 0 6px;
+
+    color: #302a26;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+.leaf-card p {
+    margin: 0 0 7px;
+
+    color: #6b625c;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+    line-height: 1.5;
+}
+
+.leaf-card small {
+    color: #8a817a;
+
+    font-family: Arial, sans-serif;
+    font-size: 5px;
+}
+
+
+/* ================================
+   QUICK NOTE
+   ================================ */
+
+.home-quick-note {
+    max-width: 1080px;
+    margin: 0 auto;
+
+    padding: 20px 28px 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px solid #e8dfd7;
+}
+
+.home-quick-note h2 {
+    margin: 0 0 5px;
+
+    color: #302a26;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.home-quick-note p:not(.home-eyebrow) {
+    margin: 0;
+
+    color: #706760;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+}
+
+.home-quick-note a {
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    background: #a45120;
+    color: #ffffff;
+
+    font-family: Arial, sans-serif;
+    font-size: 6px;
+
+    text-decoration: none;
+}
+
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 800px) {
+
+    .hall-grid,
+    .leaves-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-quick-note {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .home-hall,
+    .recent-leaves,
+    .home-quick-note {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .hall-card {
+        grid-template-columns: 85px 1fr;
+    }
+}
