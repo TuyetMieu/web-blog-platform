@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Dual Journal — Kiên's Journal</title>
+    <meta name="description" content="Two faces of one coin: engineering systems by daylight, human quietude by lamplight.">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <script src="js/boot.js"></script>
+    <link rel="expect" href="#kj-ready" blocking="render">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/journal.css">
+    <link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="journal">
+    <header data-site-header></header>
+
+    <main>
+        <!-- Màn 5 · Journal Feed: đầu trang + bộ chuyển mặt sổ -->
+        <section class="notebook-head">
+            <p class="notebook-head__eyebrow">
+                <span class="notebook-head__vol"><span class="dot dot--terracotta"></span> VOL. IV • FOLIO 88</span>
+                <span class="sep">/</span>
+                <span>HANOI STUDIO NOTEBOOK</span>
+                <span class="sep">/</span>
+                <span><span data-total-fragments>…</span> FRAGMENTS WRITTEN</span>
+            </p>
+
+            <div class="side-switch" role="group" aria-label="Chọn mặt sổ">
+                <button type="button" class="side-switch__btn" data-side="A" aria-pressed="true">
+                    <i class="bi bi-terminal"></i>
+                    <span class="side-switch__text">
+                        <span class="side-switch__title">Side A: Craft &amp; Systems</span>
+                        <span class="side-switch__sub">Engineering • Rust • Go • Arch</span>
+                    </span>
+                </button>
+                <button type="button" class="side-switch__btn" data-side="B" aria-pressed="false">
+                    <i class="bi bi-book"></i>
+                    <span class="side-switch__text">
+                        <span class="side-switch__title">Side B: Soul &amp; Everyday</span>
+                        <span class="side-switch__sub">Hanoi Rain • Film • Solitude</span>
+                    </span>
+                </button>
+            </div>
+
+            <p class="notebook-head__quote">"Two faces of one coin: by daylight we engineer distributed truth; under lamplight we sift human quietude."</p>
+        </section>
+
+        <section class="feed">
+            <div class="filter-panel">
+                <div class="filter-panel__row">
+                    <label class="feed-search">
+                        <i class="bi bi-search" aria-hidden="true"></i>
+                        <input type="search" id="feed-search" placeholder="Search through thoughts, code fragments, or quiet stories…" autocomplete="off" aria-label="Tìm trong nhật ký">
+                        <kbd data-search-kbd>⌘K</kbd>
+                    </label>
+                    <button type="button" class="pill-btn" id="feed-sort" aria-live="polite"><i class="bi bi-sliders2"></i> <span>Sort: Chronological</span></button>
+                    <button type="button" class="pill-btn feed-saved" id="feed-saved" aria-pressed="false" title="Chỉ xem bài đã đánh dấu"><i class="bi bi-bookmark"></i><span class="visually-hidden">Chỉ xem bài đã đánh dấu</span></button>
+                </div>
+                <div class="filter-panel__row filter-panel__row--chips">
+                    <div class="category-pills" id="category-pills" role="group" aria-label="Lọc theo chủ đề"></div>
+                    <p class="active-tag" id="active-tag" hidden></p>
+                </div>
+            </div>
+
+            <div class="feed__results" id="feed-results" aria-live="polite"></div>
+
+            <nav class="leaf-ribbon" aria-label="Phân trang">
+                <div class="leaf-ribbon__info">
+                    <i class="bi bi-journals"></i>
+                    <div>
+                        <p class="leaf-ribbon__page" id="feed-page-label">Page 1 of 1</p>
+                        <p class="meta-text" id="feed-range-label">Showing entries 0–0 of 0 reflections</p>
+                    </div>
+                </div>
+                <div class="leaf-ribbon__actions">
+                    <button type="button" class="pill-btn" id="feed-prev"><i class="bi bi-chevron-left"></i> Previous leaf</button>
+                    <button type="button" class="pill-btn pill-btn--primary" id="feed-next">Turn leaf <i class="bi bi-chevron-right"></i></button>
+                </div>
+            </nav>
+        </section>
+    </main>
+
+    <footer data-site-footer></footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/motion.js"></script>
+    <script src="js/journal.js"></script>
+    <div id="kj-ready" hidden></div>
+</body>
+</html>

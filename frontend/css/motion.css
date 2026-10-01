@@ -1,0 +1,250 @@
+/* =========================================================
+   motion.css — Chuyển cảnh & micro-interaction cho toàn site
+   Nạp SAU CÙNG ở mỗi trang (sau css riêng của trang).
+   Đi cùng js/motion.js. Mọi hiệu ứng tắt khi người dùng bật
+   "prefers-reduced-motion" (xem cuối file và base.css).
+   ========================================================= */
+
+:root {
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 0.16s;
+  --dur-med: 0.32s;
+  --dur-slow: 0.6s;
+}
+
+/* ---------------------------------------------------------
+   1. Chuyển trang: header ĐỨNG YÊN, nội dung trượt ngang như lật trang.
+   Chiều trượt theo thứ tự menu (js/boot.js gắn html.nav-back khi đi lùi):
+     tiến → trang cũ trượt ra bên trái, trang mới vào từ bên phải; lùi → ngược lại.
+   - Chrome/Edge 126+: View Transitions giữa 2 trang (không cần JS).
+   - Trình duyệt khác: html.no-vt → motion.js trượt <main> ra rồi mới chuyển trang.
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+
+/* Header là 1 lớp riêng, hiển thị ngay trạng thái mới, không trượt theo nội dung */
+.site-header { view-transition-name: site-header; }
+::view-transition-group(site-header) { animation: none; z-index: 2; }
+::view-transition-old(site-header) { display: none; }
+::view-transition-new(site-header) { animation: none; }
+
+/* Pill của mục menu đang chọn: cùng cơ chế .slide-indicator như Side A/B (mục 3 bên dưới),
+   trượt từ mục của trang trước sang mục của trang hiện tại. */
+
+/* Nội dung trang (root) trượt ngang */
+html:not(.same-vt):not(.theme-vt)::view-transition-old(root) { animation: slide-out-left 0.5s var(--ease-slide) both; }
+html:not(.same-vt):not(.theme-vt)::view-transition-new(root) { animation: slide-in-right 0.5s var(--ease-slide) both; }
+html.nav-back:not(.same-vt):not(.theme-vt)::view-transition-old(root) { animation-name: slide-out-right; }
+html.nav-back:not(.same-vt):not(.theme-vt)::view-transition-new(root) { animation-name: slide-in-left; }
+:root { --ease-slide: cubic-bezier(0.65, 0, 0.35, 1); }
+@keyframes slide-out-left { to { transform: translateX(-100%); } }
+@keyframes slide-in-right { from { transform: translateX(100%); } }
+@keyframes slide-out-right { to { transform: translateX(100%); } }
+@keyframes slide-in-left { from { transform: translateX(-100%); } }
+
+/* Chuyển cảnh trong cùng trang (vd. chế độ tập trung): chỉ crossfade nhẹ */
+html.same-vt::view-transition-old(root) { animation: vt-fade-out 0.2s ease both; }
+html.same-vt::view-transition-new(root) { animation: vt-fade-in 0.3s ease both; }
+@keyframes vt-fade-out { to { opacity: 0; } }
+@keyframes vt-fade-in { from { opacity: 0; } }
+
+/* Fallback (không có View Transitions): chỉ <main> + footer trượt, header giữ nguyên */
+html.no-vt body { overflow-x: clip; }
+html.no-vt main,
+html.no-vt .site-footer { animation: page-in-right 0.45s var(--ease-out) both; }
+html.no-vt.nav-back main,
+html.no-vt.nav-back .site-footer { animation-name: page-in-left; }
+html.no-vt.is-leaving main,
+html.no-vt.is-leaving .site-footer { opacity: 0; translate: -80px 0; transition: opacity 0.2s ease-in, translate 0.2s ease-in; }
+html.no-vt.is-leaving.nav-back main,
+html.no-vt.is-leaving.nav-back .site-footer { translate: 80px 0; }
+@keyframes page-in-right { from { opacity: 0; translate: 80px 0; } }
+@keyframes page-in-left { from { opacity: 0; translate: -80px 0; } }
+
+/* Đổi theme: vòng tròn lan ra từ điểm bấm (motion.js điều khiển bằng clip-path) */
+html.theme-vt::view-transition-old(root),
+html.theme-vt::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html.theme-vt::view-transition-new(root) { z-index: 1; }
+/* Khi đổi theme / chuyển cảnh trong trang: header không tách lớp riêng (để vòng tròn phủ cả header) */
+html:is(.theme-vt, .same-vt) .site-header { view-transition-name: none; }
+/* Fallback khi không có View Transitions: chuyển màu mượt */
+html.theme-fade *, html.theme-fade *::before, html.theme-fade *::after {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, fill 0.35s ease !important;
+}
+
+/* ---------------------------------------------------------
+   2. Hiện dần khi cuộn tới (motion.js gắn .reveal / .is-revealed)
+   Dùng thuộc tính "translate" riêng nên không đè "transform"
+   (giữ được độ nghiêng của sticky note, polaroid...).
+   --------------------------------------------------------- */
+html.js-motion .reveal {
+  opacity: 0;
+  translate: 0 16px;
+  transition:
+    opacity 0.55s ease var(--reveal-delay, 0ms),
+    translate 0.65s var(--ease-out) var(--reveal-delay, 0ms),
+    transform 0.2s var(--ease-out),
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+html.js-motion .reveal.is-revealed { opacity: 1; translate: 0 0; }
+
+/* Ảnh hiện dần khi tải xong */
+html.js-motion .img-fade { opacity: 0; transition: opacity 0.5s ease, transform 0.6s var(--ease-out); }
+html.js-motion .img-fade.is-loaded { opacity: 1; }
+
+/* ---------------------------------------------------------
+   3. Nút & điều khiển
+   --------------------------------------------------------- */
+html.js-motion :is(button, .pill-btn, .submit-btn, .seal, .category-pill, .nav-bar__link, .nav-bar__search,
+  .nav-bar__icon, .status-bar__toggle, .quick-post__link, .archive-more__btn, a.tag, .icon-btn, .reaction,
+  .reaction-btn, .swatch, .segmented__btn, .step-btn, .focus-btn, .toc__link, .filter-switcher__btn, .side-switch__btn) {
+  transition-property: background-color, color, border-color, box-shadow, opacity, transform, translate, scale, filter;
+  transition-duration: 0.2s;
+  transition-timing-function: var(--ease-out);
+}
+html.js-motion :is(button, .pill-btn, .submit-btn, .seal, .category-pill, .quick-post__link, .archive-more__btn,
+  a.tag, .nav-bar__search, .nav-bar__icon, .status-bar__toggle):not(:disabled):active { scale: 0.96; }
+
+/* Nút chính: nhấc nhẹ khi hover */
+html.js-motion :is(.submit-btn, .pill-btn--primary, .archive-more__btn, .quick-post__link):not(:disabled):hover {
+  translate: 0 -2px;
+  box-shadow: 0 8px 18px -6px color-mix(in srgb, var(--color-primary) 45%, transparent);
+}
+html.js-motion :is(.pill-btn, .seal, .category-pill, a.tag, .reaction, .reaction-btn):not(:disabled):not([aria-pressed="true"]):hover { translate: 0 -1px; }
+
+/* Link chữ: gạch chân chạy ra từ trái */
+html.js-motion .text-link,
+html.js-motion .bento__link {
+  text-decoration: none !important;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.3s var(--ease-out), color 0.2s ease;
+}
+html.js-motion .text-link:hover,
+html.js-motion .bento__link:hover { background-size: 100% 1px; }
+html.js-motion :is(.text-link, .bento__link, .archive-more__btn, .pill-btn--primary) .bi-arrow-right { transition: translate 0.25s var(--ease-out); }
+html.js-motion :is(.text-link, .bento__link, .archive-more__btn, .pill-btn--primary):hover .bi-arrow-right { translate: 3px 0; }
+
+/* Ripple (gợn sóng) khi bấm — motion.js chèn <span class="ripple"> */
+.has-ripple { position: relative; overflow: hidden; isolation: isolate; }
+.ripple {
+  position: absolute;
+  z-index: -1;
+  width: var(--ripple-size);
+  height: var(--ripple-size);
+  margin: calc(var(--ripple-size) / -2) 0 0 calc(var(--ripple-size) / -2);
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.18;
+  pointer-events: none;
+  animation: ripple 0.6s var(--ease-out) forwards;
+}
+@keyframes ripple { from { transform: scale(0); } to { transform: scale(1); opacity: 0; } }
+
+/* Bookmark / reaction "pop" */
+html.js-motion :is([data-bookmark], [data-bookmark-btn], #feed-saved)[aria-pressed="true"] i,
+html.js-motion .reaction-btn.is-active i,
+html.js-motion .reaction.is-bump > span:first-child { animation: pop 0.45s var(--ease-spring); }
+@keyframes pop { 0% { scale: 1; } 40% { scale: 1.35; } 100% { scale: 1; } }
+
+/* Thanh chọn có nền trượt (Side A/B, bộ lọc Home) — motion.js chèn .slide-indicator */
+.has-indicator { position: relative; isolation: isolate; }
+.has-indicator > :is(button, a) { position: relative; z-index: 1; }
+.has-indicator > [aria-pressed="true"],
+.has-indicator > .filter-switcher__btn--active,
+.has-indicator > .nav-bar__link--active { background: transparent !important; box-shadow: none !important; }
+.slide-indicator {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+  transition: transform 0.45s var(--ease-spring), width 0.45s var(--ease-spring), height 0.3s var(--ease-out);
+}
+.slide-indicator.no-anim { transition: none; }
+.filter-switcher .slide-indicator { box-shadow: var(--shadow-sm); }
+/* Menu header: pill xanh như thiết kế, nảy nhẹ khi dừng */
+.nav-bar__nav .slide-indicator {
+  background: var(--color-side-a-bg);
+  box-shadow: none;
+  transition: transform 0.6s var(--ease-spring), width 0.6s var(--ease-spring), height 0.3s var(--ease-out);
+}
+@media (max-width: 700px) { .side-switch .slide-indicator { border-radius: var(--radius-md); } }
+
+/* ---------------------------------------------------------
+   4. Card: nhấc nhẹ khi hover
+   --------------------------------------------------------- */
+html.js-motion :is(.bento__card, .now-card, .gear, .stat, .leaf, .note-card, .sticky-note, .gallery__item) { transition: transform 0.25s var(--ease-out), box-shadow 0.25s ease, opacity 0.55s ease var(--reveal-delay, 0ms), translate 0.65s var(--ease-out) var(--reveal-delay, 0ms); }
+html.js-motion :is(.bento__card, .now-card, .gear, .stat):hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+html.js-motion .sticky-note:hover { transform: rotate(0deg) scale(1.02); box-shadow: var(--shadow-md); }
+html.js-motion .polaroid { transition: transform 0.35s var(--ease-spring), box-shadow 0.3s ease; }
+html.js-motion .polaroid:hover { box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.3); }
+
+/* ---------------------------------------------------------
+   5. Tính năng riêng
+   --------------------------------------------------------- */
+/* Header: bóng đậm hơn khi đã cuộn */
+.site-header { transition: box-shadow 0.3s ease, background-color 0.3s ease; }
+.site-header.is-scrolled { box-shadow: 0 6px 24px -12px rgba(0, 0, 0, 0.25); }
+
+/* Bảng tìm kiếm ⌘K: mở/đóng mượt */
+.search-palette[open] { animation: palette-in 0.24s var(--ease-out) both; }
+.search-palette.is-closing { animation: palette-out 0.16s ease-in both; }
+.search-palette::backdrop { animation: backdrop-in 0.24s ease both; }
+.search-palette.is-closing::backdrop { animation: backdrop-out 0.16s ease-in both; }
+@keyframes palette-in { from { opacity: 0; transform: translateY(-10px) scale(0.98); } }
+@keyframes palette-out { to { opacity: 0; transform: translateY(-6px) scale(0.98); } }
+@keyframes backdrop-in { from { opacity: 0; } }
+@keyframes backdrop-out { to { opacity: 0; } }
+.search-result { transition: background-color 0.15s ease, translate 0.2s var(--ease-out); }
+.search-result.is-active { translate: 4px 0; }
+.search-palette__results > * { animation: fade-up 0.25s var(--ease-out) both; }
+
+/* Kết quả đang tải: mờ dần thay vì nháy */
+.is-loading { transition: opacity 0.25s ease; }
+
+/* Đóng dấu sáp khi gửi bưu thiếp thành công */
+.is-stamped .airmail-stamp,
+.is-stamped .stamp { animation: stamp-press 0.7s var(--ease-spring); }
+.is-stamped .submit-btn { animation: seal-glow 0.9s ease; }
+@keyframes stamp-press {
+  0% { transform: rotate(2deg) scale(1); }
+  30% { transform: rotate(-8deg) scale(1.35); }
+  55% { transform: rotate(4deg) scale(0.92); }
+  100% { transform: rotate(2deg) scale(1); }
+}
+@keyframes seal-glow {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 55%, transparent); }
+  100% { box-shadow: 0 0 0 18px transparent; }
+}
+.form-status:not(:empty) { animation: fade-up 0.3s var(--ease-out) both; }
+
+/* Toast: trượt lên có độ nảy */
+.toast { animation: toast-in 0.35s var(--ease-spring) both; }
+
+/* Mục lục bài viết: vạch chỉ mục đang đọc mọc ra */
+.toc__link.is-active::before { animation: grow-y 0.3s var(--ease-out) both; }
+@keyframes grow-y { from { transform: scaleY(0); } }
+
+/* Nút lên đầu trang */
+.to-top { transition: transform 0.25s var(--ease-spring), box-shadow 0.2s ease; }
+.to-top:hover { transform: translateY(-3px); }
+
+/* Trình phát âm thanh nền: nhịp sóng khi đang phát */
+.status-bar__toggle.is-active .bi-soundwave,
+.player.is-playing .player__wave { animation: sway 1.6s ease-in-out infinite; }
+
+/* ---------------------------------------------------------
+   Giảm chuyển động
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html.js-motion .reveal, html.js-motion .img-fade { opacity: 1 !important; translate: none !important; }
+  .ripple, .slide-indicator { display: none; }
+  .has-indicator > [aria-pressed="true"], .has-indicator > .filter-switcher__btn--active { background: var(--color-surface) !important; }
+  .has-indicator > .nav-bar__link--active { background: var(--color-side-a-bg) !important; }
+}

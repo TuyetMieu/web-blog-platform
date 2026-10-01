@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiên's Journal — Góc Bàn Làm Việc</title>
+    <meta name="description" content="Kiên's Journal — a slow corner of the web for distributed systems, Hanoi mornings, tea and old books.">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <script src="js/boot.js"></script>
+    <link rel="expect" href="#kj-ready" blocking="render">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="home">
+    <header data-site-header></header>
+
+    <main>
+        <section class="hero" id="hero">
+            <div class="hero__top">
+                <div class="hero__intro">
+                    <div class="hero__meta">
+                        <span class="dot dot--sage"></span>
+                        <span class="hero__eyebrow">BÀN LÀM VIỆC SỐ 104 · HÀ NỘI MÙA THU</span>
+                    </div>
+                    <h1 class="hero__title">Góc Bàn Làm Việc <em>— The Desk View</em></h1>
+                    <p class="hero__desc">
+                        Chào bạn. Welcome to my slow corner of the web. Pull up a wooden chair, pour a
+                        warm cup of roasted tea, and wander through scattered notebooks, code
+                        architecture sketches, and quiet reflections.
+                    </p>
+                </div>
+                <aside class="status-pill">
+                    <div class="status-pill__row">
+                        <i class="bi bi-book-half"></i>
+                        <span>Currently Reading</span>
+                    </div>
+                    <p class="status-pill__text">Chiang's <em>Exhalation</em> &amp; Christopher Alexander</p>
+                    <div class="status-pill__row">
+                        <i class="bi bi-music-note-beamed"></i>
+                        <span>Rainy Kyoto Lofi · Looping on Vinyl</span>
+                    </div>
+                </aside>
+            </div>
+
+            <div class="bento">
+                <article class="bento__card bento__card--code">
+                    <div class="bento__card-top">
+                        <span class="badge badge--sage"><i class="bi bi-code-slash"></i> Code &amp; System Craft</span>
+                        <span class="meta-text">v2.4.0 · log</span>
+                    </div>
+                    <h3 class="bento__title">Engineering &amp; Code Logs</h3>
+                    <p class="bento__desc">Deep systems, Rust &amp; Go concurrency patterns, resilient message buses, and handcrafted UI micro-interactions.</p>
+                    <div class="terminal">
+                        <div class="terminal__bar">
+                            <span class="terminal__dot terminal__dot--red"></span>
+                            <span class="terminal__dot terminal__dot--green"></span>
+                            <span class="terminal__dot terminal__dot--amber"></span>
+                            <span class="terminal__filename">event_loop.rs</span>
+                        </div>
+                        <code class="terminal__code">pub async fn dispatch_stream(tick: Duration) -&gt; Result&lt;()&gt;</code>
+                        <p class="terminal__comment">// zero-allocation channel receiver</p>
+                    </div>
+                    <a href="journal.html?side=A" class="bento__link">Browse <span data-side-count="A">all</span> Engineering Notes <i class="bi bi-arrow-right"></i></a>
+                </article>
+
+                <article class="bento__card bento__card--life">
+                    <div class="bento__card-top">
+                        <span class="badge badge--neutral"><i class="bi bi-cup-hot"></i> Tea &amp; Solitude</span>
+                        <span class="meta-text">Vol. IV</span>
+                    </div>
+                    <h3 class="bento__title">Life, Tea &amp; Reflections</h3>
+                    <p class="bento__desc">Vietnamese slow-drip coffee, 5 AM wet asphalt in Hanoi, film notes, and learning to leave things intentionally unfinished.</p>
+                    <blockquote class="excerpt">The water reaches 90°C. Everything in the room softens. You do not code to race tomorrow; you code because the craft has weight.</blockquote>
+                    <a href="journal.html?side=B" class="bento__link">Read <span data-side-count="B"></span> Life Essays <i class="bi bi-arrow-right"></i></a>
+                </article>
+
+                <article class="bento__card bento__card--snapshot">
+                    <div class="bento__card-top">
+                        <span class="badge badge--amber"><i class="bi bi-camera2"></i> Film Rolls</span>
+                        <span class="meta-text">35mm</span>
+                    </div>
+                    <h3 class="bento__title">Snapshot Memories</h3>
+                    <a href="article.html?slug=balcony-ferns-and-rain" aria-label="Balcony Ferns &amp; Rain photo journal">
+                        <figure class="polaroid">
+                            <img src="assets/snapshot-desk.png" alt="Autumn desk and ferns still life photo">
+                            <figcaption>Autumn Desk &amp; Ferns · 2024</figcaption>
+                        </figure>
+                    </a>
+                    <a href="journal.html?side=B&amp;category=Photo+Journals" class="bento__link">Rollei 35 · Portra 400 <i class="bi bi-camera"></i></a>
+                </article>
+            </div>
+
+            <div class="quick-post">
+                <div class="quick-post__text">
+                    <i class="bi bi-chat-square-text"></i>
+                    <strong>Quick Desk Post:</strong>
+                    <span>Have an idea or quiet note? Drop it into the whisper box below.</span>
+                </div>
+                <a href="#whisper-postbox" class="quick-post__link">Jump to Postbox <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </section>
+
+        <section class="journal-feed" id="journal-feed">
+            <div class="journal-feed__header">
+                <div class="journal-feed__intro">
+                    <p class="section-eyebrow">CUỐN SỔ TAY HAI MẶT</p>
+                    <h2 class="section-title">The Dual-Sided Journal</h2>
+                    <p class="section-desc">Flip between structured engineering systems and slow, handwritten personal chronicles.</p>
+                </div>
+                <div class="filter-switcher" data-filter-switcher role="group" aria-label="Lọc theo mặt sổ">
+                    <button type="button" class="filter-switcher__btn filter-switcher__btn--active" data-filter="all" aria-pressed="true">All Entries <span data-side-count="all"></span></button>
+                    <button type="button" class="filter-switcher__btn" data-filter="A" aria-pressed="false"><span class="dot dot--terracotta"></span> Side A: Systems &amp; Code</button>
+                    <button type="button" class="filter-switcher__btn" data-filter="B" aria-pressed="false"><span class="dot dot--sage"></span> Side B: Life &amp; Soul</button>
+                </div>
+            </div>
+
+            <div data-featured-slot>
+                <div class="sk-card sk-featured" aria-hidden="true"><i class="sk sk--short"></i><i class="sk sk--title"></i><i class="sk sk--title sk--short"></i><i class="sk"></i><i class="sk"></i></div>
+            </div>
+
+            <div class="entry-grid" data-entry-grid aria-live="polite">
+                <div class="sk-card" aria-hidden="true"><i class="sk sk--short"></i><i class="sk sk--title"></i><i class="sk"></i><i class="sk"></i></div>
+                <div class="sk-card" aria-hidden="true"><i class="sk sk--short"></i><i class="sk sk--title"></i><i class="sk"></i><i class="sk"></i></div>
+            </div>
+
+            <div class="archive-more">
+                <a href="journal.html" class="archive-more__btn"><i class="bi bi-archive"></i> View All <span data-side-count="all"></span> Archived Parchments</a>
+                <p class="meta-text">Archived chronologically from 2019 to Present</p>
+            </div>
+        </section>
+
+        <section class="whisper-postbox" id="whisper-postbox">
+            <div class="whisper-postbox__header">
+                <p class="section-eyebrow">HỘP THƯ GỬI LẠI</p>
+                <h2 class="section-title">The Whisper Postbox</h2>
+                <p class="section-desc">Got a reflection on an essay, a distributed systems puzzle, or just want to whisper a quiet greeting from your side of the world? Drop an ink postcard onto my desk.</p>
+            </div>
+
+            <div class="whisper-postbox__grid">
+                <form class="postcard-form" data-postcard-form novalidate>
+                    <div class="postcard-form__top">
+                        <div>
+                            <h3 class="postcard-form__title">Handwritten Postcard</h3>
+                            <p class="meta-text">Postage Guaranteed by Kiên</p>
+                        </div>
+                        <div class="stamp" aria-hidden="true">
+                            <span class="stamp__code">VN 2024</span>
+                            <i class="bi bi-flower2"></i>
+                            <span class="stamp__price">500 Đ</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="form-field__label-row">
+                            <label for="message">Your Message / Lời Nhắn</label>
+                            <span class="meta-text" data-char-count>0 / 2000</span>
+                        </div>
+                        <textarea id="message" name="message" rows="5" class="ruled" placeholder="Dear Kiên, I was reading your note on slow software and thought..." required minlength="10" maxlength="2000"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="sender-name">Name / Alias <span class="optional">(Optional)</span></label>
+                            <input type="text" id="sender-name" name="sender-name" maxlength="100" placeholder="e.g., An engineer from Kyoto">
+                        </div>
+                        <div class="form-field">
+                            <label for="sender-email">Email <span class="optional">(For reply only)</span></label>
+                            <input type="email" id="sender-email" name="sender-email" maxlength="200" placeholder="you@domain.com">
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <span class="form-field__label" id="home-topic-label">Affix a topical seal</span>
+                        <div class="seal-list" role="radiogroup" aria-labelledby="home-topic-label" data-topic-seals>
+                            <button type="button" class="seal" role="radio" aria-checked="true" data-topic="AtticMusings">#AtticMusings</button>
+                            <button type="button" class="seal" role="radio" aria-checked="false" data-topic="EngineeringSolitude">#EngineeringSolitude</button>
+                            <button type="button" class="seal" role="radio" aria-checked="false" data-topic="TeaAndHanoi">#TeaAndHanoi</button>
+                            <button type="button" class="seal" role="radio" aria-checked="false" data-topic="BookMusings">#BookMusings</button>
+                        </div>
+                    </div>
+                    <div class="postcard-form__bottom">
+                        <span class="meta-text"><i class="bi bi-lock-fill"></i> Private. Read by Kiên with morning tea.</span>
+                        <button type="submit" class="submit-btn"><i class="bi bi-droplet-fill"></i> Stamp Wax Seal &amp; Deliver</button>
+                    </div>
+                    <p class="postcard-form__status form-status" role="status" aria-live="polite"></p>
+                </form>
+
+                <aside class="pinboard" aria-labelledby="pinboard-title">
+                    <div class="pinboard__header">
+                        <h3 class="pinboard__title" id="pinboard-title"><i class="bi bi-pin-angle-fill"></i> Desk Pinboard Notes</h3>
+                        <span class="meta-text">Recent Whispers</span>
+                    </div>
+                    <div data-pinboard aria-live="polite" style="display:flex;flex-direction:column;gap:12px">
+                        <div class="sk-card" aria-hidden="true" style="min-height:110px"><i class="sk"></i><i class="sk"></i><i class="sk sk--short"></i></div>
+                    </div>
+                    <a href="whisper-box.html#community-board" class="text-link pinboard__more">See the whole Community Board <i class="bi bi-arrow-right"></i></a>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer data-site-footer></footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/motion.js"></script>
+    <script src="js/home.js"></script>
+    <div id="kj-ready" hidden></div>
+</body>
+</html>
