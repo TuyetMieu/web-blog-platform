@@ -74,10 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         : data.posts || [];
 
 
-      // --------------------------------
       // F-26 — NO DATA
-      // --------------------------------
-
       if (posts.length === 0) {
         hallCards.forEach((card) => {
           card.style.display = "";
@@ -94,17 +91,13 @@ document.addEventListener("DOMContentLoaded", () => {
       hallCards.forEach((card, index) => {
         const post = posts[index];
 
-        // --------------------------------
         // F-26 — NOT ENOUGH DATA
-        // --------------------------------
-
         if (!post) {
           card.style.display = "none";
           return;
         }
 
         card.style.display = "";
-
 
         const side =
           card.querySelector(
@@ -121,10 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
           card.querySelector("a");
 
 
-        // --------------------------------
-        // SIDE
-        // --------------------------------
-
         if (side) {
           side.textContent =
             post.side === "engineering"
@@ -132,11 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
               : "SIDE B · LIFE";
         }
 
-
-        // --------------------------------
-        // TITLE
-        // F-26 — LONG TEXT
-        // --------------------------------
 
         if (title) {
           title.textContent =
@@ -150,11 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        // --------------------------------
-        // EXCERPT
-        // F-26 — LONG TEXT
-        // --------------------------------
-
         if (excerpt) {
           excerpt.textContent =
             safeText(
@@ -166,10 +145,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "anywhere";
         }
 
-
-        // --------------------------------
-        // LINK
-        // --------------------------------
 
         if (link && post.slug) {
           link.href =
@@ -223,10 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
         : data.posts || [];
 
 
-      // --------------------------------
       // F-26 — NO DATA
-      // --------------------------------
-
       if (posts.length === 0) {
         leafCards.forEach((card) => {
           card.style.display = "";
@@ -243,11 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
       leafCards.forEach((card, index) => {
         const post = posts[index];
 
-
-        // --------------------------------
         // F-26 — NOT ENOUGH DATA
-        // --------------------------------
-
         if (!post) {
           card.style.display = "none";
           return;
@@ -269,10 +237,6 @@ document.addEventListener("DOMContentLoaded", () => {
           card.querySelector("small");
 
 
-        // --------------------------------
-        // SIDE
-        // --------------------------------
-
         if (side) {
           side.textContent =
             post.side === "engineering"
@@ -280,11 +244,6 @@ document.addEventListener("DOMContentLoaded", () => {
               : "Side B · Life";
         }
 
-
-        // --------------------------------
-        // TITLE
-        // F-26 — LONG TEXT
-        // --------------------------------
 
         if (title) {
           title.textContent =
@@ -298,11 +257,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        // --------------------------------
-        // EXCERPT
-        // F-26 — LONG TEXT
-        // --------------------------------
-
         if (excerpt) {
           excerpt.textContent =
             safeText(
@@ -314,10 +268,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "anywhere";
         }
 
-
-        // --------------------------------
-        // READ TIME
-        // --------------------------------
 
         if (readTime) {
           readTime.textContent =
@@ -346,24 +296,101 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ============================================================
-  // QUICK NOTE
+  // QUICK NOTE — POST /api/notes
   // ============================================================
 
   function setupQuickNote() {
-    const quickNoteLink =
-      document.querySelector(
-        ".home-quick-note a"
-      );
+    const form =
+      document.querySelector("#quick-note-form");
 
-    if (!quickNoteLink) return;
+    if (!form) return;
 
-    quickNoteLink.addEventListener(
-      "click",
-      () => {
-        window.location.href =
-          "whisper-box.html";
+    const nameInput =
+      document.querySelector("#quick-note-name");
+
+    const messageInput =
+      document.querySelector("#quick-note-message");
+
+    const submitButton =
+      form.querySelector("button");
+
+    const status =
+      document.querySelector("#quick-note-status");
+
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const name =
+        nameInput
+          ? nameInput.value.trim()
+          : "";
+
+      const message =
+        messageInput
+          ? messageInput.value.trim()
+          : "";
+
+
+      if (!message) {
+        if (status) {
+          status.textContent =
+            "Please write a note first.";
+        }
+
+        return;
       }
-    );
+
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending...";
+      }
+
+
+      if (status) {
+        status.textContent = "";
+      }
+
+
+      try {
+        const result = await sendNote({
+          name: name || "Anonymous",
+          email: null,
+          topic: "quick-note",
+          message
+        });
+
+
+        if (status) {
+          status.textContent =
+            result && result.pendingSync
+              ? "Your note was saved locally."
+              : "Your note was sent.";
+        }
+
+
+        form.reset();
+
+      } catch (error) {
+        console.error(
+          "Quick Note error:",
+          error
+        );
+
+        if (status) {
+          status.textContent =
+            "Could not send your note.";
+        }
+
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent =
+            "Leave a Quick Note →";
+        }
+      }
+    });
   }
 
 
