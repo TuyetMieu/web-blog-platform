@@ -3,7 +3,6 @@
 __pycache__/
 *.pyc
 
-# Database SQLite (tạo bởi "flask migrate" / "flask seed")
-instance/
-*.sqlite3
-*.sqlite3-*
+# File database SQLite (tự tạo khi chạy python app.py)
+blog.db
+*.db
