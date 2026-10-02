@@ -1,0 +1,556 @@
+/* =====================================================
+   effects.css - Các hiệu ứng chuyển động của website
+   Nạp SAU style.css. Đi cùng file js/effects.js.
+   Mục lục:
+   1. Chuyển trang (trượt ngang như lật trang)
+   2. Đổi giao diện sáng / tối (vòng tròn lan ra)
+   3. Hiện dần khi cuộn tới
+   4. Nút bấm: nhấc lên, nhấn xuống, gợn sóng
+   5. Thanh chọn có nền trượt (menu, bộ lọc, Side A/B)
+   6. Card: nhấc nhẹ khi rê chuột
+   7. Header đổ bóng khi cuộn
+   8. Khung chờ tải (skeleton)
+   9. Toast (thông báo nhỏ góc dưới)
+   10. Hiệu ứng riêng: đóng dấu bưu thiếp, reaction nảy, nút lên đầu trang
+   11. Tắt hiệu ứng cho người không thích chuyển động
+   ===================================================== */
+
+
+/* ========== 1. CHUYỂN TRANG ========== */
+
+/* Bật hiệu ứng chuyển cảnh giữa 2 trang (Chrome / Edge mới có hỗ trợ) */
+@view-transition {
+    navigation: auto;
+}
+
+/* Header là 1 lớp riêng, đứng yên, không trượt theo nội dung */
+.header {
+    view-transition-name: header;
+}
+
+::view-transition-group(header),
+::view-transition-new(header) {
+    animation: none;
+}
+
+::view-transition-old(header) {
+    display: none;
+}
+
+/* Nội dung trang cũ trượt sang trái, trang mới trượt vào từ bên phải */
+::view-transition-old(root) {
+    animation: slide-out-left 0.5s ease-in-out both;
+}
+
+::view-transition-new(root) {
+    animation: slide-in-right 0.5s ease-in-out both;
+}
+
+/* Đi lùi trong menu (vd: từ About về Home) thì trượt ngược lại.
+   Class "go-back" do effects.js gắn vào thẻ <html>. */
+html.go-back::view-transition-old(root) {
+    animation-name: slide-out-right;
+}
+
+html.go-back::view-transition-new(root) {
+    animation-name: slide-in-left;
+}
+
+@keyframes slide-out-left {
+    to { transform: translateX(-100%); }
+}
+
+@keyframes slide-in-right {
+    from { transform: translateX(100%); }
+}
+
+@keyframes slide-out-right {
+    to { transform: translateX(100%); }
+}
+
+@keyframes slide-in-left {
+    from { transform: translateX(-100%); }
+}
+
+
+/* ========== 2. ĐỔI GIAO DIỆN SÁNG / TỐI ========== */
+
+/* Lúc đổi giao diện: tắt hiệu ứng trượt, để effects.js vẽ vòng tròn lan ra */
+html.theme-change::view-transition-old(root),
+html.theme-change::view-transition-new(root) {
+    animation: none;
+}
+
+/* Lúc đổi giao diện thì header không tách lớp riêng, để vòng tròn phủ cả header */
+html.theme-change .header {
+    view-transition-name: none;
+}
+
+/* Trình duyệt không có View Transition: chỉ chuyển màu từ từ */
+body.theme-fade,
+body.theme-fade * {
+    transition: background-color 0.4s, color 0.4s !important;
+}
+
+
+/* Bấm link tới 1 vị trí trong trang (vd: #postcard-form) thì cuộn mượt tới đó */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Chừa chỗ cho header dính ở trên, để header không che mất phần đầu của form */
+.postcard {
+    scroll-margin-top: 100px;
+}
+
+
+/* ========== 3. HIỆN DẦN KHI CUỘN TỚI ========== */
+
+/* Lúc đầu: mờ và thấp xuống 16px.
+   Dùng thuộc tính "translate" (không phải "transform") để không làm mất
+   độ nghiêng sẵn có của giấy note, ảnh polaroid... */
+.reveal {
+    opacity: 0;
+    translate: 0 16px;
+    transition: opacity 0.6s ease, translate 0.6s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Khi cuộn tới, effects.js thêm class "show" */
+.reveal.show {
+    opacity: 1;
+    translate: 0 0;
+}
+
+/* Ảnh hiện dần khi tải xong */
+.img-fade {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.img-fade.loaded {
+    opacity: 1;
+}
+
+
+/* ========== 4. NÚT BẤM ========== */
+.btn,
+.btn-light,
+.seal,
+.tag,
+.reaction-btn,
+.side-btn,
+.icon-btn,
+.menu a {
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s, translate 0.2s, scale 0.15s;
+}
+
+/* Nút chính: nhấc lên 2px và có bóng khi rê chuột */
+.btn:hover:not(:disabled) {
+    translate: 0 -2px;
+    box-shadow: 0 8px 18px -6px rgba(149, 68, 19, 0.5);
+}
+
+/* Nút nhỏ: nhấc lên 1px */
+.btn-light:hover:not(:disabled),
+.seal:hover,
+.tag:hover,
+.reaction-btn:hover:not(:disabled) {
+    translate: 0 -1px;
+}
+
+/* Nhấn xuống thì nút thu nhỏ một chút */
+.btn:active:not(:disabled),
+.btn-light:active:not(:disabled),
+.seal:active,
+.reaction-btn:active:not(:disabled),
+.side-btn:active,
+.icon-btn:active {
+    scale: 0.95;
+}
+
+/* 3 icon trên header (RSS, tiếng mưa, sáng/tối):
+   rê chuột thì đổi màu, nhấc lên, icon phóng to; nhấn thì lún xuống */
+.icon-btn {
+    cursor: pointer;
+}
+
+.icon-btn i {
+    transition: transform 0.25s ease;
+}
+
+.icon-btn:hover {
+    background: var(--side-b-bg);
+    color: var(--primary);
+    translate: 0 -2px;
+    box-shadow: 0 6px 14px -6px rgba(149, 68, 19, 0.45);
+}
+
+.icon-btn:hover i {
+    transform: scale(1.2);
+}
+
+/* Bấm nút sáng/tối: icon xoay 1 vòng */
+.icon-btn.spin i {
+    animation: spin 0.6s ease;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg) scale(0.6); }
+    to   { transform: rotate(360deg) scale(1); }
+}
+
+/* Logo: rê chuột thì nghiêng nhẹ */
+.logo img {
+    transition: transform 0.3s ease;
+}
+
+.logo:hover img {
+    transform: rotate(-6deg) scale(1.08);
+}
+
+/* Link chữ: gạch chân chạy dần ra từ trái sang phải */
+.link {
+    background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+    transition: background-size 0.3s ease;
+}
+
+.link:hover {
+    text-decoration: none;
+    background-size: 100% 1px;
+}
+
+/* Gợn sóng khi bấm nút (effects.js chèn thẻ <span class="ripple"> vào nút) */
+.has-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.25;
+    pointer-events: none;
+    animation: ripple 0.6s ease-out forwards;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(20);
+        opacity: 0;
+    }
+}
+
+
+/* ========== 5. THANH CHỌN CÓ NỀN TRƯỢT ========== */
+
+/* Nhóm nút có class "slider": effects.js chèn 1 "viên thuốc" (.slider-pill)
+   nằm phía sau nút đang chọn, và cho nó trượt sang nút mới khi bấm. */
+.slider {
+    position: relative;
+}
+
+.slider > a,
+.slider > button {
+    position: relative;
+    z-index: 1;
+}
+
+/* Nút đang chọn trong slider: bỏ nền riêng, để viên thuốc làm nền */
+.slider > .active {
+    background: transparent !important;
+}
+
+.slider-pill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    border-radius: 999px;
+    background: var(--side-a-bg);
+    pointer-events: none;
+    /* cubic-bezier này làm viên thuốc trượt quá đà một chút rồi nảy lại */
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.45s, height 0.3s;
+}
+
+/* Bấm lần đầu khi mới mở trang thì đặt thẳng vào chỗ, không trượt */
+.slider-pill.no-move {
+    transition: none;
+}
+
+/* Side A / Side B: viên thuốc là khung viền nâu thay vì nền xanh */
+.side-switch > .side-btn.active {
+    border-color: transparent;
+}
+
+.side-switch .slider-pill {
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    background: var(--surface);
+}
+
+
+/* ========== 6. CARD ========== */
+.card,
+.bento-card,
+.featured,
+.stat,
+.now-card,
+.artifact,
+.post-nav a {
+    transition: opacity 0.6s ease, translate 0.6s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover,
+.bento-card:hover,
+.stat:hover,
+.now-card:hover,
+.artifact:hover,
+.post-nav a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.15);
+}
+
+/* Giấy note: đang nghiêng thì dựng thẳng lại và phóng to nhẹ */
+.sticky-note,
+.note-card {
+    transition: opacity 0.6s ease, translate 0.6s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.sticky-note:hover,
+.note-card:hover {
+    transform: rotate(0deg) scale(1.02);
+    box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.2);
+}
+
+/* Ảnh trong card đồ vật phóng to nhẹ khi rê chuột */
+.artifact img {
+    transition: transform 0.4s ease, opacity 0.6s ease;
+}
+
+.artifact:hover img {
+    transform: scale(1.06);
+}
+
+.polaroid {
+    transition: transform 0.35s ease, box-shadow 0.3s ease;
+}
+
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.02);
+    box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ========== 7. HEADER ĐỔ BÓNG KHI CUỘN ========== */
+.header {
+    transition: box-shadow 0.3s ease;
+}
+
+.header.scrolled {
+    box-shadow: 0 6px 24px -12px rgba(0, 0, 0, 0.25);
+}
+
+
+/* ========== 8. KHUNG CHỜ TẢI (SKELETON) ========== */
+
+/* Card xám nhấp nháy trong lúc chờ dữ liệu từ server */
+.skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+    border-radius: 12px;
+    background: var(--surface);
+    min-height: 160px;
+}
+
+.skeleton span {
+    display: block;
+    height: 14px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--surface-muted), var(--surface-soft), var(--surface-muted));
+    background-size: 200% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* Dòng đầu to như tiêu đề, dòng cuối ngắn hơn */
+.skeleton span:first-child {
+    height: 24px;
+    width: 80%;
+}
+
+.skeleton span:last-child {
+    width: 50%;
+}
+
+@keyframes shimmer {
+    to { background-position: -200% 0; }
+}
+
+
+/* ========== 9. TOAST ========== */
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    z-index: 50;
+    max-width: calc(100vw - 32px);
+    padding: 10px 18px;
+    border-radius: 10px;
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    translate: -50% 0;
+    animation: toast-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.toast.error {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* Lúc biến mất: trượt xuống và mờ dần */
+.toast.hide {
+    opacity: 0;
+    translate: -50% 12px;
+    transition: opacity 0.3s, translate 0.3s;
+}
+
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        translate: -50% 16px;
+    }
+}
+
+
+/* ========== 10. HIỆU ỨNG RIÊNG ========== */
+
+/* Dòng thông báo dưới form hiện ra từ dưới lên */
+.message:not(:empty) {
+    animation: fade-up 0.3s ease;
+}
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        translate: 0 8px;
+    }
+}
+
+/* Gửi bưu thiếp thành công: con tem đóng dấu "cộp" và nút gửi toả sáng.
+   whisper.js thêm class "stamped" vào form trong 1 giây. */
+.stamped .stamp {
+    animation: stamp-press 0.7s ease;
+}
+
+.stamped .btn {
+    animation: glow 0.9s ease;
+}
+
+@keyframes stamp-press {
+    0%   { transform: rotate(3deg) scale(1); }
+    30%  { transform: rotate(-8deg) scale(1.35); }
+    55%  { transform: rotate(4deg) scale(0.9); }
+    100% { transform: rotate(3deg) scale(1); }
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 0 0 rgba(149, 68, 19, 0.6); }
+    to   { box-shadow: 0 0 0 18px rgba(149, 68, 19, 0); }
+}
+
+/* Thả reaction: nút nảy lên (article.js thêm class "pop") */
+.reaction-btn.pop {
+    animation: pop 0.45s ease;
+}
+
+@keyframes pop {
+    40% { scale: 1.2; }
+}
+
+/* Nút "lên đầu trang" ở góc phải dưới */
+.to-top {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 20;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    font-size: 18px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s, translate 0.3s;
+}
+
+/* Chưa cuộn xuống thì ẩn nút đi (trượt xuống + trong suốt) */
+.to-top.hide {
+    opacity: 0;
+    translate: 0 20px;
+    pointer-events: none;
+}
+
+/* Nút âm thanh mưa: icon lắc lư khi đang phát */
+.icon-btn.playing {
+    background: var(--side-a-bg);
+    color: var(--side-a-text);
+}
+
+.icon-btn.playing i {
+    animation: sway 1.6s ease-in-out infinite;
+}
+
+@keyframes sway {
+    50% { translate: -2px 0; }
+}
+
+
+/* Hộp tìm kiếm: trượt xuống và hiện dần khi mở */
+.search-dialog[open] {
+    animation: dialog-in 0.25s ease;
+}
+
+.search-dialog[open]::backdrop {
+    animation: fade-in 0.25s ease;
+}
+
+@keyframes dialog-in {
+    from {
+        opacity: 0;
+        translate: 0 -12px;
+        scale: 0.98;
+    }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+}
+
+
+/* ========== 11. TẮT HIỆU ỨNG ==========
+   Người dùng bật "giảm chuyển động" trong hệ điều hành thì tắt hết hiệu ứng */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after,
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .reveal,
+    .img-fade {
+        opacity: 1;
+        translate: none;
+    }
+}

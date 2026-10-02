@@ -3,42 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang đã thất lạc — Kiên's Journal</title>
-    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-    <script src="/js/boot.js"></script>
-    <link rel="expect" href="#kj-ready" blocking="render">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <title>Page Not Found — Kiên's Journal</title>
+    <!-- Trang này có thể hiện ở bất kỳ địa chỉ nào (vd: /abc/xyz)
+         nên đường dẫn CSS, JS, ảnh phải bắt đầu bằng "/" -->
+    <link rel="icon" href="/assets/favicon.svg">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@400;500;600&family=JetBrains+Mono&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="/css/base.css">
-    <style>
-        .lost { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); padding: 96px var(--space-5) !important; text-align: center; }
-        .lost__code { font-family: var(--font-mono); font-size: 13px; color: var(--color-primary); letter-spacing: 2px; }
-        .lost__title { font-size: 44px; line-height: 52px; font-weight: 400; }
-        .lost__text { max-width: 520px; font-family: var(--font-serif); font-style: italic; font-size: 20px; line-height: 30px; }
-        .lost__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); }
-    </style>
-    <link rel="stylesheet" href="/css/motion.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/effects.css">
+    <!-- effects.js nạp ở đây (trong head) để kịp chọn chiều trượt trước khi trang hiện ra -->
+    <script src="/js/effects.js"></script>
 </head>
-<body data-page="">
-    <header data-site-header></header>
-    <main>
-        <section class="lost">
-            <p class="lost__code">404 · PAGE NOT FOUND</p>
-            <h1 class="lost__title">Trang giấy này đã bay mất.</h1>
-            <p class="lost__text">Có lẽ một cơn gió tháng Mười đã cuốn nó ra khỏi cuốn sổ. Hãy quay về bàn làm việc, hoặc tìm lại trong kho lưu trữ.</p>
-            <div class="lost__actions">
-                <a class="pill-btn pill-btn--primary" href="/index.html"><i class="bi bi-house"></i> Về Desk View</a>
-                <a class="pill-btn" href="/journal.html"><i class="bi bi-journals"></i> The Dual Journal</a>
-                <button type="button" class="pill-btn" data-search-open><i class="bi bi-search"></i> Tìm kiếm</button>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="/index.html" class="logo">
+                <img src="/assets/logo.png" alt="">
+                <span>Kiên's Journal</span>
+            </a>
+            <nav class="menu slider">
+                <a href="/index.html">Home</a>
+                <a href="/journal.html">The Dual Journal</a>
+                <a href="/article.html">Article Reading</a>
+                <a href="/whisper-box.html">The Whisper Box</a>
+                <a href="/about.html">About &amp; Now</a>
+            </nav>
+            <div class="header-actions">
+                <button id="search-btn" class="icon-btn" title="Search (Ctrl + K)"><i class="bi bi-search"></i></button>
+                <button id="rain-btn" class="icon-btn" title="Rain sound on / off"><i class="bi bi-cloud-rain"></i></button>
+                <button id="theme-btn" class="icon-btn" title="Light / dark mode"><i class="bi bi-moon"></i></button>
             </div>
-        </section>
+        </div>
+    </header>
+
+    <main class="container lost">
+        <p class="eyebrow">404 · Page not found</p>
+        <h1>This page has blown away.</h1>
+        <p>Perhaps an October wind carried it out of the notebook.</p>
+        <a href="/index.html" class="btn"><i class="bi bi-house"></i> Back to Home</a>
+        <a href="/journal.html" class="btn-light"><i class="bi bi-journals"></i> The Dual Journal</a>
     </main>
-    <footer data-site-footer></footer>
-    <script src="/js/api.js"></script>
-    <script src="/js/layout.js"></script>
-    <script src="/js/motion.js"></script>
-    <div id="kj-ready" hidden></div>
+
+    <script src="/js/common.js"></script>
 </body>
 </html>

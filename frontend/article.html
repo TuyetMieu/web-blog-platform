@@ -1,219 +1,135 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Article Reading — Kiên's Journal</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <script src="js/boot.js"></script>
-  <link rel="expect" href="#kj-ready" blocking="render">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/article.css">
-  <link rel="stylesheet" href="css/motion.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Reading — Kiên's Journal</title>
+    <link rel="icon" href="assets/favicon.svg">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@400;500;600&family=JetBrains+Mono&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/effects.css">
+    <!-- effects.js nạp ở đây (trong head) để kịp chọn chiều trượt trước khi trang hiện ra -->
+    <script src="js/effects.js"></script>
 </head>
-<body data-page="article" class="font-sans">
-  <div class="progress-spine" aria-hidden="true"><span id="progress-bar"></span></div>
+<body>
 
-  <header data-site-header></header>
+    <!-- Thanh tiến độ đọc (article.js đổi độ rộng khi cuộn trang) -->
+    <div id="progress-bar"></div>
 
-  <main class="page">
-    <!-- Trạng thái tải / lỗi -->
-    <div class="state" id="state" role="status" aria-busy="true">
-      <div class="skeleton" aria-label="Đang mở trang nhật ký…">
-        <i class="sk sk--crumb"></i>
-        <i class="sk sk--tag"></i>
-        <i class="sk sk--headline"></i>
-        <i class="sk sk--headline sk--short"></i>
-        <i class="sk sk--lede"></i>
-        <div class="skeleton__grid">
-          <div class="skeleton__card">
-            <i class="sk sk--line"></i><i class="sk sk--line"></i><i class="sk sk--line"></i><i class="sk sk--line sk--short"></i>
-            <i class="sk sk--line sk--gap"></i><i class="sk sk--line"></i><i class="sk sk--line sk--short"></i>
-          </div>
-          <div class="skeleton__card skeleton__card--aside"><i class="sk sk--block"></i></div>
-        </div>
-      </div>
-    </div>
-
-    <article class="article" id="article" hidden>
-      <!-- Breadcrumb + banner -->
-      <div class="crumbs">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="index.html">Home</a><span class="sep">/</span>
-          <a href="journal.html">The Dual Journal</a><span class="sep">/</span>
-          <a class="breadcrumb__side" data-field="side" data-href="sideUrl"></a><span class="sep" data-if="essayNo">/</span>
-          <span class="chip" data-field="essayLabel" data-if="essayNo"></span>
-        </nav>
-        <span class="revision" data-if="revision"><span class="revision__dot"></span><span data-field="revision"></span></span>
-      </div>
-
-      <header class="banner">
-        <a class="banner__tag" data-if="tagline" data-href="categoryUrl"><i class="bi bi-bookmark-star"></i><span data-field="tagline"></span></a>
-        <h1 class="banner__title" data-field="title"></h1>
-        <p class="banner__lede" data-field="excerpt" data-if="excerpt"></p>
-        <div class="byline">
-          <span class="byline__author">
-            <img class="avatar-28" src="assets/profile.png" alt="" />
-            <span>Kiên</span>
-          </span>
-          <span class="sep">•</span>
-          <time data-field="date"></time>
-          <span class="sep">•</span>
-          <span class="byline__item"><i class="bi bi-clock"></i><span data-field="readTime"></span></span>
-          <span class="sep">•</span>
-          <span class="byline__item byline__item--sage"><i class="bi bi-eye"></i><span data-field="reads"></span></span>
-          <div class="tag-list" id="post-tags"></div>
-        </div>
-      </header>
-
-      <div class="reader">
-        <!-- Nội dung bài -->
-        <div class="reader__main">
-          <div class="prose" id="prose"></div>
-          <footer class="endmark">
-            <i class="bi bi-flower1" aria-hidden="true"></i>
-            <p class="endmark__line" data-field="colophon" data-if="colophon"></p>
-            <p class="endmark__meta">Written in Neovim · Formatted with care</p>
-          </footer>
-        </div>
-
-        <!-- Cột công cụ (sticky) -->
-        <aside class="reader__aside">
-          <section class="panel desk">
-            <div class="desk__group">
-              <div class="desk__head">
-                <span class="desk__title"><i class="bi bi-lamp"></i>Desk Lighting</span>
-                <span class="desk__hint" id="theme-label">Warm Cream</span>
-              </div>
-              <div class="swatches" role="radiogroup" aria-label="Màu nền">
-                <button type="button" class="swatch" role="radio" data-theme-choice="light"><i class="swatch__dot swatch__dot--light"></i>Warm Cream</button>
-                <button type="button" class="swatch" role="radio" data-theme-choice="parchment"><i class="swatch__dot swatch__dot--parchment"></i>Parchment</button>
-                <button type="button" class="swatch" role="radio" data-theme-choice="dusk"><i class="swatch__dot swatch__dot--dusk"></i>Charcoal</button>
-              </div>
-            </div>
-
-            <div class="desk__group">
-              <div class="desk__head">
-                <span class="desk__title"><i class="bi bi-type"></i>Type Scale</span>
-                <span class="stepper">
-                  <button type="button" class="step-btn" id="font-down" aria-label="Giảm cỡ chữ">A-</button>
-                  <button type="button" class="step-btn" id="font-up" aria-label="Tăng cỡ chữ">A+</button>
-                </span>
-              </div>
-              <div class="segmented">
-                <button type="button" class="segmented__btn segmented__btn--serif" data-font="serif">Serif (Garamond)</button>
-                <button type="button" class="segmented__btn" data-font="sans">Sans (Geist)</button>
-              </div>
-            </div>
-
-            <button type="button" class="focus-btn" id="focus-toggle" aria-pressed="false">
-              <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i>
-              <span>Chế độ tập trung</span>
-              <kbd>F</kbd>
-            </button>
-
-            <nav class="toc" id="toc" aria-label="Mục lục">
-              <div class="desk__head">
-                <span class="desk__title"><i class="bi bi-list-nested"></i>Table of Contents</span>
-                <span class="desk__hint" id="time-left"></span>
-              </div>
-              <ol class="toc__list" id="toc-list"></ol>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="">
+                <span>Kiên's Journal</span>
+            </a>
+            <nav class="menu slider">
+                <a href="index.html">Home</a>
+                <a href="journal.html">The Dual Journal</a>
+                <a href="article.html" class="active">Article Reading</a>
+                <a href="whisper-box.html">The Whisper Box</a>
+                <a href="about.html">About &amp; Now</a>
             </nav>
-
-            <div class="player" id="player">
-              <button type="button" class="player__btn" data-ambience-toggle aria-label="Phát âm thanh nền">
-                <i class="bi bi-play-fill" aria-hidden="true"></i>
-                <i class="bi bi-pause-fill" aria-hidden="true"></i>
-              </button>
-              <div class="player__info">
-                <span class="player__title">Rain on Zinc Roof</span>
-                <span class="player__status" id="audio-status">Hanoi Soundscape · Tạm dừng</span>
-              </div>
-              <i class="bi bi-soundwave player__wave" aria-hidden="true"></i>
+            <div class="header-actions">
+                <a href="/api/rss" class="icon-btn" title="RSS Feed" target="_blank"><i class="bi bi-rss"></i></a>
+                <button id="search-btn" class="icon-btn" title="Search (Ctrl + K)"><i class="bi bi-search"></i></button>
+                <button id="rain-btn" class="icon-btn" title="Rain sound on / off"><i class="bi bi-cloud-rain"></i></button>
+                <button id="theme-btn" class="icon-btn" title="Light / dark mode"><i class="bi bi-moon"></i></button>
             </div>
-
-            <p class="shortcuts"><kbd>F</kbd> tập trung · <kbd>+</kbd><kbd>−</kbd> cỡ chữ · <kbd>T</kbd> đổi nền · <kbd>M</kbd> nhạc</p>
-          </section>
-
-          <section class="panel panel--soft" data-if="ledger">
-            <div class="ledger__title"><i class="bi bi-archive"></i>Archival Ledger</div>
-            <p class="ledger__text" data-field="ledger"></p>
-          </section>
-        </aside>
-      </div>
-
-      <!-- Khối cuối bài -->
-      <section class="closing">
-        <div class="reactions">
-          <span class="reactions__label"><i class="bi bi-stars"></i>Leave a subtle sensory echo:</span>
-          <div class="reactions__list" id="reactions">
-            <button type="button" class="reaction" data-reaction="tea"><span aria-hidden="true">🍵</span>Sip Tea<span class="reaction__count">0</span></button>
-            <button type="button" class="reaction" data-reaction="insight"><span aria-hidden="true">💡</span>Insightful<span class="reaction__count">0</span></button>
-            <button type="button" class="reaction" data-reaction="calm"><span aria-hidden="true">🌿</span>Calming<span class="reaction__count">0</span></button>
-            <button type="button" class="reaction" data-reaction="resonate"><span aria-hidden="true">🤝</span>Resonate<span class="reaction__count">0</span></button>
-          </div>
         </div>
+    </header>
 
-        <form class="postcard" id="note-form" novalidate>
-          <div class="postcard__head">
-            <h2 class="postcard__title"><i class="bi bi-envelope-paper-heart"></i>Leave a Whisper Note</h2>
-            <span class="chip chip--muted">Private &amp; Archival</span>
-          </div>
-          <p class="postcard__intro">Notes sent here slip quietly into Kiên’s morning letter tray. No public comment threads, no algorithm rankings, just thoughtful reader-to-author correspondence.</p>
-          <div class="postcard__paper">
-            <textarea name="message" rows="3" class="ruled" required maxlength="2000" placeholder="Pen your reflection or quiet resonance here..." aria-label="Nội dung ghi chú"></textarea>
-            <div class="postcard__fields">
-              <label class="field"><i class="bi bi-person"></i><input name="name" type="text" maxlength="100" placeholder="Your name or monogram (optional)" /></label>
-              <label class="field"><i class="bi bi-envelope"></i><input name="email" type="email" maxlength="200" placeholder="Email (only if expecting reply)" /></label>
+    <main class="container section">
+
+        <!-- Hiện trong lúc đang tải hoặc khi có lỗi -->
+        <p id="loading" class="article">Opening the journal page...</p>
+
+        <!-- Bài viết: ẩn đi cho tới khi tải xong -->
+        <article id="article" class="article" hidden>
+            <p class="breadcrumb">
+                <a href="index.html">Home</a> /
+                <a href="journal.html">The Dual Journal</a> /
+                <a id="side-link" href="#"></a>
+            </p>
+
+            <h1 id="title"></h1>
+            <p id="excerpt" class="article-excerpt"></p>
+
+            <div class="article-meta">
+                <span><i class="bi bi-person"></i> Kiên</span>
+                <span><i class="bi bi-calendar"></i> <span id="date"></span></span>
+                <span><i class="bi bi-clock"></i> <span id="read-minutes"></span> min read</span>
+                <span><i class="bi bi-eye"></i> <span id="reads"></span> reads</span>
+                <span id="tags"></span>
             </div>
-          </div>
-          <div class="postcard__meta">
-            <span id="draft-hint"></span>
-            <span id="char-count">0 / 2000</span>
-          </div>
-          <div class="postcard__actions">
-            <p class="form-status" id="note-status" role="status"></p>
-            <button type="submit" class="submit-btn" title="Ctrl + Enter để gửi"><i class="bi bi-send"></i><span>Slip Note Into Postbox</span></button>
-          </div>
-        </form>
 
-        <nav class="leaves" aria-label="Bài trước / bài sau">
-          <a class="leaf leaf--prev" id="leaf-prev" data-nav-dir="back" hidden>
-            <span class="leaf__eyebrow"><i class="bi bi-arrow-left"></i><span data-leaf="label"></span></span>
-            <span class="leaf__title" data-leaf="title"></span>
-            <span class="leaf__meta" data-leaf="meta"></span>
-          </a>
-          <a class="leaf leaf--next" id="leaf-next" data-nav-dir="forward" hidden>
-            <span class="leaf__eyebrow"><span data-leaf="label"></span><i class="bi bi-arrow-right"></i></span>
-            <span class="leaf__title" data-leaf="title"></span>
-            <span class="leaf__meta" data-leaf="meta"></span>
-          </a>
-        </nav>
-      </section>
-    </article>
-  </main>
+            <img id="cover" class="article-cover" alt="" hidden>
 
-  <footer data-site-footer></footer>
+            <!-- Nội dung bài (HTML lấy từ database) -->
+            <div id="content" class="content"></div>
 
-  <button type="button" class="focus-exit" id="focus-exit">Thoát tập trung <kbd>Esc</kbd></button>
+            <!-- ===== REACTION ===== -->
+            <div class="reactions">
+                <p><i class="bi bi-stars"></i> Leave a subtle sensory echo:</p>
+                <div class="reaction-list">
+                    <button class="reaction-btn" data-type="tea">🍵 Sip Tea <b id="count-tea">0</b></button>
+                    <button class="reaction-btn" data-type="insight">💡 Insightful <b id="count-insight">0</b></button>
+                    <button class="reaction-btn" data-type="calm">🌿 Calming <b id="count-calm">0</b></button>
+                    <button class="reaction-btn" data-type="resonate">🤝 Resonate <b id="count-resonate">0</b></button>
+                </div>
+            </div>
 
-  <button type="button" class="to-top" id="to-top" aria-label="Lên đầu trang" hidden>
-    <svg viewBox="0 0 44 44" aria-hidden="true">
-      <circle class="to-top__track" cx="22" cy="22" r="20" />
-      <circle class="to-top__ring" id="to-top-ring" cx="22" cy="22" r="20" />
-      <path d="M22 28V16m-5 5 5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-    </svg>
-    <span class="to-top__label" id="to-top-label"></span>
-  </button>
+            <!-- ===== GỬI LỜI NHẮN CHO BÀI NÀY ===== -->
+            <form id="note-form" class="postcard">
+                <h2><i class="bi bi-envelope-paper-heart"></i> Leave a Whisper Note</h2>
+                <p class="muted">Notes go privately to Kiên. No public comment threads, just reader-to-author letters.</p>
 
-  <script src="js/api.js"></script>
-  <script src="js/layout.js"></script>
-  <script src="js/motion.js"></script>
-  <script src="js/article.js"></script>
-  <div id="kj-ready" hidden></div>
+                <div class="form-group">
+                    <textarea id="note-message" class="ruled" rows="4" maxlength="2000" placeholder="Pen your reflection or quiet resonance here..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="note-name" maxlength="100" placeholder="Your name (optional)">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="note-email" maxlength="200" placeholder="Email (only if you want a reply)">
+                    </div>
+                </div>
+                <div class="postcard-bottom">
+                    <p id="note-status" class="message"></p>
+                    <button type="submit" class="btn"><i class="bi bi-send"></i> Slip Note Into Postbox</button>
+                </div>
+            </form>
+
+            <!-- ===== BÀI TRƯỚC / BÀI SAU ===== -->
+            <nav class="post-nav">
+                <a id="older-link" hidden>
+                    <span class="muted">← Previous leaf</span>
+                    <strong id="older-title"></strong>
+                </a>
+                <a id="newer-link" class="next" hidden>
+                    <span class="muted">Next leaf →</span>
+                    <strong id="newer-title"></strong>
+                </a>
+            </nav>
+        </article>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <h2>Kiên's Personal Desk</h2>
+        <p>Written with ink, tea, and curious code from a quiet corner in Hanoi.</p>
+        <p class="footer-links">
+            <a href="about.html">About</a>
+            <a href="/api/rss">RSS Feed</a>
+            <a href="whisper-box.html">Guestbook</a>
+            <a href="admin.html">Admin</a>
+        </p>
+        <p class="muted">© Kiên's Journal</p>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/article.js"></script>
 </body>
 </html>

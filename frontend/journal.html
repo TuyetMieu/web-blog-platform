@@ -4,93 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Dual Journal — Kiên's Journal</title>
-    <meta name="description" content="Two faces of one coin: engineering systems by daylight, human quietude by lamplight.">
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-    <script src="js/boot.js"></script>
-    <link rel="expect" href="#kj-ready" blocking="render">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/favicon.svg">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@400;500;600&family=JetBrains+Mono&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/journal.css">
-    <link rel="stylesheet" href="css/motion.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/effects.css">
+    <!-- effects.js nạp ở đây (trong head) để kịp chọn chiều trượt trước khi trang hiện ra -->
+    <script src="js/effects.js"></script>
 </head>
-<body data-page="journal">
-    <header data-site-header></header>
+<body>
 
-    <main>
-        <!-- Màn 5 · Journal Feed: đầu trang + bộ chuyển mặt sổ -->
-        <section class="notebook-head">
-            <p class="notebook-head__eyebrow">
-                <span class="notebook-head__vol"><span class="dot dot--terracotta"></span> VOL. IV • FOLIO 88</span>
-                <span class="sep">/</span>
-                <span>HANOI STUDIO NOTEBOOK</span>
-                <span class="sep">/</span>
-                <span><span data-total-fragments>…</span> FRAGMENTS WRITTEN</span>
-            </p>
-
-            <div class="side-switch" role="group" aria-label="Chọn mặt sổ">
-                <button type="button" class="side-switch__btn" data-side="A" aria-pressed="true">
-                    <i class="bi bi-terminal"></i>
-                    <span class="side-switch__text">
-                        <span class="side-switch__title">Side A: Craft &amp; Systems</span>
-                        <span class="side-switch__sub">Engineering • Rust • Go • Arch</span>
-                    </span>
-                </button>
-                <button type="button" class="side-switch__btn" data-side="B" aria-pressed="false">
-                    <i class="bi bi-book"></i>
-                    <span class="side-switch__text">
-                        <span class="side-switch__title">Side B: Soul &amp; Everyday</span>
-                        <span class="side-switch__sub">Hanoi Rain • Film • Solitude</span>
-                    </span>
-                </button>
-            </div>
-
-            <p class="notebook-head__quote">"Two faces of one coin: by daylight we engineer distributed truth; under lamplight we sift human quietude."</p>
-        </section>
-
-        <section class="feed">
-            <div class="filter-panel">
-                <div class="filter-panel__row">
-                    <label class="feed-search">
-                        <i class="bi bi-search" aria-hidden="true"></i>
-                        <input type="search" id="feed-search" placeholder="Search through thoughts, code fragments, or quiet stories…" autocomplete="off" aria-label="Tìm trong nhật ký">
-                        <kbd data-search-kbd>⌘K</kbd>
-                    </label>
-                    <button type="button" class="pill-btn" id="feed-sort" aria-live="polite"><i class="bi bi-sliders2"></i> <span>Sort: Chronological</span></button>
-                    <button type="button" class="pill-btn feed-saved" id="feed-saved" aria-pressed="false" title="Chỉ xem bài đã đánh dấu"><i class="bi bi-bookmark"></i><span class="visually-hidden">Chỉ xem bài đã đánh dấu</span></button>
-                </div>
-                <div class="filter-panel__row filter-panel__row--chips">
-                    <div class="category-pills" id="category-pills" role="group" aria-label="Lọc theo chủ đề"></div>
-                    <p class="active-tag" id="active-tag" hidden></p>
-                </div>
-            </div>
-
-            <div class="feed__results" id="feed-results" aria-live="polite"></div>
-
-            <nav class="leaf-ribbon" aria-label="Phân trang">
-                <div class="leaf-ribbon__info">
-                    <i class="bi bi-journals"></i>
-                    <div>
-                        <p class="leaf-ribbon__page" id="feed-page-label">Page 1 of 1</p>
-                        <p class="meta-text" id="feed-range-label">Showing entries 0–0 of 0 reflections</p>
-                    </div>
-                </div>
-                <div class="leaf-ribbon__actions">
-                    <button type="button" class="pill-btn" id="feed-prev"><i class="bi bi-chevron-left"></i> Previous leaf</button>
-                    <button type="button" class="pill-btn pill-btn--primary" id="feed-next">Turn leaf <i class="bi bi-chevron-right"></i></button>
-                </div>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="">
+                <span>Kiên's Journal</span>
+            </a>
+            <nav class="menu slider">
+                <a href="index.html">Home</a>
+                <a href="journal.html" class="active">The Dual Journal</a>
+                <a href="article.html">Article Reading</a>
+                <a href="whisper-box.html">The Whisper Box</a>
+                <a href="about.html">About &amp; Now</a>
             </nav>
-        </section>
+            <div class="header-actions">
+                <a href="/api/rss" class="icon-btn" title="RSS Feed" target="_blank"><i class="bi bi-rss"></i></a>
+                <button id="search-btn" class="icon-btn" title="Search (Ctrl + K)"><i class="bi bi-search"></i></button>
+                <button id="rain-btn" class="icon-btn" title="Rain sound on / off"><i class="bi bi-cloud-rain"></i></button>
+                <button id="theme-btn" class="icon-btn" title="Light / dark mode"><i class="bi bi-moon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container section">
+
+        <!-- ===== CHỌN MẶT SỔ ===== -->
+        <div class="journal-head">
+            <p class="eyebrow">Vol. IV · Hanoi Studio Notebook · <span id="total-posts">…</span> fragments written</p>
+
+            <div class="side-switch slider">
+                <button class="side-btn" data-side="A">
+                    <strong><i class="bi bi-terminal"></i> Side A: Craft &amp; Systems</strong>
+                    <span class="muted">Engineering • Rust • Go • Arch</span>
+                </button>
+                <button class="side-btn" data-side="B">
+                    <strong><i class="bi bi-book"></i> Side B: Soul &amp; Everyday</strong>
+                    <span class="muted">Hanoi Rain • Film • Solitude</span>
+                </button>
+            </div>
+
+            <p class="quote-line">"Two faces of one coin: by daylight we engineer distributed truth; under lamplight we sift human quietude."</p>
+        </div>
+
+        <!-- ===== BỘ LỌC ===== -->
+        <div class="filter-panel">
+            <form id="search-form" class="search-row">
+                <input type="search" id="search-input" placeholder="Search through thoughts, code fragments, or quiet stories...">
+                <select id="sort-select">
+                    <option value="recent">Sort: Chronological</option>
+                    <option value="reads">Sort: Most Read</option>
+                </select>
+                <button type="submit" class="btn"><i class="bi bi-search"></i> Search</button>
+            </form>
+
+            <!-- Các chủ đề (journal.js sẽ điền vào) -->
+            <div id="category-list" class="seal-list"></div>
+
+            <!-- Hiện khi đang lọc theo tag -->
+            <p id="tag-filter" class="tag-filter" hidden>
+                Filtered by tag <b id="tag-name"></b>
+                <button id="clear-tag" class="btn-light">Clear ✕</button>
+            </p>
+        </div>
+
+        <!-- ===== DANH SÁCH BÀI ===== -->
+        <div id="post-list" class="card-grid">
+            <div class="skeleton"><span></span><span></span><span></span><span></span></div>
+            <div class="skeleton"><span></span><span></span><span></span><span></span></div>
+        </div>
+
+        <!-- ===== PHÂN TRANG ===== -->
+        <div class="pagination">
+            <button id="prev-btn" class="btn-light"><i class="bi bi-chevron-left"></i> Previous leaf</button>
+            <span id="page-info" class="muted">Page 1 of 1</span>
+            <button id="next-btn" class="btn-light">Turn leaf <i class="bi bi-chevron-right"></i></button>
+        </div>
     </main>
 
-    <footer data-site-footer></footer>
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <h2>Kiên's Personal Desk</h2>
+        <p>Written with ink, tea, and curious code from a quiet corner in Hanoi.</p>
+        <p class="footer-links">
+            <a href="about.html">About</a>
+            <a href="/api/rss">RSS Feed</a>
+            <a href="whisper-box.html">Guestbook</a>
+            <a href="admin.html">Admin</a>
+        </p>
+        <p class="muted">© Kiên's Journal</p>
+    </footer>
 
-    <script src="js/api.js"></script>
-    <script src="js/layout.js"></script>
-    <script src="js/motion.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/journal.js"></script>
-    <div id="kj-ready" hidden></div>
 </body>
 </html>

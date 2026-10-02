@@ -4,167 +4,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Whisper Box — Kiên's Journal</title>
-    <meta name="description" content="Drop an ink postcard onto Kiên's desk. Read with the morning cup of tea.">
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-    <script src="js/boot.js"></script>
-    <link rel="expect" href="#kj-ready" blocking="render">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/favicon.svg">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@400;500;600&family=JetBrains+Mono&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/whisper.css">
-    <link rel="stylesheet" href="css/motion.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/effects.css">
+    <!-- effects.js nạp ở đây (trong head) để kịp chọn chiều trượt trước khi trang hiện ra -->
+    <script src="js/effects.js"></script>
 </head>
-<body data-page="whisper">
-    <header data-site-header></header>
+<body>
 
-    <main class="whisper">
-        <section class="whisper-head">
-            <p class="whisper-head__eyebrow">
-                <span class="badge badge--sage">EPISTOLARY DESK</span>
-                <span class="sep">•</span>
-                <span class="meta-text"><i class="bi bi-envelope"></i> Dispatch No. 4</span>
-            </p>
-            <h1 class="whisper-head__title">The Whisper Box <em>/ Hộp Thư Gửi Lại</em></h1>
-            <p class="whisper-head__desc">Got a thought on an essay, a distributed systems puzzle, or just want to whisper a quiet greeting from your side of the world? Drop an ink postcard onto my desk. Read with my morning cup of tea.</p>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="">
+                <span>Kiên's Journal</span>
+            </a>
+            <nav class="menu slider">
+                <a href="index.html">Home</a>
+                <a href="journal.html">The Dual Journal</a>
+                <a href="article.html">Article Reading</a>
+                <a href="whisper-box.html" class="active">The Whisper Box</a>
+                <a href="about.html">About &amp; Now</a>
+            </nav>
+            <div class="header-actions">
+                <a href="/api/rss" class="icon-btn" title="RSS Feed" target="_blank"><i class="bi bi-rss"></i></a>
+                <button id="search-btn" class="icon-btn" title="Search (Ctrl + K)"><i class="bi bi-search"></i></button>
+                <button id="rain-btn" class="icon-btn" title="Rain sound on / off"><i class="bi bi-cloud-rain"></i></button>
+                <button id="theme-btn" class="icon-btn" title="Light / dark mode"><i class="bi bi-moon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="section">
+            <p class="eyebrow">Epistolary Desk · Dispatch No. 4</p>
+            <h1 class="section-title">The Whisper Box <em>/ Postbox</em></h1>
+            <p>Got a thought on an essay, a distributed systems puzzle, or just want to whisper a quiet greeting?
+               Drop an ink postcard onto my desk. Read with my morning cup of tea.</p>
         </section>
 
-        <section class="whisper-desk">
-            <!-- Cột trái: bưu thiếp -->
-            <div class="whisper-desk__left">
-                <form class="airmail" id="postcard-form" novalidate>
-                    <div class="airmail__top">
+        <div class="whisper-layout">
+
+            <!-- ===== CỘT TRÁI: VIẾT BƯU THIẾP ===== -->
+            <div>
+                <form id="postcard-form" class="postcard">
+                    <div class="postcard-head">
                         <div>
-                            <p class="airmail__eyebrow">PAR AVION • AIRMAIL POSTCARD</p>
-                            <p class="airmail__sub">Postage Guaranteed by Kiên • Hanoi Bureau</p>
+                            <p class="eyebrow">Par Avion • Airmail Postcard</p>
+                            <p class="muted">Postage Guaranteed by Kiên • Hanoi Bureau</p>
                         </div>
-                        <div class="airmail-stamp" aria-hidden="true">
-                            <div class="airmail-stamp__row"><span>VN</span><span>2024</span></div>
-                            <i class="bi bi-cup-hot"></i>
-                            <span class="airmail-stamp__price">HOÀN KIẾM 15Đ</span>
-                            <span class="airmail-stamp__postmark">HÀ NỘI<br><time data-clock>08:42 AM</time><br>AIR POST</span>
-                        </div>
+                        <div class="stamp">VN 2024<br><i class="bi bi-cup-hot"></i><br>HANOI</div>
                     </div>
 
-                    <div class="form-field">
-                        <div class="form-field__label-row">
-                            <label for="postcard-message" class="airmail__label">A Thought on Paper</label>
-                            <span class="meta-text" id="postcard-counter">2000 characters remaining</span>
-                        </div>
-                        <textarea id="postcard-message" class="ruled airmail__paper" rows="8" maxlength="2000" required placeholder="Dear Kiên, I was reading your note on slow software and thought..."></textarea>
+                    <div class="form-group">
+                        <label for="message">A Thought on Paper <span class="muted" id="char-count">0 / 2000</span></label>
+                        <textarea id="message" class="ruled" rows="7" maxlength="2000" placeholder="Dear Kiên, I was reading your note on slow software and thought..."></textarea>
                     </div>
 
                     <div class="form-row">
-                        <div class="form-field">
-                            <label for="postcard-name">Your Name / Alias</label>
-                            <input type="text" id="postcard-name" maxlength="100" placeholder="e.g., An engineer from Kyoto" autocomplete="nickname">
+                        <div class="form-group">
+                            <label for="name">Your Name / Alias</label>
+                            <input type="text" id="name" maxlength="100" placeholder="e.g. An engineer from Kyoto">
                         </div>
-                        <div class="form-field">
-                            <label for="postcard-email">Email <span class="optional">(for warm private reply)</span></label>
-                            <input type="email" id="postcard-email" maxlength="200" placeholder="you@domain.com" autocomplete="email">
-                        </div>
-                    </div>
-
-                    <div class="form-field">
-                        <span class="form-field__label" id="seal-label">Affix a topical seal:</span>
-                        <div class="seal-list" id="postcard-topics" role="radiogroup" aria-labelledby="seal-label">
-                            <button type="button" class="seal" role="radio" aria-checked="true" data-topic="EngineeringSolitude">#EngineeringSolitude</button>
-                            <button type="button" class="seal" role="radio" aria-checked="false" data-topic="TeaAndHanoi">#TeaAndHanoi</button>
-                            <button type="button" class="seal" role="radio" aria-checked="false" data-topic="AtticMusings">#AtticMusings</button>
-                            <button type="button" class="seal" role="radio" aria-checked="false" data-topic="BookMusings">#BookMusings</button>
+                        <div class="form-group">
+                            <label for="location">Where are you writing from?</label>
+                            <input type="text" id="location" maxlength="100" placeholder="e.g. Da Nang, Vietnam">
                         </div>
                     </div>
 
-                    <div class="airmail__actions">
-                        <button type="submit" class="submit-btn airmail__submit" id="postcard-submit"><i class="bi bi-patch-check"></i> Stamp Wax Seal &amp; Deliver</button>
-                        <span class="meta-text"><i class="bi bi-lock"></i> Private. Read by Kiên with morning tea.</span>
+                    <div class="form-group">
+                        <label for="email">Email <span class="muted">(optional, for a private reply)</span></label>
+                        <input type="email" id="email" maxlength="200" placeholder="you@domain.com">
                     </div>
-                    <p class="form-status" id="postcard-status" role="status" aria-live="polite"></p>
+
+                    <!-- Chọn chủ đề: dùng radio, CSS đã ẩn ô tròn và tô màu nút được chọn -->
+                    <div class="form-group">
+                        <label>Affix a topical seal</label>
+                        <div class="seal-list">
+                            <label class="seal"><input type="radio" name="topic" value="EngineeringSolitude" checked>#EngineeringSolitude</label>
+                            <label class="seal"><input type="radio" name="topic" value="TeaAndHanoi">#TeaAndHanoi</label>
+                            <label class="seal"><input type="radio" name="topic" value="AtticMusings">#AtticMusings</label>
+                            <label class="seal"><input type="radio" name="topic" value="BookMusings">#BookMusings</label>
+                        </div>
+                    </div>
+
+                    <div class="postcard-bottom">
+                        <span class="muted"><i class="bi bi-lock"></i> Private. Read by Kiên with morning tea.</span>
+                        <button type="submit" class="btn"><i class="bi bi-patch-check"></i> Stamp Wax Seal &amp; Deliver</button>
+                    </div>
+                    <p id="form-status" class="message"></p>
                 </form>
 
-                <aside class="solitude-card">
-                    <i class="bi bi-cup-hot"></i>
-                    <div>
-                        <h2 class="solitude-card__title">Asynchronous Solitude</h2>
-                        <p>I do not check this inbox in real-time. Postcards are read once per day between 08:30 and 09:15 AM alongside an infusion of wild Shan Tuyết tea. The ones that stay with me get pinned to the board.</p>
-                    </div>
-                </aside>
+                <div class="solitude-box">
+                    <h3><i class="bi bi-cup-hot"></i> Asynchronous Solitude</h3>
+                    <p>I do not check this inbox in real time. Postcards are read once a day between 8:30 and 9:15 AM
+                       with a pot of Shan Tuyet tea. The ones that stay with me get pinned to the board.</p>
+                </div>
             </div>
 
-            <!-- Cột phải: bảng ghim cộng đồng -->
-            <div class="whisper-desk__right" id="community-board">
+            <!-- ===== CỘT PHẢI: BẢNG GHIM ===== -->
+            <div id="community-board">
                 <div class="board-head">
-                    <h2 class="board-head__title"><i class="bi bi-pin-angle"></i> The Community Board</h2>
-                    <span class="board-head__count"><strong id="board-total">0</strong> Pinned</span>
-                    <label class="board-search">
-                        <i class="bi bi-search" aria-hidden="true"></i>
-                        <input type="search" id="board-search" placeholder="Search notes…" aria-label="Tìm trong bảng ghim" autocomplete="off">
-                    </label>
-                </div>
-                <div class="seal-list board-topics" id="board-topics" role="group" aria-label="Lọc theo chủ đề">
-                    <button type="button" class="seal" data-topic="" aria-pressed="true">All Notes</button>
-                    <button type="button" class="seal" data-topic="TeaAndHanoi" aria-pressed="false">Tea &amp; Hanoi</button>
-                    <button type="button" class="seal" data-topic="EngineeringSolitude" aria-pressed="false">Engineering Solitude</button>
-                    <button type="button" class="seal" data-topic="BookMusings" aria-pressed="false">Book Musings</button>
-                    <button type="button" class="seal" data-topic="AtticMusings" aria-pressed="false">Attic Musings</button>
+                    <h2><i class="bi bi-pin-angle"></i> The Community Board</h2>
+                    <span class="muted"><b id="board-total">0</b> pinned</span>
                 </div>
 
-                <div class="corkboard">
-                    <div id="my-notes"></div>
-                    <div class="corkboard__notes" id="board-notes" aria-live="polite"></div>
+                <!-- Lọc theo chủ đề -->
+                <div class="seal-list slider">
+                    <button class="seal topic-btn active" data-topic="">All Notes</button>
+                    <button class="seal topic-btn" data-topic="TeaAndHanoi">Tea &amp; Hanoi</button>
+                    <button class="seal topic-btn" data-topic="EngineeringSolitude">Engineering Solitude</button>
+                    <button class="seal topic-btn" data-topic="BookMusings">Book Musings</button>
+                    <button class="seal topic-btn" data-topic="AtticMusings">Attic Musings</button>
                 </div>
 
-                <div class="board-foot">
-                    <span class="meta-text"><i class="bi bi-folder2-open"></i> <span id="board-showing">Showing 0 of 0 public keepsakes</span></span>
-                    <button type="button" class="text-link" id="board-more">Inspect archived leaves <i class="bi bi-arrow-right"></i></button>
+                <!-- Tìm kiếm -->
+                <form id="board-search" class="board-search">
+                    <input type="search" id="board-keyword" placeholder="Search notes...">
+                    <button type="submit" class="btn-light"><i class="bi bi-search"></i> Search</button>
+                </form>
+
+                <!-- Danh sách bưu thiếp (whisper.js sẽ điền vào) -->
+                <div id="board" class="board">
+                    <div class="skeleton"><span></span><span></span><span></span><span></span></div>
+                </div>
+
+                <div class="center">
+                    <button id="more-btn" class="btn-light">Inspect archived leaves <i class="bi bi-arrow-down"></i></button>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section class="artifacts">
-            <div class="artifacts__head">
-                <div>
-                    <p class="section-eyebrow">MORNING ARTIFACTS</p>
-                    <h2 class="section-title">The Desk Surroundings</h2>
-                </div>
-                <p class="artifacts__desc">The small physical companions that keep the handwriting slow and the software human.</p>
-            </div>
-            <div class="artifacts__grid">
-                <article class="artifact">
-                    <img src="assets/desk/placeholder-daily-brew.svg" alt="Daily Brew — Shan Tuyết oolong">
-                    <div class="artifact__body">
-                        <p class="meta-text">Daily Brew</p>
-                        <h3 class="artifact__title">Shan Tuyết Ancient Oolong</h3>
-                        <p class="artifact__text">Steeped three times in a Yixing clay pot before responding to the morning's incoming dispatches.</p>
+        <!-- ===== ĐỒ VẬT TRÊN BÀN ===== -->
+        <section class="section">
+            <p class="eyebrow">Morning Artifacts</p>
+            <h2 class="section-title">The Desk Surroundings</h2>
+            <p>The small physical companions that keep the handwriting slow. Click one to read related essays.</p>
+            <div class="artifact-grid">
+                <a class="artifact" href="journal.html?side=B&amp;category=Tea%20%26%20Solitude">
+                    <img src="assets/desk/placeholder-daily-brew.svg" alt="Oolong tea pot">
+                    <div>
+                        <p class="muted">Daily Brew</p>
+                        <h3>Shan Tuyet Ancient Oolong</h3>
+                        <p>Steeped three times in a Yixing clay pot before the morning's dispatches.</p>
                     </div>
-                </article>
-                <article class="artifact">
-                    <img src="assets/desk/placeholder-correspondence.svg" alt="Tactile Correspondence — beeswax and sealing stamp">
-                    <div class="artifact__body">
-                        <p class="meta-text">Tactile Correspondence</p>
-                        <h3 class="artifact__title">Raw Beeswax &amp; Sealing Stamp</h3>
-                        <p class="artifact__text">Every physical reply mailed to distant readers bears this terracotta seal, cooling gently on the envelope.</p>
+                </a>
+                <a class="artifact" href="#postcard-form">
+                    <img src="assets/desk/placeholder-correspondence.svg" alt="Beeswax and sealing stamp">
+                    <div>
+                        <p class="muted">Tactile Correspondence</p>
+                        <h3>Raw Beeswax &amp; Sealing Stamp</h3>
+                        <p>Every physical reply bears this terracotta seal, cooling gently on the envelope.</p>
                     </div>
-                </article>
-                <article class="artifact">
-                    <img src="assets/desk/placeholder-quiet-code.svg" alt="Quiet Code — heavy keycaps">
-                    <div class="artifact__body">
-                        <p class="meta-text">Quiet Code</p>
-                        <h3 class="artifact__title">Heavy Keycaps &amp; Vim Buffers</h3>
-                        <p class="artifact__text">Where software queries and quiet essays get sculpted before finding their way to this digital journal.</p>
+                </a>
+                <a class="artifact" href="journal.html?side=A">
+                    <img src="assets/desk/placeholder-quiet-code.svg" alt="Mechanical keyboard">
+                    <div>
+                        <p class="muted">Quiet Code</p>
+                        <h3>Heavy Keycaps &amp; Vim Buffers</h3>
+                        <p>Where software and quiet essays get sculpted before reaching this journal.</p>
                     </div>
-                </article>
+                </a>
             </div>
         </section>
     </main>
 
-    <footer data-site-footer></footer>
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <h2>Kiên's Personal Desk</h2>
+        <p>Written with ink, tea, and curious code from a quiet corner in Hanoi.</p>
+        <p class="footer-links">
+            <a href="about.html">About</a>
+            <a href="/api/rss">RSS Feed</a>
+            <a href="whisper-box.html">Guestbook</a>
+            <a href="admin.html">Admin</a>
+        </p>
+        <p class="muted">© Kiên's Journal</p>
+    </footer>
 
-    <script src="js/api.js"></script>
-    <script src="js/layout.js"></script>
-    <script src="js/motion.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/whisper.js"></script>
-    <div id="kj-ready" hidden></div>
 </body>
 </html>

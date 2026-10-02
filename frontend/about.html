@@ -4,103 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About &amp; Now — Kiên's Journal</title>
-    <meta name="description" content="Về Kiên — software artisan & essayist ở Hà Nội. Đang làm gì, đọc gì, bàn làm việc có gì.">
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-    <script src="js/boot.js"></script>
-    <link rel="expect" href="#kj-ready" blocking="render">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/favicon.svg">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@400;500;600&family=JetBrains+Mono&display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/motion.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/effects.css">
+    <!-- effects.js nạp ở đây (trong head) để kịp chọn chiều trượt trước khi trang hiện ra -->
+    <script src="js/effects.js"></script>
 </head>
-<body data-page="about">
-    <header data-site-header></header>
+<body>
 
-    <main id="about-root" aria-busy="true">
-        <section class="about-hero">
-            <figure class="about-hero__portrait">
-                <img src="assets/profile.png" alt="Chân dung Kiên" data-about="portrait">
-                <figcaption><span data-about="location">Hà Nội, Việt Nam</span></figcaption>
-            </figure>
-            <div class="about-hero__text">
-                <p class="section-eyebrow">ABOUT &amp; NOW · VỀ NGƯỜI VIẾT</p>
-                <h1 class="about-hero__title">Chào, mình là <em data-about="name">Kiên</em>.</h1>
-                <p class="about-hero__role" data-about="role">Software Artisan &amp; Essayist</p>
-                <p class="about-hero__intro" data-about="intro"></p>
-                <div class="about-hero__bio" data-about="bio">
-                    <i class="sk"></i><i class="sk"></i><i class="sk sk--short"></i>
-                </div>
-                <div class="about-hero__links" data-about="links"></div>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="">
+                <span>Kiên's Journal</span>
+            </a>
+            <nav class="menu slider">
+                <a href="index.html">Home</a>
+                <a href="journal.html">The Dual Journal</a>
+                <a href="article.html">Article Reading</a>
+                <a href="whisper-box.html">The Whisper Box</a>
+                <a href="about.html" class="active">About &amp; Now</a>
+            </nav>
+            <div class="header-actions">
+                <a href="/api/rss" class="icon-btn" title="RSS Feed" target="_blank"><i class="bi bi-rss"></i></a>
+                <button id="search-btn" class="icon-btn" title="Search (Ctrl + K)"><i class="bi bi-search"></i></button>
+                <button id="rain-btn" class="icon-btn" title="Rain sound on / off"><i class="bi bi-cloud-rain"></i></button>
+                <button id="theme-btn" class="icon-btn" title="Light / dark mode"><i class="bi bi-moon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ===== GIỚI THIỆU ===== -->
+        <section class="section about-hero">
+            <img src="assets/profile.png" alt="Portrait of Kiên">
+            <div>
+                <p class="eyebrow">About &amp; Now · The Writer</p>
+                <h1>Hello, I'm <em>Kiên</em>.</h1>
+                <p><b>Software Artisan &amp; Essayist</b> · Hanoi, Vietnam</p>
+                <p>I build calm distributed systems by day and write slow essays about Hanoi, tea, and old books by lamplight.</p>
+                <p>I have spent the last eight years designing event pipelines, payment ledgers,
+                   and the unglamorous plumbing that keeps software honest under load.</p>
+                <p>This journal keeps both halves of my life on the same desk: Side A for systems and code,
+                   Side B for the rain, the tea, and the people I meet in the margins of books.</p>
+                <p>
+                    <a href="https://github.com/" class="btn-light" target="_blank"><i class="bi bi-github"></i> GitHub</a>
+                    <a href="/api/rss" class="btn-light"><i class="bi bi-rss"></i> RSS Feed</a>
+                    <a href="whisper-box.html" class="btn-light"><i class="bi bi-envelope-paper"></i> Whisper Box</a>
+                </p>
             </div>
         </section>
 
-        <section class="about-stats" aria-label="Con số của cuốn sổ">
-            <div class="stat"><span class="stat__value" data-stat="posts">—</span><span class="stat__label">Fragments written</span></div>
-            <div class="stat"><span class="stat__value" data-stat="sideA">—</span><span class="stat__label">Side A · Craft &amp; Systems</span></div>
-            <div class="stat"><span class="stat__value" data-stat="sideB">—</span><span class="stat__label">Side B · Soul &amp; Everyday</span></div>
-            <div class="stat"><span class="stat__value" data-stat="notes">—</span><span class="stat__label">Postcards pinned</span></div>
+        <!-- ===== SỐ LIỆU (about.js lấy từ API) ===== -->
+        <section class="stats">
+            <div class="stat"><strong id="stat-posts">—</strong> Fragments written</div>
+            <div class="stat"><strong id="stat-a">—</strong> Side A · Craft &amp; Systems</div>
+            <div class="stat"><strong id="stat-b">—</strong> Side B · Soul &amp; Everyday</div>
+            <div class="stat"><strong id="stat-notes">—</strong> Postcards pinned</div>
         </section>
 
-        <section class="about-now" id="now">
-            <div class="about-section-head">
-                <div>
-                    <p class="section-eyebrow">/NOW · BÂY GIỜ</p>
-                    <h2 class="section-title">What I'm Doing Now</h2>
-                </div>
-                <p class="meta-text" data-about="nowUpdated"></p>
+        <!-- ===== BÂY GIỜ ===== -->
+        <section class="section">
+            <p class="eyebrow">/now · Right Now</p>
+            <h2 class="section-title">What I'm Doing Now</h2>
+            <div class="now-grid">
+                <div class="now-card"><b><i class="bi bi-code-slash"></i> Building</b><p>A tiny single-binary RSS reader in Rust.</p></div>
+                <div class="now-card"><b><i class="bi bi-book-half"></i> Reading</b><p>Ted Chiang's Exhalation &amp; The Timeless Way of Building.</p></div>
+                <div class="now-card"><b><i class="bi bi-music-note-beamed"></i> Listening</b><p>Rainy Kyoto lofi on a second-hand vinyl player.</p></div>
+                <div class="now-card"><b><i class="bi bi-cup-hot"></i> Brewing</b><p>Wild Shan Tuyet oolong from Ha Giang.</p></div>
+                <div class="now-card"><b><i class="bi bi-geo-alt"></i> Wandering</b><p>Early walks around Truc Bach lake.</p></div>
             </div>
-            <div class="now-grid" data-about="now"></div>
         </section>
 
-        <section class="about-split">
-            <div class="about-gear">
-                <p class="section-eyebrow">THE DESK KIT</p>
+        <!-- ===== ĐỒ NGHỀ + HÀNH TRÌNH ===== -->
+        <section class="section two-columns">
+            <div>
+                <p class="eyebrow">The Desk Kit</p>
                 <h2 class="section-title">Tools on the Desk</h2>
-                <ul class="gear-list" data-about="gear"></ul>
+                <ul class="gear-list">
+                    <li><i class="bi bi-laptop"></i> <b>ThinkPad X1 Carbon</b> — Arch Linux, Neovim</li>
+                    <li><i class="bi bi-keyboard"></i> <b>Mechanical keyboard</b> — heavy keycaps</li>
+                    <li><i class="bi bi-pen"></i> <b>Lamy 2000</b> — fine nib, Iroshizuku ink</li>
+                    <li><i class="bi bi-camera"></i> <b>Rollei 35</b> — Kodak Portra 400</li>
+                    <li><i class="bi bi-cup-straw"></i> <b>Yixing clay pot</b> — six years of oolong</li>
+                </ul>
             </div>
-            <div class="about-timeline">
-                <p class="section-eyebrow">A SHORT CHRONICLE</p>
+            <div>
+                <p class="eyebrow">A Short Chronicle</p>
                 <h2 class="section-title">How I Got Here</h2>
-                <ol class="timeline" data-about="timeline"></ol>
+                <ol class="timeline">
+                    <li><b>2016</b> — First production outage. Every system is a promise to someone asleep.</li>
+                    <li><b>2019</b> — Started the journal: a single HTML file and an RSS feed.</li>
+                    <li><b>2022</b> — Moved back to Hanoi, to a balcony desk above Phan Dinh Phung street.</li>
+                    <li><b>2024</b> — Volume IV: two sides of one notebook.</li>
+                </ol>
             </div>
         </section>
 
-        <section class="about-gallery">
-            <div class="about-section-head">
-                <div>
-                    <p class="section-eyebrow">SNAPSHOT MEMORIES</p>
-                    <h2 class="section-title">From the Film Rolls</h2>
-                </div>
-                <a class="text-link" href="journal.html?side=B&amp;category=Photo+Journals">Photo Journals <i class="bi bi-arrow-right"></i></a>
+        <!-- ===== ẢNH ===== -->
+        <section class="section">
+            <p class="eyebrow">Snapshot Memories</p>
+            <h2 class="section-title">From the Film Rolls</h2>
+            <div class="gallery">
+                <div><img src="assets/snapshot-desk.png" alt=""><p>Autumn Desk &amp; Ferns · 2024</p></div>
+                <div><img src="assets/featured-essay.png" alt=""><p>Morning notebook · Shan Tuyet tea</p></div>
+                <div><img src="assets/desk/placeholder-daily-brew.svg" alt=""><p>Daily Brew</p></div>
             </div>
-            <div class="gallery" data-about="gallery"></div>
         </section>
 
-        <section class="about-split about-split--soft">
-            <div class="colophon" id="colophon">
-                <p class="section-eyebrow">COLOPHON</p>
+        <!-- ===== CÁCH LÀM WEB + TIP JAR ===== -->
+        <section class="section two-columns">
+            <div id="colophon">
+                <p class="eyebrow">Colophon</p>
                 <h2 class="section-title">How This Journal Is Made</h2>
-                <dl class="colophon__list" data-about="colophon"></dl>
+                <dl class="colophon">
+                    <dt>Typefaces</dt>
+                    <dd>EB Garamond, Geist and JetBrains Mono.</dd>
+                    <dt>Frontend</dt>
+                    <dd>Hand-written HTML, CSS and plain JavaScript. No framework.</dd>
+                    <dt>Backend</dt>
+                    <dd>Python Flask + SQLite (file blog.db).</dd>
+                </dl>
             </div>
-            <div class="tip-jar" id="tip-jar">
-                <p class="section-eyebrow">SECRET COFFEE TIP JAR ☕</p>
-                <h2 class="section-title">Buy Me a Cà Phê Trứng</h2>
-                <p class="tip-jar__text" data-about="tipText"></p>
-                <ul class="tip-jar__methods" data-about="tipMethods"></ul>
-                <a class="submit-btn" href="whisper-box.html"><i class="bi bi-envelope-paper-heart"></i> Or just send a postcard</a>
+            <div id="tip-jar">
+                <p class="eyebrow">Secret Coffee Tip Jar ☕</p>
+                <h2 class="section-title">Buy Me an Egg Coffee</h2>
+                <p>If an essay kept you company, you can buy me a cup of Hanoi egg coffee.</p>
+                <ul class="gear-list">
+                    <li><b>Momo</b> — Coming soon</li>
+                    <li><b>Ko-fi</b> — Coming soon</li>
+                </ul>
+                <br>
+                <a href="whisper-box.html" class="btn"><i class="bi bi-envelope-paper-heart"></i> Or just send a postcard</a>
             </div>
         </section>
     </main>
 
-    <footer data-site-footer></footer>
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <h2>Kiên's Personal Desk</h2>
+        <p>Written with ink, tea, and curious code from a quiet corner in Hanoi.</p>
+        <p class="footer-links">
+            <a href="about.html">About</a>
+            <a href="/api/rss">RSS Feed</a>
+            <a href="whisper-box.html">Guestbook</a>
+            <a href="admin.html">Admin</a>
+        </p>
+        <p class="muted">© Kiên's Journal</p>
+    </footer>
 
-    <script src="js/api.js"></script>
-    <script src="js/layout.js"></script>
-    <script src="js/motion.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/about.js"></script>
-    <div id="kj-ready" hidden></div>
 </body>
 </html>
