@@ -6,3 +6,4 @@ __pycache__/
 # File database SQLite (tự tạo khi chạy python app.py)
 blog.db
 *.db
+*.db.bak

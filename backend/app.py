@@ -13,7 +13,7 @@ import unicodedata
 from datetime import date, datetime
 from html import escape
 
-from flask import Flask, jsonify, request, send_from_directory, session
+from flask import Flask, jsonify, redirect, request, send_from_directory, session
 
 from database import execute, init_db, query_all, query_one
 
@@ -114,11 +114,18 @@ def home_page():
     return send_from_directory(FRONTEND_DIR, "index.html")
 
 
+@app.route("/journal-feed.html")
+def old_journal_page():
+    # Bản cũ đặt tên trang nhật ký là journal-feed.html.
+    # Ai còn lưu link cũ (bookmark, lịch sử trình duyệt) thì chuyển sang trang mới.
+    return redirect("/journal.html")
+
+
 @app.errorhandler(404)
 def not_found(e):
     # Gọi API sai thì trả JSON, còn mở trang không có thì hiện 404.html
     if request.path.startswith("/api/"):
-        return error("Không tìm thấy", 404)
+        return error("Not found", 404)
     return send_from_directory(FRONTEND_DIR, "404.html"), 404
 
 
@@ -203,7 +210,7 @@ def get_posts():
 def get_post(slug):
     row = query_one("SELECT * FROM posts WHERE slug = ?", [slug])
     if row is None:
-        return error("Không tìm thấy bài viết", 404)
+        return error("Post not found", 404)
 
     post = format_post(row, with_content=True)
 
@@ -226,11 +233,11 @@ def react_post(slug):
     data = request.get_json(silent=True) or {}
     reaction = data.get("type")
     if reaction not in REACTIONS:
-        return error("Reaction không hợp lệ")
+        return error("Invalid reaction type")
 
     post = query_one("SELECT id FROM posts WHERE slug = ?", [slug])
     if post is None:
-        return error("Không tìm thấy bài viết", 404)
+        return error("Post not found", 404)
 
     # reaction chắc chắn là 1 trong 4 tên cột trong REACTIONS (đã kiểm tra ở trên),
     # nên ghép thẳng tên cột vào câu SQL là an toàn.
@@ -244,7 +251,7 @@ def react_post(slug):
 def read_post(slug):
     post = query_one("SELECT id FROM posts WHERE slug = ?", [slug])
     if post is None:
-        return error("Không tìm thấy bài viết", 404)
+        return error("Post not found", 404)
 
     execute("UPDATE posts SET reads = reads + 1 WHERE id = ?", [post["id"]])
     return jsonify({"ok": True})
@@ -334,17 +341,17 @@ def create_note():
 
     # Kiểm tra dữ liệu
     if message == "":
-        return error("Bạn chưa viết lời nhắn")
+        return error("Message is required")
     if len(message) > 2000:
-        return error("Lời nhắn dài quá (tối đa 2000 ký tự)")
+        return error("Message is too long (max 2000 characters)")
     if len(name) > 100 or len(location) > 100 or len(email) > 200:
-        return error("Tên, nơi ở hoặc email dài quá")
+        return error("Name, location or email is too long")
     if email != "" and "@" not in email:
-        return error("Email không hợp lệ")
+        return error("Invalid email")
     if topic not in TOPICS:
-        return error("Chủ đề không hợp lệ")
+        return error("Invalid topic")
     if post_slug != "" and query_one("SELECT id FROM posts WHERE slug = ?", [post_slug]) is None:
-        return error("Không tìm thấy bài viết", 404)
+        return error("Post not found", 404)
 
     # Bưu thiếp mới luôn là riêng tư (pinned = 0), chờ Kiên đọc trong trang Admin
     execute(
@@ -392,14 +399,14 @@ def is_admin():
 
 
 def need_login():
-    return error("Bạn cần đăng nhập trang Admin", 401)
+    return error("Please log in to the admin page", 401)
 
 
 @app.route("/api/login", methods=["POST"])
 def login():
     data = request.get_json(silent=True) or {}
     if data.get("password") != ADMIN_PASSWORD:
-        return error("Sai mật khẩu", 401)
+        return error("Wrong password", 401)
 
     session["admin"] = True
     return jsonify({"ok": True})
@@ -429,15 +436,15 @@ def read_post_from_request():
     post_date = str(data.get("date") or "").strip()
 
     if title == "":
-        return None, "Tiêu đề không được để trống"
+        return None, "Title is required"
     if side not in SIDES:
-        return None, "Side phải là A hoặc B"
+        return None, "Side must be A or B"
 
     # Không nhập slug thì tự tạo từ tiêu đề
     if slug == "":
         slug = make_slug(title)
     if slug == "":
-        return None, "Không tạo được slug, hãy nhập slug bằng chữ không dấu"
+        return None, "Could not create a slug, please type one using a-z and 0-9"
 
     # Không nhập ngày thì lấy ngày hôm nay
     if post_date == "":
@@ -445,7 +452,7 @@ def read_post_from_request():
     try:
         datetime.strptime(post_date, "%Y-%m-%d")
     except ValueError:
-        return None, "Ngày phải có dạng YYYY-MM-DD"
+        return None, "Date must look like YYYY-MM-DD"
 
     # "Rust, Go , " -> "Rust,Go"
     tags = []
@@ -488,7 +495,7 @@ def admin_create_post():
         return error(message)
 
     if query_one("SELECT id FROM posts WHERE slug = ?", [post["slug"]]):
-        return error("Slug này đã có bài khác dùng, hãy đổi slug")
+        return error("This slug is already used by another post")
 
     new_id = execute(
         "INSERT INTO posts (title, slug, excerpt, content, side, category, tags, cover, date, featured)"
@@ -505,7 +512,7 @@ def admin_update_post(post_id):
         return need_login()
 
     if query_one("SELECT id FROM posts WHERE id = ?", [post_id]) is None:
-        return error("Không tìm thấy bài viết", 404)
+        return error("Post not found", 404)
 
     post, message = read_post_from_request()
     if message:
@@ -513,7 +520,7 @@ def admin_update_post(post_id):
 
     # Slug không được trùng với bài KHÁC
     if query_one("SELECT id FROM posts WHERE slug = ? AND id != ?", [post["slug"], post_id]):
-        return error("Slug này đã có bài khác dùng, hãy đổi slug")
+        return error("This slug is already used by another post")
 
     execute(
         "UPDATE posts SET title = ?, slug = ?, excerpt = ?, content = ?, side = ?,"
@@ -551,7 +558,7 @@ def admin_update_note(note_id):
         return need_login()
 
     if query_one("SELECT id FROM notes WHERE id = ?", [note_id]) is None:
-        return error("Không tìm thấy bưu thiếp", 404)
+        return error("Postcard not found", 404)
 
     data = request.get_json(silent=True) or {}
     pinned = 1 if data.get("pinned") else 0
