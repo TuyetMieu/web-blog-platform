@@ -1,18 +1,10 @@
-// common.js
-// Các hàm dùng chung cho mọi trang. File này phải được nạp TRƯỚC file JS của từng trang.
-
-
-// ===== Gọi API tới backend Flask =====
-// Ví dụ:
-//   const data = await callApi("/api/posts");                       // GET
-//   await callApi("/api/notes", "POST", { message: "Xin chào" });   // POST có gửi dữ liệu
+// Gọi API tới backend Flask, gửi kèm dữ liệu JSON (nếu có) và trả về kết quả JSON
 async function callApi(url, method = "GET", data = null) {
     const options = {
         method: method,
         headers: {}
     };
 
-    // Nếu có dữ liệu thì gửi lên dưới dạng JSON
     if (data !== null) {
         options.headers["Content-Type"] = "application/json";
         options.body = JSON.stringify(data);
@@ -22,7 +14,6 @@ async function callApi(url, method = "GET", data = null) {
     try {
         response = await fetch(url, options);
     } catch (err) {
-        // Lỗi này thường do chưa bật backend (python app.py)
         throw new Error("Cannot reach the server. Did you run python app.py?");
     }
 
@@ -30,21 +21,16 @@ async function callApi(url, method = "GET", data = null) {
     try {
         result = await response.json();
     } catch (err) {
-        // Server không trả về JSON (vd: lỗi 500 của server)
         throw new Error("Server error (code " + response.status + ")");
     }
 
-    // Server trả lỗi (vd: 400, 404) thì báo lỗi với nội dung server gửi về
     if (!response.ok) {
         throw new Error(result.error || "Something went wrong");
     }
     return result;
 }
 
-
-// ===== Chống chèn mã độc (XSS) =====
-// Đổi các ký tự đặc biệt của HTML thành dạng an toàn trước khi đưa vào innerHTML.
-// Ví dụ: "<b>" -> "&lt;b&gt;"
+// Đổi các ký tự đặc biệt của HTML thành dạng an toàn để chống chèn mã độc (XSS)
 function escapeHtml(text) {
     if (text === null || text === undefined) {
         return "";
@@ -57,24 +43,21 @@ function escapeHtml(text) {
         .replaceAll("'", "&#39;");
 }
 
-
-// ===== Đổi ngày "2024-11-12" thành "Nov 12, 2024" =====
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+// Đổi ngày "2024-11-12" thành "Nov 12, 2024"
 function formatDate(dateText) {
     if (!dateText) {
         return "";
     }
-    const parts = dateText.split("-");          // ["2024", "11", "12"]
-    const month = MONTHS[Number(parts[1]) - 1]; // tháng 11 -> phần tử số 10 -> "Nov"
-    const day = Number(parts[2]);               // "05" -> 5
+    const parts = dateText.split("-");
+    const month = MONTHS[Number(parts[1]) - 1];
+    const day = Number(parts[2]);
     return month + " " + day + ", " + parts[0];
 }
 
-
-// ===== Tạo HTML cho 1 card bài viết (dùng ở trang chủ và trang nhật ký) =====
+// Tạo HTML cho 1 card bài viết (dùng ở trang chủ và trang nhật ký)
 function postCardHtml(post) {
-    // Danh sách tag, bấm vào tag sẽ sang trang nhật ký lọc theo tag đó
     let tagsHtml = "";
     for (const tag of post.tags) {
         tagsHtml += `<a class="tag" href="journal.html?side=${post.side}&tag=${encodeURIComponent(tag)}">#${escapeHtml(tag)}</a>`;
@@ -101,15 +84,13 @@ function postCardHtml(post) {
     `;
 }
 
-
-// ===== Tạo HTML cho 1 bưu thiếp đã ghim (dùng ở trang hộp thư) =====
+// Tạo HTML cho 1 bưu thiếp đã ghim, kèm lời đáp của Kiên nếu có (dùng ở trang hộp thư)
 function noteCardHtml(note) {
     let author = note.name || "Anonymous";
     if (note.role) {
         author += ", " + note.role;
     }
 
-    // Nếu Kiên có trả lời thì hiện thêm lời đáp
     let replyHtml = "";
     if (note.reply) {
         replyHtml = `<div class="note-reply"><b>Kiên's margin note:</b> “${escapeHtml(note.reply)}”</div>`;
@@ -131,24 +112,19 @@ function noteCardHtml(note) {
     `;
 }
 
-
-// ===== Hiện dòng thông báo dưới form =====
-// type: "" (bình thường), "error" (màu đỏ) hoặc "success" (màu xanh)
+// Hiện dòng thông báo dưới form, type là "" (bình thường), "error" (đỏ) hoặc "success" (xanh)
 function showMessage(element, text, type = "") {
     element.textContent = text;
     element.className = "message " + type;
 }
 
-
-// ===== Toast: thông báo nhỏ hiện ở dưới màn hình rồi tự biến mất =====
-// type: "" (bình thường) hoặc "error" (màu đỏ)
+// Hiện thông báo nhỏ ở dưới màn hình rồi tự mờ dần và biến mất sau 2.5 giây
 function showToast(text, type = "") {
     const toast = document.createElement("div");
     toast.className = "toast " + type;
     toast.textContent = text;
     document.body.appendChild(toast);
 
-    // Sau 2.5 giây thì cho mờ dần (class "hide"), mờ xong thì xoá hẳn
     setTimeout(function () {
         toast.classList.add("hide");
         setTimeout(function () {
@@ -157,8 +133,7 @@ function showToast(text, type = "") {
     }, 2500);
 }
 
-
-// ===== Khung chờ tải: trả về HTML của vài card xám nhấp nháy =====
+// Trả về HTML của vài card xám nhấp nháy để hiện trong lúc chờ tải
 function loadingHtml(count) {
     let html = "";
     for (let i = 0; i < count; i++) {
@@ -167,12 +142,10 @@ function loadingHtml(count) {
     return html;
 }
 
-
-// ===== Hộp tìm kiếm (nút kính lúp trên header hoặc phím Ctrl + K) =====
+// Mở hộp tìm kiếm (tạo hộp ở lần mở đầu tiên), nhấn Enter thì sang trang nhật ký với từ khoá
 function openSearch() {
     let dialog = document.getElementById("search-dialog");
 
-    // Lần đầu mở thì tạo hộp tìm kiếm
     if (!dialog) {
         dialog = document.createElement("dialog");
         dialog.id = "search-dialog";
@@ -187,7 +160,6 @@ function openSearch() {
         `;
         document.body.appendChild(dialog);
 
-        // Nhấn Enter -> sang trang nhật ký với từ khoá
         dialog.querySelector("form").addEventListener("submit", function (event) {
             event.preventDefault();
             const keyword = document.getElementById("search-dialog-input").value.trim();
@@ -196,7 +168,6 @@ function openSearch() {
             }
         });
 
-        // Bấm ra ngoài hộp thì đóng lại (Esc thì trình duyệt tự đóng)
         dialog.addEventListener("click", function (event) {
             if (event.target === dialog) {
                 dialog.close();
@@ -213,24 +184,21 @@ if (searchButton) {
     searchButton.addEventListener("click", openSearch);
 }
 
-// Phím tắt Ctrl + K (trên Mac là Cmd + K)
+// Phím tắt Ctrl + K (trên Mac là Cmd + K) để mở hộp tìm kiếm
 document.addEventListener("keydown", function (event) {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
-        event.preventDefault(); // không cho trình duyệt làm việc mặc định của phím này
+        event.preventDefault();
         openSearch();
     }
 });
 
-
-// ===== Nút đổi giao diện sáng / tối =====
-// Lúc mở trang: nếu lần trước chọn giao diện tối thì bật lại
 if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark");
 }
 
 const themeButton = document.getElementById("theme-btn");
 
-// Giao diện sáng thì hiện icon mặt trăng (bấm để sang tối), giao diện tối thì hiện mặt trời
+// Giao diện sáng thì hiện icon mặt trăng, giao diện tối thì hiện icon mặt trời
 function updateThemeIcon() {
     if (!themeButton) {
         return;
@@ -244,7 +212,7 @@ function updateThemeIcon() {
 }
 updateThemeIcon();
 
-// Đổi giao diện và lưu lựa chọn vào trình duyệt để lần sau mở lại vẫn giữ
+// Đổi giao diện sáng / tối và lưu lựa chọn vào trình duyệt để lần sau mở lại vẫn giữ
 function toggleTheme() {
     document.body.classList.toggle("dark");
     if (document.body.classList.contains("dark")) {
@@ -256,14 +224,13 @@ function toggleTheme() {
 }
 
 if (themeButton) {
+    // Bấm nút sáng / tối: icon xoay 1 vòng, giao diện mới lan ra thành vòng tròn từ chỗ bấm chuột
     themeButton.addEventListener("click", function (event) {
-        // Icon xoay 1 vòng (class "spin" trong effects.css)
         themeButton.classList.add("spin");
         setTimeout(function () {
             themeButton.classList.remove("spin");
         }, 600);
 
-        // Trình duyệt cũ không có View Transition: chỉ chuyển màu từ từ
         if (!document.startViewTransition) {
             document.body.classList.add("theme-fade");
             toggleTheme();
@@ -273,10 +240,8 @@ if (themeButton) {
             return;
         }
 
-        // Hiệu ứng: giao diện mới lan ra thành vòng tròn từ chỗ vừa bấm chuột
         const x = event.clientX;
         const y = event.clientY;
-        // Bán kính đủ lớn để vòng tròn phủ kín cả màn hình
         const radius = Math.hypot(window.innerWidth, window.innerHeight);
 
         document.documentElement.classList.add("theme-change");

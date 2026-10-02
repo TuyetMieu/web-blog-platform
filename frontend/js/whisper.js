@@ -1,29 +1,22 @@
-// whisper.js - Trang hộp thư (whisper-box.html)
-// Bên trái: form gửi bưu thiếp. Bên phải: bảng ghim các bưu thiếp đã được Kiên ghim.
-
-
-// ===== PHẦN 1: GỬI BƯU THIẾP =====
-
 const messageInput = document.getElementById("message");
 const charCount = document.getElementById("char-count");
 
-// Đếm số ký tự mỗi khi gõ
+// Đếm số ký tự của lời nhắn mỗi khi gõ
 messageInput.addEventListener("input", function () {
     charCount.textContent = messageInput.value.length + " / 2000";
 });
 
+// Gửi bưu thiếp: kiểm tra dữ liệu, gửi lên server rồi chạy hiệu ứng đóng dấu
 document.getElementById("postcard-form").addEventListener("submit", async function (event) {
-    event.preventDefault(); // không cho form tải lại trang
+    event.preventDefault();
 
     const status = document.getElementById("form-status");
     const message = messageInput.value.trim();
     const name = document.getElementById("name").value.trim();
     const place = document.getElementById("location").value.trim();
     const email = document.getElementById("email").value.trim();
-    // Lấy radio chủ đề đang được chọn
     const topic = document.querySelector('input[name="topic"]:checked').value;
 
-    // Kiểm tra trước khi gửi
     if (message.length < 10) {
         showMessage(status, "Your message needs at least 10 characters.", "error");
         return;
@@ -46,7 +39,6 @@ document.getElementById("postcard-form").addEventListener("submit", async functi
         charCount.textContent = "0 / 2000";
         showMessage(status, "Sealed and delivered! Kiên will read it with tomorrow's morning tea.", "success");
 
-        // Hiệu ứng đóng dấu: thêm class "stamped" trong 1 giây (CSS lo phần chuyển động)
         const form = document.getElementById("postcard-form");
         form.classList.add("stamped");
         setTimeout(function () {
@@ -57,22 +49,19 @@ document.getElementById("postcard-form").addEventListener("submit", async functi
     }
 });
 
-
-// ===== PHẦN 2: BẢNG GHIM =====
-
-let boardTopic = "";     // chủ đề đang lọc ("" = tất cả)
-let boardKeyword = "";   // từ khoá đang tìm
-let boardPage = 1;       // trang hiện tại
+let boardTopic = "";
+let boardKeyword = "";
+let boardPage = 1;
 const NOTES_PER_PAGE = 4;
 
-// Tải bưu thiếp. append = true nghĩa là "Xem thêm" (nối vào cuối), false là tải lại từ đầu.
+// Tải bưu thiếp lên bảng ghim theo chủ đề và từ khoá; append = true là "Xem thêm", false là tải lại từ đầu
 async function loadNotes(append) {
     const board = document.getElementById("board");
     const moreButton = document.getElementById("more-btn");
 
     if (!append) {
         boardPage = 1;
-        board.innerHTML = loadingHtml(2); // khung chờ tải
+        board.innerHTML = loadingHtml(2);
     }
 
     const query = new URLSearchParams();
@@ -102,16 +91,15 @@ async function loadNotes(append) {
         }
 
         document.getElementById("board-total").textContent = data.total;
-        // Hết trang thì ẩn nút "Xem thêm"
         moreButton.hidden = boardPage >= data.total_pages;
     } catch (err) {
         board.innerHTML = `<p class="message error">${escapeHtml(err.message)}</p>`;
     }
 }
 
-// Bấm nút lọc chủ đề
 const topicButtons = document.querySelectorAll(".topic-btn");
 for (const button of topicButtons) {
+    // Bấm nút lọc chủ đề: tô màu nút vừa bấm rồi tải lại bảng ghim
     button.addEventListener("click", function () {
         for (const otherButton of topicButtons) {
             otherButton.classList.remove("active");
@@ -123,19 +111,17 @@ for (const button of topicButtons) {
     });
 }
 
-// Tìm kiếm trong bảng ghim
+// Tìm kiếm bưu thiếp trong bảng ghim theo từ khoá
 document.getElementById("board-search").addEventListener("submit", function (event) {
     event.preventDefault();
     boardKeyword = document.getElementById("board-keyword").value.trim();
     loadNotes(false);
 });
 
-// Nút "Xem thêm"
+// Bấm "Xem thêm" thì tải trang tiếp theo và nối vào cuối bảng ghim
 document.getElementById("more-btn").addEventListener("click", function () {
     boardPage = boardPage + 1;
     loadNotes(true);
 });
 
-
-// Chạy khi mở trang
 loadNotes(false);

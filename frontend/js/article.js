@@ -1,19 +1,11 @@
-// article.js - Trang đọc bài (article.html)
-// Mở bài theo ?slug=... trên URL. Nếu không có slug thì mở bài mới nhất.
-
-
-// Lấy slug trên URL, vd: article.html?slug=rain-and-solitude -> "rain-and-solitude"
 const urlParams = new URLSearchParams(window.location.search);
 let slug = urlParams.get("slug");
 
-// Bài viết đang xem (dùng lại khi gửi lời nhắn)
 let currentPost = null;
 
-
-// ===== Tải bài viết =====
+// Tải bài viết theo slug trên URL (không có slug thì lấy bài mới nhất) rồi báo server tăng lượt đọc
 async function loadArticle() {
     try {
-        // Không có slug (bấm "Article Reading" trên menu) -> lấy bài mới nhất
         if (!slug) {
             const latest = await callApi("/api/posts?per_page=1");
             if (latest.posts.length === 0) {
@@ -27,7 +19,6 @@ async function loadArticle() {
         currentPost = post;
         showArticle(post);
 
-        // Báo cho server tăng lượt đọc (không cần chờ kết quả)
         callApi("/api/posts/" + encodeURIComponent(slug) + "/read", "POST").catch(function (err) {
             console.log("Could not count the read:", err.message);
         });
@@ -37,12 +28,10 @@ async function loadArticle() {
     }
 }
 
-
-// ===== Hiển thị bài viết lên trang =====
+// Hiển thị bài viết lên trang: tiêu đề, tag, ảnh bìa, nội dung, reaction và link bài cũ hơn / mới hơn
 function showArticle(post) {
     document.title = post.title + " — Kiên's Journal";
 
-    // Link về danh sách bài cùng side
     const sideLink = document.getElementById("side-link");
     sideLink.href = "journal.html?side=" + post.side;
     if (post.side === "A") {
@@ -51,31 +40,26 @@ function showArticle(post) {
         sideLink.textContent = "Side B: Soul & Everyday";
     }
 
-    // Dùng textContent cho chữ thường để không bị chèn mã HTML
     document.getElementById("title").textContent = post.title;
     document.getElementById("excerpt").textContent = post.excerpt;
     document.getElementById("date").textContent = formatDate(post.date);
     document.getElementById("read-minutes").textContent = post.read_minutes;
     document.getElementById("reads").textContent = post.reads;
 
-    // Tag
     let tagsHtml = "";
     for (const tag of post.tags) {
         tagsHtml += `<a class="tag" href="journal.html?side=${post.side}&tag=${encodeURIComponent(tag)}">#${escapeHtml(tag)}</a>`;
     }
     document.getElementById("tags").innerHTML = tagsHtml;
 
-    // Ảnh bìa (nếu có)
     const cover = document.getElementById("cover");
     if (post.cover) {
         cover.src = post.cover;
         cover.hidden = false;
     }
 
-    // Nội dung bài là HTML do Kiên viết trong trang Admin nên được phép dùng innerHTML
     document.getElementById("content").innerHTML = post.content;
 
-    // Số lượt reaction. Reaction nào đã thả rồi (lưu trong trình duyệt) thì khoá nút lại.
     const reactionButtons = document.querySelectorAll(".reaction-btn");
     for (const button of reactionButtons) {
         const type = button.dataset.type;
@@ -85,7 +69,6 @@ function showArticle(post) {
         }
     }
 
-    // Bài cũ hơn / mới hơn
     if (post.older) {
         document.getElementById("older-link").href = "article.html?slug=" + post.older.slug;
         document.getElementById("older-title").textContent = post.older.title;
@@ -97,28 +80,24 @@ function showArticle(post) {
         document.getElementById("newer-link").hidden = false;
     }
 
-    // Ẩn chữ "đang tải", hiện bài viết
     document.getElementById("loading").hidden = true;
     document.getElementById("article").hidden = false;
 }
 
-
-// ===== Thả reaction =====
 const reactionButtons = document.querySelectorAll(".reaction-btn");
 
 for (const button of reactionButtons) {
+    // Thả reaction: gửi lên server, khoá nút và ghi nhớ trong trình duyệt để không thả lại lần nữa
     button.addEventListener("click", async function () {
         const type = button.dataset.type;
-        button.disabled = true; // khoá nút ngay để không bấm 2 lần
+        button.disabled = true;
 
         try {
             const result = await callApi("/api/posts/" + encodeURIComponent(slug) + "/react", "POST", { type: type });
             document.getElementById("count-" + type).textContent = result.count;
 
-            // Ghi nhớ trong trình duyệt là đã thả reaction này rồi
             localStorage.setItem("reacted-" + slug + "-" + type, "yes");
 
-            // Hiệu ứng: nút nảy lên + hiện lời cảm ơn
             button.classList.add("pop");
             showToast("Thank you for the " + button.textContent.split(" ")[0] + "!");
         } catch (err) {
@@ -128,10 +107,9 @@ for (const button of reactionButtons) {
     });
 }
 
-
-// ===== Gửi lời nhắn cho bài viết =====
+// Gửi lời nhắn cho bài viết, chủ đề lời nhắn chọn theo Side của bài
 document.getElementById("note-form").addEventListener("submit", async function (event) {
-    event.preventDefault(); // không cho form tải lại trang
+    event.preventDefault();
 
     const status = document.getElementById("note-status");
     const message = document.getElementById("note-message").value.trim();
@@ -143,7 +121,6 @@ document.getElementById("note-form").addEventListener("submit", async function (
         return;
     }
 
-    // Bài Side A thì gắn chủ đề kỹ thuật, Side B thì gắn chủ đề đời sống
     let topic = "AtticMusings";
     if (currentPost && currentPost.side === "A") {
         topic = "EngineeringSolitude";
@@ -165,10 +142,8 @@ document.getElementById("note-form").addEventListener("submit", async function (
     }
 });
 
-
-// ===== Thanh tiến độ đọc =====
+// Cập nhật thanh tiến độ đọc theo phần trăm trang đã cuộn
 window.addEventListener("scroll", function () {
-    // Quãng đường có thể cuộn = chiều cao cả trang - chiều cao màn hình
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
     let percent = 0;
     if (maxScroll > 0) {
@@ -177,6 +152,4 @@ window.addEventListener("scroll", function () {
     document.getElementById("progress-bar").style.width = percent + "%";
 });
 
-
-// Chạy khi mở trang
 loadArticle();

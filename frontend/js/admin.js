@@ -1,12 +1,6 @@
-// admin.js - Trang quản trị (admin.html)
-// Đăng nhập bằng mật khẩu, sau đó quản lý bưu thiếp và bài viết.
+let allPosts = [];
 
-let allPosts = []; // danh sách bài viết (dùng khi bấm "Sửa")
-
-
-// ================== ĐĂNG NHẬP ==================
-
-// Lúc mở trang: hỏi server xem đã đăng nhập chưa
+// Hỏi server xem đã đăng nhập chưa để hiện trang quản trị hoặc hộp đăng nhập
 async function checkLogin() {
     try {
         const result = await callApi("/api/admin/check");
@@ -21,11 +15,13 @@ async function checkLogin() {
     }
 }
 
+// Hiện hộp đăng nhập, ẩn trang quản trị
 function showLoginBox() {
     document.getElementById("login-box").hidden = false;
     document.getElementById("admin-panel").hidden = true;
 }
 
+// Hiện trang quản trị rồi tải danh sách bưu thiếp và bài viết
 function showAdminPanel() {
     document.getElementById("login-box").hidden = true;
     document.getElementById("admin-panel").hidden = false;
@@ -33,6 +29,7 @@ function showAdminPanel() {
     loadPosts();
 }
 
+// Đăng nhập bằng mật khẩu
 document.getElementById("login-form").addEventListener("submit", async function (event) {
     event.preventDefault();
     const status = document.getElementById("login-status");
@@ -48,14 +45,13 @@ document.getElementById("login-form").addEventListener("submit", async function 
     }
 });
 
+// Đăng xuất và quay về hộp đăng nhập
 document.getElementById("logout-btn").addEventListener("click", async function () {
     await callApi("/api/logout", "POST");
     showLoginBox();
 });
 
-
-// ================== BƯU THIẾP ==================
-
+// Tải tất cả bưu thiếp (cả chưa ghim) và vẽ ra kèm nút ghim, lưu lời đáp, xoá
 async function loadNotes() {
     const box = document.getElementById("note-list");
 
@@ -71,7 +67,6 @@ async function loadNotes() {
         for (const note of notes) {
             const isPinned = note.pinned === 1;
 
-            // Thông tin người gửi
             let sender = escapeHtml(note.name || "Anonymous");
             if (note.email) {
                 sender += " · " + escapeHtml(note.email);
@@ -106,7 +101,7 @@ async function loadNotes() {
     }
 }
 
-// Ghim / bỏ ghim và lưu lời đáp. pinned = true (ghim) hoặc false (không ghim).
+// Ghim / bỏ ghim bưu thiếp và lưu lời đáp, pinned = true (ghim) hoặc false (không ghim)
 async function saveNote(id, pinned) {
     const reply = document.getElementById("reply-" + id).value;
     try {
@@ -117,6 +112,7 @@ async function saveNote(id, pinned) {
     }
 }
 
+// Hỏi lại rồi xoá bưu thiếp
 async function deleteNote(id) {
     if (!confirm("Delete postcard #" + id + "?")) {
         return;
@@ -129,9 +125,7 @@ async function deleteNote(id) {
     }
 }
 
-
-// ================== BÀI VIẾT ==================
-
+// Tải tất cả bài viết và vẽ ra bảng kèm nút sửa, xoá
 async function loadPosts() {
     const table = document.getElementById("post-table");
 
@@ -175,7 +169,6 @@ function newPost() {
 
 // Mở form và điền sẵn dữ liệu của bài cần sửa
 function editPost(id) {
-    // Tìm bài có id tương ứng trong danh sách đã tải
     let post = null;
     for (const item of allPosts) {
         if (item.id === id) {
@@ -238,6 +231,7 @@ document.getElementById("post-form").addEventListener("submit", async function (
     }
 });
 
+// Hỏi lại rồi xoá bài viết
 async function deletePost(id) {
     if (!confirm("Are you sure you want to delete this post?")) {
         return;
@@ -253,10 +247,10 @@ async function deletePost(id) {
 
 document.getElementById("new-post-btn").addEventListener("click", newPost);
 
+// Bấm huỷ thì ẩn form bài viết
 document.getElementById("cancel-btn").addEventListener("click", function () {
     document.getElementById("post-form").hidden = true;
 });
 
-
-// Chạy khi mở trang
 checkLogin();
+

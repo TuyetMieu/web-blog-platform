@@ -1,7 +1,4 @@
-// home.js - Trang chủ (index.html)
-
-
-// 1. Hiện số bài viết của từng mặt sổ
+// Hiện số bài viết của từng mặt sổ
 async function loadStats() {
     try {
         const stats = await callApi("/api/stats");
@@ -13,8 +10,7 @@ async function loadStats() {
     }
 }
 
-
-// 2. Bài viết nổi bật (lấy bài featured có nhiều lượt đọc nhất)
+// Hiện bài viết nổi bật (bài featured có nhiều lượt đọc nhất), có ảnh bìa thì hiện ảnh bên phải
 async function loadFeatured() {
     const box = document.getElementById("featured");
 
@@ -27,7 +23,6 @@ async function loadFeatured() {
 
         const post = data.posts[0];
 
-        // Bài có ảnh bìa thì hiện ảnh bên phải
         let imageHtml = "";
         if (post.cover) {
             imageHtml = `<img src="${escapeHtml(post.cover)}" alt="">`;
@@ -54,11 +49,10 @@ async function loadFeatured() {
     }
 }
 
-
-// 3. Danh sách 4 bài mới nhất, side = "" (tất cả), "A" hoặc "B"
+// Hiện 4 bài mới nhất, side = "" (tất cả), "A" hoặc "B"
 async function loadLatestPosts(side) {
     const list = document.getElementById("post-list");
-    list.innerHTML = loadingHtml(4); // khung chờ tải
+    list.innerHTML = loadingHtml(4);
 
     let url = "/api/posts?per_page=4";
     if (side !== "") {
@@ -83,13 +77,11 @@ async function loadLatestPosts(side) {
     }
 }
 
-
-// 4. Bấm nút lọc All / Side A / Side B
 const filterButtons = document.querySelectorAll(".filter-btn");
 
 for (const button of filterButtons) {
+    // Bấm nút lọc All / Side A / Side B: tô màu nút vừa bấm rồi tải lại danh sách bài
     button.addEventListener("click", function () {
-        // Bỏ màu "đang chọn" ở tất cả các nút, rồi tô màu nút vừa bấm
         for (const otherButton of filterButtons) {
             otherButton.classList.remove("active");
         }
@@ -99,8 +91,7 @@ for (const button of filterButtons) {
     });
 }
 
-
-// 5. Bảng ghim: 3 bưu thiếp mới nhất đã được ghim
+// Hiện 3 bưu thiếp mới nhất đã được ghim lên bảng ghim
 async function loadPinboard() {
     const board = document.getElementById("pinboard");
 
@@ -127,8 +118,6 @@ async function loadPinboard() {
     }
 }
 
-
-// Chạy khi mở trang
 loadStats();
 loadFeatured();
 loadLatestPosts("");

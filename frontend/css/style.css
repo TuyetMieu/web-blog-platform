@@ -467,6 +467,7 @@ textarea {
     line-height: 28px;
     background-image: linear-gradient(transparent 27px, var(--line) 28px);
     background-size: 100% 28px;
+    background-position: 0 5px;
     background-attachment: local;
 }
 

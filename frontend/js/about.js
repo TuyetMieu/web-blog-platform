@@ -1,6 +1,4 @@
-// about.js - Trang giới thiệu (about.html)
-// Nội dung trang viết sẵn trong HTML, ở đây chỉ lấy vài con số từ server.
-
+// Lấy số bài viết và số bưu thiếp từ server rồi hiện lên trang giới thiệu
 async function loadStats() {
     try {
         const stats = await callApi("/api/stats");

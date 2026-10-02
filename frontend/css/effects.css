@@ -168,7 +168,7 @@ html {
     scale: 0.95;
 }
 
-/* 3 icon trên header (RSS, tiếng mưa, sáng/tối):
+/* Các icon trên header (tìm kiếm, sáng/tối):
    rê chuột thì đổi màu, nhấc lên, icon phóng to; nhấn thì lún xuống */
 .icon-btn {
     cursor: pointer;
@@ -498,19 +498,6 @@ html {
     pointer-events: none;
 }
 
-/* Nút âm thanh mưa: icon lắc lư khi đang phát */
-.icon-btn.playing {
-    background: var(--side-a-bg);
-    color: var(--side-a-text);
-}
-
-.icon-btn.playing i {
-    animation: sway 1.6s ease-in-out infinite;
-}
-
-@keyframes sway {
-    50% { translate: -2px 0; }
-}
 
 
 /* Hộp tìm kiếm: trượt xuống và hiện dần khi mở */

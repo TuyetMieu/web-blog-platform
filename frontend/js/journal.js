@@ -1,12 +1,5 @@
-// journal.js - Trang nhật ký (journal.html)
-// Xem bài theo Side A / Side B, lọc theo chủ đề, tag, tìm kiếm, sắp xếp và phân trang.
-
-
-// ===== Trạng thái bộ lọc hiện tại =====
-// Đọc giá trị ban đầu từ URL, vd: journal.html?side=B&category=Hanoi%20Essays
 const urlParams = new URLSearchParams(window.location.search);
 
-// Side: "A", "B", hoặc "" (cả 2 side - dùng khi tìm kiếm từ nút kính lúp trên header)
 let currentSide = "A";
 if (urlParams.get("side") === "B") {
     currentSide = "B";
@@ -22,16 +15,13 @@ let totalPages = 1;
 
 const POSTS_PER_PAGE = 6;
 
-// Danh sách chủ đề lấy từ API (chỉ lấy 1 lần)
 let allCategories = [];
 
-
-// ===== Tải danh sách bài viết theo bộ lọc =====
+// Tải danh sách bài viết theo bộ lọc hiện tại (side, chủ đề, tag, từ khoá, sắp xếp, trang) và cập nhật phân trang
 async function loadPosts() {
     const list = document.getElementById("post-list");
-    list.innerHTML = loadingHtml(4); // khung chờ tải
+    list.innerHTML = loadingHtml(4);
 
-    // Tạo chuỗi tham số cho URL, vd: side=A&page=1&per_page=6&sort=recent
     const query = new URLSearchParams();
     if (currentSide !== "") {
         query.set("side", currentSide);
@@ -63,7 +53,6 @@ async function loadPosts() {
             list.innerHTML = html;
         }
 
-        // Cập nhật phân trang
         document.getElementById("page-info").textContent =
             "Page " + currentPage + " of " + totalPages + " · " + data.total + " entries";
         document.getElementById("prev-btn").disabled = currentPage <= 1;
@@ -73,13 +62,11 @@ async function loadPosts() {
     }
 }
 
-
-// ===== Tải danh sách chủ đề (1 lần lúc mở trang) =====
+// Tải danh sách chủ đề 1 lần lúc mở trang và hiện tổng số bài
 async function loadCategories() {
     try {
         allCategories = await callApi("/api/categories");
 
-        // Tổng số bài = cộng số bài của mọi chủ đề
         let total = 0;
         for (const item of allCategories) {
             total += item.count;
@@ -92,18 +79,16 @@ async function loadCategories() {
     }
 }
 
-
-// ===== Vẽ các nút chủ đề của Side đang chọn =====
+// Vẽ các nút chủ đề của Side đang chọn, nút "All Entries" luôn đứng đầu
 function showCategories() {
     const box = document.getElementById("category-list");
 
-    // Nút "Tất cả" luôn đứng đầu
     let activeClass = currentCategory === "" ? "active" : "";
     let html = `<button class="seal ${activeClass}" data-category="">All Entries</button>`;
 
     for (const item of allCategories) {
         if (currentSide !== "" && item.side !== currentSide) {
-            continue; // bỏ qua chủ đề của side kia
+            continue;
         }
         activeClass = item.category === currentCategory ? "active" : "";
         html += `<button class="seal ${activeClass}" data-category="${escapeHtml(item.category)}">
@@ -113,8 +98,7 @@ function showCategories() {
     box.innerHTML = html;
 }
 
-
-// ===== Tô màu nút Side đang chọn + hiện tag đang lọc =====
+// Tô màu nút Side đang chọn, hiện tag đang lọc và từ khoá đang tìm
 function showFilters() {
     const sideButtons = document.querySelectorAll(".side-btn");
     for (const button of sideButtons) {
@@ -130,12 +114,9 @@ function showFilters() {
     document.getElementById("search-input").value = currentKeyword;
 }
 
-
-// ===== CÁC SỰ KIỆN =====
-
-// Bấm Side A / Side B
 const sideButtons = document.querySelectorAll(".side-btn");
 for (const button of sideButtons) {
+    // Bấm Side A / Side B: đổi side, bỏ lọc chủ đề và tag rồi tải lại bài
     button.addEventListener("click", function () {
         currentSide = button.dataset.side;
         currentCategory = "";
@@ -147,7 +128,7 @@ for (const button of sideButtons) {
     });
 }
 
-// Bấm 1 chủ đề. Các nút được tạo bằng JS nên bắt sự kiện ở khung bao ngoài.
+// Bấm 1 nút chủ đề thì lọc bài theo chủ đề đó
 document.getElementById("category-list").addEventListener("click", function (event) {
     const button = event.target.closest("button");
     if (!button) {
@@ -167,22 +148,22 @@ document.getElementById("clear-tag").addEventListener("click", function () {
     loadPosts();
 });
 
-// Tìm kiếm (bấm nút Tìm hoặc Enter)
+// Tìm kiếm bài viết theo từ khoá
 document.getElementById("search-form").addEventListener("submit", function (event) {
-    event.preventDefault(); // không cho form tải lại trang
+    event.preventDefault();
     currentKeyword = document.getElementById("search-input").value.trim();
     currentPage = 1;
     loadPosts();
 });
 
-// Đổi cách sắp xếp
+// Đổi cách sắp xếp bài viết
 document.getElementById("sort-select").addEventListener("change", function () {
     currentSort = this.value;
     currentPage = 1;
     loadPosts();
 });
 
-// Trang trước / trang sau
+// Sang trang trước
 document.getElementById("prev-btn").addEventListener("click", function () {
     if (currentPage > 1) {
         currentPage = currentPage - 1;
@@ -191,6 +172,7 @@ document.getElementById("prev-btn").addEventListener("click", function () {
     }
 });
 
+// Sang trang sau
 document.getElementById("next-btn").addEventListener("click", function () {
     if (currentPage < totalPages) {
         currentPage = currentPage + 1;
@@ -199,8 +181,6 @@ document.getElementById("next-btn").addEventListener("click", function () {
     }
 });
 
-
-// Chạy khi mở trang
 showFilters();
 loadCategories();
 loadPosts();
