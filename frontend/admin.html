@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Kiên's Journal</title>
+    <link rel="icon" href="assets/favicon.svg">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@400;500;600&family=JetBrains+Mono&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/effects.css">
+    <!-- effects.js nạp ở đây (trong head) để kịp chọn chiều trượt trước khi trang hiện ra -->
+    <script src="js/effects.js"></script>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="">
+                <span>Kiên's Journal</span>
+            </a>
+            <nav class="menu slider">
+                <a href="index.html">Home</a>
+                <a href="journal.html">The Dual Journal</a>
+                <a href="article.html">Article Reading</a>
+                <a href="whisper-box.html">The Whisper Box</a>
+                <a href="about.html">About &amp; Now</a>
+            </nav>
+            <div class="header-actions">
+                <button id="search-btn" class="icon-btn" title="Search (Ctrl + K)"><i class="bi bi-search"></i></button>
+                <button id="theme-btn" class="icon-btn" title="Light / dark mode"><i class="bi bi-moon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container section">
+
+        <!-- ===== Ô ĐĂNG NHẬP ===== -->
+        <div id="login-box" class="admin-box" hidden>
+            <h1 class="section-title"><i class="bi bi-lock"></i> Admin Login</h1>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn">Log in</button>
+                <p id="login-status" class="message"></p>
+            </form>
+        </div>
+
+        <!-- ===== TRANG QUẢN TRỊ (hiện sau khi đăng nhập) ===== -->
+        <div id="admin-panel" hidden>
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow">Admin Panel</p>
+                    <h1 class="section-title">Kiên's Desk</h1>
+                </div>
+                <button id="logout-btn" class="btn-light"><i class="bi bi-box-arrow-right"></i> Log out</button>
+            </div>
+
+            <!-- ----- BƯU THIẾP ----- -->
+            <section class="section">
+                <h2 class="section-title">Postcards</h2>
+                <p class="muted">Unpinned postcards are private. Click "Pin to board" to show one on the Community Board.</p>
+                <div id="note-list">Loading...</div>
+            </section>
+
+            <!-- ----- BÀI VIẾT ----- -->
+            <section class="section">
+                <div class="section-head">
+                    <h2 class="section-title">Posts</h2>
+                    <button id="new-post-btn" class="btn"><i class="bi bi-plus-lg"></i> New post</button>
+                </div>
+
+                <!-- Form thêm / sửa bài (ẩn cho tới khi bấm "Viết bài mới" hoặc "Sửa") -->
+                <form id="post-form" class="postcard" hidden>
+                    <h2 id="form-title">New post</h2>
+
+                    <!-- id của bài đang sửa. Để trống nghĩa là đang viết bài mới. -->
+                    <input type="hidden" id="post-id">
+
+                    <div class="form-group">
+                        <label for="post-title">Title *</label>
+                        <input type="text" id="post-title">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="post-slug">Slug (leave empty to create it from the title)</label>
+                            <input type="text" id="post-slug" placeholder="e.g. rain-in-hanoi">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-side">Side *</label>
+                            <select id="post-side">
+                                <option value="A">Side A: Craft &amp; Systems</option>
+                                <option value="B">Side B: Soul &amp; Everyday</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="post-category">Category</label>
+                            <input type="text" id="post-category" placeholder="e.g. Architecture">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-tags">Tags (separated by commas)</label>
+                            <input type="text" id="post-tags" placeholder="e.g. Rust, Go">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="post-date">Date (empty = today)</label>
+                            <input type="date" id="post-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-cover">Cover image path (optional)</label>
+                            <input type="text" id="post-cover" placeholder="e.g. assets/featured-essay.png">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><input type="checkbox" id="post-featured"> Mark as featured post</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="post-excerpt">Excerpt</label>
+                        <textarea id="post-excerpt" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="post-content">Content (HTML, e.g. &lt;p&gt;A paragraph&lt;/p&gt; &lt;h2&gt;A heading&lt;/h2&gt;)</label>
+                        <textarea id="post-content" rows="12"></textarea>
+                    </div>
+
+                    <div class="button-row">
+                        <button type="submit" class="btn"><i class="bi bi-save"></i> Save post</button>
+                        <button type="button" id="cancel-btn" class="btn-light">Cancel</button>
+                    </div>
+                    <p id="post-status" class="message"></p>
+                </form>
+
+                <p id="list-status" class="message"></p>
+
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Side</th>
+                            <th>Title</th>
+                            <th>Reads</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="post-table"></tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/common.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
