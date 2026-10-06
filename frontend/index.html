@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiên's Journal — The Desk View</title>
+    <link rel="icon" href="assets/favicon.svg">
+    <!-- Font chữ và icon lấy từ Google Fonts + Bootstrap Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist:wght@400;500;600&family=JetBrains+Mono&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/effects.css">
+    <!-- effects.js nạp ở đây (trong head) để kịp chọn chiều trượt trước khi trang hiện ra -->
+    <script src="js/effects.js"></script>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="">
+                <span>Kiên's Journal</span>
+            </a>
+            <nav class="menu slider">
+                <a href="index.html" class="active">Home</a>
+                <a href="journal.html">The Dual Journal</a>
+                <a href="article.html">Article Reading</a>
+                <a href="whisper-box.html">The Whisper Box</a>
+                <a href="about.html">About &amp; Now</a>
+            </nav>
+            <div class="header-actions">
+                <button id="search-btn" class="icon-btn" title="Search (Ctrl + K)"><i class="bi bi-search"></i></button>
+                <button id="theme-btn" class="icon-btn" title="Light / dark mode"><i class="bi bi-moon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ===== PHẦN GIỚI THIỆU ===== -->
+        <section class="section hero">
+            <div class="hero-top">
+                <div>
+                    <p class="eyebrow">Desk No. 104 · Autumn in Hanoi</p>
+                    <h1>A Quiet Corner <em>— The Desk View</em></h1>
+                    <p class="hero-desc">
+                        Hello, friend. Welcome to my slow corner of the web. Pull up a wooden chair, pour a warm cup
+                        of roasted tea, and wander through scattered notebooks, code sketches, and quiet reflections.
+                    </p>
+                </div>
+                <div class="status-box">
+                    <p><i class="bi bi-book-half"></i> Currently Reading</p>
+                    <p>Chiang's <em>Exhalation</em> &amp; Christopher Alexander</p>
+                    <p class="muted"><i class="bi bi-music-note-beamed"></i> Rainy Kyoto Lofi · Looping on Vinyl</p>
+                </div>
+            </div>
+
+            <!-- 3 ô giới thiệu 2 mặt sổ -->
+            <div class="bento">
+                <div class="bento-card">
+                    <span class="badge badge-A"><i class="bi bi-code-slash"></i> Code &amp; System Craft</span>
+                    <h3>Engineering &amp; Code Logs</h3>
+                    <p>Deep systems, Rust &amp; Go concurrency patterns, resilient message buses, and handcrafted UI.</p>
+                    <div class="terminal">
+                        <div>pub async fn dispatch_stream(tick: Duration) -&gt; Result&lt;()&gt;</div>
+                        <div class="comment">// zero-allocation channel receiver</div>
+                    </div>
+                    <a href="journal.html?side=A" class="link">Browse <span id="count-a">…</span> Engineering Notes →</a>
+                </div>
+
+                <div class="bento-card">
+                    <span class="badge badge-B"><i class="bi bi-cup-hot"></i> Tea &amp; Solitude</span>
+                    <h3>Life, Tea &amp; Reflections</h3>
+                    <p>Vietnamese slow-drip coffee, 5 AM wet asphalt in Hanoi, film notes, and leaving things unfinished.</p>
+                    <blockquote class="quote">The water reaches 90°C. Everything in the room softens.</blockquote>
+                    <a href="journal.html?side=B" class="link">Read <span id="count-b">…</span> Life Essays →</a>
+                </div>
+
+                <div class="bento-card">
+                    <span class="badge"><i class="bi bi-camera2"></i> Film Rolls</span>
+                    <h3>Snapshot Memories</h3>
+                    <a href="article.html?slug=balcony-ferns-and-rain" class="polaroid">
+                        <img src="assets/snapshot-desk.png" alt="Autumn desk and ferns">
+                        <p>Autumn Desk &amp; Ferns · 2024</p>
+                    </a>
+                    <a href="journal.html?side=B&amp;category=Photo%20Journals" class="link">Rollei 35 · Portra 400 →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== BÀI VIẾT ===== -->
+        <section class="section">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow">A Two-Sided Notebook</p>
+                    <h2 class="section-title">The Dual-Sided Journal</h2>
+                    <p>Flip between structured engineering systems and slow, handwritten personal chronicles.</p>
+                </div>
+                <!-- Nút lọc: data-side="" là tất cả, "A" là Side A, "B" là Side B -->
+                <div class="filter-bar slider">
+                    <button class="btn-light filter-btn active" data-side=""><span>All Entries (<b id="count-all">…</b>)</span></button>
+                    <button class="btn-light filter-btn" data-side="A">Side A: Systems &amp; Code</button>
+                    <button class="btn-light filter-btn" data-side="B">Side B: Life &amp; Soul</button>
+                </div>
+            </div>
+
+            <!-- Bài nổi bật (home.js sẽ điền vào) -->
+            <div id="featured"></div>
+
+            <!-- Danh sách bài mới (home.js sẽ điền vào) -->
+            <div id="post-list" class="card-grid">
+                <div class="skeleton"><span></span><span></span><span></span><span></span></div>
+                <div class="skeleton"><span></span><span></span><span></span><span></span></div>
+            </div>
+
+            <div class="center">
+                <a href="journal.html" class="btn-light"><i class="bi bi-archive"></i> View All Archived Parchments</a>
+            </div>
+        </section>
+
+        <!-- ===== BẢNG GHIM ===== -->
+        <section class="section">
+            <p class="eyebrow">Reader Correspondence</p>
+            <h2 class="section-title"><i class="bi bi-pin-angle-fill"></i> Desk Pinboard Notes</h2>
+            <p>Postcards from readers that Kiên has pinned to his desk.</p>
+
+            <!-- 3 bưu thiếp mới nhất (home.js sẽ điền vào) -->
+            <div id="pinboard" class="pinboard">
+                <div class="skeleton"><span></span><span></span><span></span><span></span></div><div class="skeleton"><span></span><span></span><span></span><span></span></div><div class="skeleton"><span></span><span></span><span></span><span></span></div>
+            </div>
+
+            <div class="center">
+                <a href="whisper-box.html" class="btn"><i class="bi bi-envelope-paper-heart"></i> Write a Postcard</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <h2>Kiên's Personal Desk</h2>
+        <p>Written with ink, tea, and curious code from a quiet corner in Hanoi.</p>
+        <p class="footer-links">
+            <a href="about.html">About</a>
+            <a href="/api/rss">RSS Feed</a>
+            <a href="whisper-box.html">Guestbook</a>
+            <a href="admin.html">Admin</a>
+        </p>
+        <p class="muted">© Kiên's Journal</p>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>

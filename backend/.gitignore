@@ -1,0 +1,9 @@
+# Môi trường ảo & cache Python
+.venv/
+__pycache__/
+*.pyc
+
+# File database SQLite (tự tạo khi chạy python app.py)
+blog.db
+*.db
+*.db.bak

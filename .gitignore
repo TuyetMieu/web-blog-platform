@@ -1,0 +1,9 @@
+# File nén các nhánh cũ (đã gộp vào code)
+*.zip
+
+# Python / OS / editor
+__pycache__/
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
